@@ -1,5 +1,6 @@
 package uz.zako.oquv_markaz.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,12 +25,14 @@ public class Teacher extends AbstractEntity {
     private String phone;
 
     @OneToOne()
+    @JsonBackReference
     private Attachment img;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "teacher_groups",
             joinColumns = @JoinColumn(name = "teacher_id"),
             inverseJoinColumns = @JoinColumn(name = "groups_id"))
+    @JsonBackReference
     private List<Groups> groups;
 
 }

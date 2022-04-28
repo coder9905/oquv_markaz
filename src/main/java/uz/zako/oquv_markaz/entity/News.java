@@ -31,6 +31,7 @@ public class News extends AbstractEntity {
     private Categorys categorys;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Attachment img;
 
 }

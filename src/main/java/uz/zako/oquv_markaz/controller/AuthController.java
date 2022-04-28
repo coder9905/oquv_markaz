@@ -73,8 +73,8 @@ public class AuthController {
     }
 
     @GetMapping("/news/{categoryId}")
-    public ResponseEntity<?> getCategoryIdNews(@PathVariable("id") Long id) {
-
+    public ResponseEntity<?> getCategoryIdNews(@PathVariable("categoryId") Long id) {
+        System.out.println("keldi /news/categoryId");
         return newsService.getCategoryIdNews(id);
 
     }

@@ -71,10 +71,11 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public ResponseEntity<?> getCategoryIdNews(Long categoryId) {
+        System.out.println(categoryId);
         try {
-            return (ResponseEntity<?>) newsRepository.findAllByCategorys_Id(categoryId);
+            return (ResponseEntity.ok(newsRepository.getByAllNewsCategoryId(categoryId)));
         } catch (Exception e) {
-            log.error("add news error -> {}", e.getMessage());
+            log.error("get news CategorId error -> {}", e.getMessage());
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
         }
     }

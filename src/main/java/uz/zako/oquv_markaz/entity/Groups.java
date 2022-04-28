@@ -1,5 +1,6 @@
 package uz.zako.oquv_markaz.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Groups extends AbstractEntity {
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Teacher> teachers;
 
     @ManyToOne(fetch = FetchType.LAZY)

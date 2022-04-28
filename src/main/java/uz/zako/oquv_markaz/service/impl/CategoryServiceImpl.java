@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
     public ResponseEntity<?> editCategory(CategoryPayload payload){
 
         try {
-            Categorys categorys = new Categorys();
+            Categorys categorys = categoryRepository.findByName(payload.getName());
             categorys.setId(payload.getId());
             categorys.setName(payload.getName());
             return ResponseEntity.ok(categoryRepository.save(categorys));

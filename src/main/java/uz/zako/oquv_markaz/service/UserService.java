@@ -9,7 +9,7 @@ public interface UserService {
 
     boolean save(UserPayload payload);
 
-    boolean saveAdmin(Long id);
+    boolean saveAdmin(UserPayload payload);
 
     User edit(Long id, UserPayload payload);
 

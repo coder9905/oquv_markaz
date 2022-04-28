@@ -21,7 +21,7 @@ public class User extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT")//hohlagancha yoza olasz cheksiz
+    @Column(unique = true,columnDefinition = "TEXT")//hohlagancha yoza olasz cheksiz
     private String username;
 
     private String password;

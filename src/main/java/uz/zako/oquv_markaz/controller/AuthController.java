@@ -34,6 +34,35 @@ public class AuthController {
     private final CategoryService categoryService;
     private final NewsService newsService;
     private final TeacherService teacherService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final SecurityUtils securityUtils;
+
+
+
+    @PostMapping("/token")
+    public ResponseEntity<?> login(@RequestBody UserPayload payload) {
+
+        if (true) {
+            User user = userRepository.findByUsername(payload.getUsername());
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(payload.getUsername(), payload.getPassword()));
+            String token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+            System.out.println(token.toString());
+            if (token == null) {
+                return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
+            }
+            Map<String, Object> map = new HashMap();
+            map.put("token", token);
+            map.put("username", true);
+            return ResponseEntity.ok(map);
+        }
+        return ResponseEntity.ok(new Result(false, "error", null));
+    }
+
+    @PostMapping("/save")
+    public boolean saveUser(@RequestBody UserPayload payload) {
+        return userService.save(payload);
+    }
 
 
     @GetMapping("/category/{id}")

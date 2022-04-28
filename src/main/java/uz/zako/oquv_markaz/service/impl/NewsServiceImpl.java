@@ -56,7 +56,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public ResponseEntity<?> editNews(NewsPayload newsPayload) {
         try {
-            News news = new News();
+            News news = newsRepository.getById(newsPayload.getId());
             news.setId(newsPayload.getId());
             news.setTitle(newsPayload.getTitle());
             news.setBody(newsPayload.getBody());

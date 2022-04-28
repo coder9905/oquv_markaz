@@ -32,6 +32,7 @@ public class UserserviceImpl implements UserService {
     private final RoleRepository roleRepository;
     private  final GroupsRepository groupsRepository;
     private final AdminRepository adminRepository;
+    private final PasswordEncoder encoder;
     @Override
     public boolean save(UserPayload payload) {
         try {
@@ -66,7 +67,7 @@ public class UserserviceImpl implements UserService {
     @Override
     public boolean editUser(UserPayload payload) {
         try {
-            User user = new User();
+            User user = userRepository.getById(payload.getId());
             user.setId(payload.getId());
             user.setFullName(payload.getFullName());
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
@@ -84,20 +85,15 @@ public class UserserviceImpl implements UserService {
     }
 
     @Override
-    public boolean saveAdmin(Long id) {
+    public boolean saveAdmin(UserPayload payload) {
         try {
-//            Admin admin=new Admin();
-            User user = userRepository.getById(id);
-//            admin.setId(user.getId());
-//            admin.setAdmin(true);
-//            admin.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
-//            admin.setUsername(user.getUsername());
-//            admin.setFullName(user.getFullName());
-//            admin.setPassword(user.getPassword());
-//            adminRepository.save(admin);
-//            user.setId(id);
+            User user =userRepository.findByUsername(payload.getUsername());
+            user.setId(payload.getId());
             user.setAdmin(true);
             user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
+            user.setUsername(payload.getUsername());
+            user.setFullName(payload.getFullName());
+            user.setPassword(encoder.encode(payload.getPassword()));
             System.out.println(user.toString() + "=keldi");
             User user1 = userRepository.save(user);
             if (user1 != null) {

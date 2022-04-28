@@ -44,7 +44,7 @@ public class CourcesServiceImpl implements CourcesService {
     @Override
     public ResponseEntity<?> editCources(CourcesPayload courcesPayload) {
         try {
-            Cource cource = new Cource();
+            Cource cource = courcesRepository.getById(courcesPayload.getId());
             cource.setId(courcesPayload.getId());
             cource.setName(courcesPayload.getName());
             cource.setTitle(cource.getTitle());

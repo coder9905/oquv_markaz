@@ -23,10 +23,10 @@ public class Teacher extends AbstractEntity {
 
     private String phone;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     private Attachment img;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "teacher_groups",
             joinColumns = @JoinColumn(name = "teacher_id"),
             inverseJoinColumns = @JoinColumn(name = "groups_id"))

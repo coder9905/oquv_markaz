@@ -21,7 +21,7 @@ public class Groups extends AbstractEntity {
     @Column(unique = true,length = 50)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Teacher> teachers;
 
     @ManyToOne(fetch = FetchType.LAZY)

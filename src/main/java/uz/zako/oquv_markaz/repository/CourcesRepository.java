@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface CourcesRepository extends JpaRepository<Cource,Long> {
 
-//    Cource findById(Long id);
+    Cource getById(Long id);
 
 }

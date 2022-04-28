@@ -39,9 +39,10 @@ public class TeacherServiceImpl implements TeacherService {
             teacher.setPhone(teacherPayload.getPhone());
             teacher.setImg(attachmentRepository.findByHashId(teacherPayload.getImg()));
             teacher.setGroups(Arrays.asList(groupsRepository.findByIdGroup(teacherPayload.getGroupsName())));
+            System.out.println(teacher);
             return ResponseEntity.ok(teachersRepository.save(teacher));
         } catch (Exception e) {
-            log.error("add news error -> {}", e.getMessage());
+            log.error("add teacher error -> {}", e.getMessage());
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
         }
     }
@@ -49,7 +50,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public ResponseEntity<?> editTeacher(TeacherPayload teacherPayload) {
         try {
-            Teacher teacher = new Teacher();
+            Teacher teacher = teachersRepository.getById(teacherPayload.getId());
             teacher.setId(teacherPayload.getId());
             teacher.setFullName(teacherPayload.getFullName());
             teacher.setPhone(teacherPayload.getPhone());
@@ -77,6 +78,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public ResponseEntity<?> getAllTeachers() {
         try {
+            System.out.println("keldi getAllTeachers");
             return ResponseEntity.ok(teachersRepository.findAll());
         } catch (Exception e) {
             log.error("error getAllTeachers -> {}", e.getMessage());
@@ -97,10 +99,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public boolean deleteById(Long id) {
         try {
-            groupsRepository.getByTeacherIdGroup(id);
+            System.out.println("==keldi==");
+            teachersRepository.deleteById(id);
             return true;
         } catch (Exception e) {
-            log.error("error getAllTeachers -> {}", e.getMessage());
+            log.error("error deleteById -> {}", e.getMessage());
             return false;
         }
     }

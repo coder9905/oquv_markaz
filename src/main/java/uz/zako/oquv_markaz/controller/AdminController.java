@@ -30,31 +30,6 @@ public class AdminController {
     private final TeacherService teacherService;
     private final GroupsService groupsService;
     private final UserRepository userRepository;
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final SecurityUtils securityUtils;
-
-    @PostMapping("/token")
-    public ResponseEntity<?> login(@RequestBody UserPayload payload) {
-
-        System.out.println("Keldiku admin token");
-
-        try {
-            User user = userRepository.findByUsername(payload.getUsername());
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(payload.getUsername(), payload.getPassword()));
-            String token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-            System.out.println(token.toString());
-            if (token == null) {
-                return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
-            }
-            Map<String, Object> map = new HashMap();
-            map.put("token", token);
-            map.put("username", true);
-            return ResponseEntity.ok(map);
-        } catch (Exception e) {
-            return ResponseEntity.ok(new Result(false, "error", null));
-        }
-    }
 
     @PostMapping("/v1/category")
     public ResponseEntity<?> addCategory(@RequestBody CategoryPayload payload) {
@@ -85,7 +60,7 @@ public class AdminController {
     }
 
     @PostMapping("/v1/{userId}")
-    public boolean addUserIdGroup(@RequestBody GroupPayload payload,@RequestParam("id") Long id) {
+    public boolean addUserIdGroup(@RequestBody GroupPayload payload,@PathVariable("id") Long id) {
 
         return userService.saveUserIdGroup(payload,id);
 
@@ -100,10 +75,10 @@ public class AdminController {
 
     }
 
-    @PutMapping("/v1/admin/{id}")
-    public ResponseEntity<?> addAdmin(@RequestParam("id") Long id, @RequestBody UserPayload payload) {
-        System.out.println("admin ga keldi="+id);
-        return ResponseEntity.ok(userService.saveAdmin(id));
+    @PutMapping("/v1/admin")
+    public ResponseEntity<?> addAdmin(@RequestBody UserPayload payload) {
+        System.out.println("admin ga keldi="+payload);
+        return ResponseEntity.ok(userService.saveAdmin(payload));
 
     }
 
@@ -143,35 +118,29 @@ public class AdminController {
 
     }
 
-//    @PutMapping("/v1/admin/{id}")
-//    public ResponseEntity<?> editAdmin(@RequestParam("id") Long id) {
-//
-//        return ResponseEntity.ok(userService.editAdmin(id));
-//
-//    }
-
-    @DeleteMapping("/v1/{categoryId}")
-    public boolean deleteCategory(@RequestParam("categoryId") Long id) {
+    @DeleteMapping("/category/{categoryId}")
+    public boolean deleteCategory(@PathVariable("categoryId") Long id) {
         return categoryService.deleteById(id);
     }
 
-    @DeleteMapping("/v1/{newsId}")
-    public boolean deleteNewsId(@RequestParam("newsId") Long id) {
+    @DeleteMapping("/news/{newsId}")
+    public boolean deleteNewsId(@PathVariable("newsId") Long id) {
         return newsService.deleteById(id);
     }
 
-    @DeleteMapping("/v1/{courseId}")
-    public boolean deleteCources(@RequestParam("courseId") Long id) {
+    @DeleteMapping("/cource/{courseId}")
+    public boolean deleteCources(@PathVariable("courseId") Long id) {
         return courcesService.deleteById(id);
     }
 
-    @DeleteMapping("/v1/{teacherId}")
-    public boolean deleteTeacher(@RequestParam("teacherId") Long id) {
+    @DeleteMapping("/teacher/{teacherId}")
+    public boolean deleteTeacher(@PathVariable("teacherId") Long id) {
+        System.out.println(id + " delete teacherga keldi");
         return teacherService.deleteById(id);
     }
 
-    @DeleteMapping("/v1/{userId}")
-    public boolean deleteUser(@RequestParam("userId") Long id) {
+    @DeleteMapping("/user/{userId}")
+    public boolean deleteUser(@PathVariable("userId") Long id) {
 
         return userService.deleteById(id);
 
@@ -194,7 +163,7 @@ public class AdminController {
     }
 
     @GetMapping("/v1/users/{groupId}")
-    public ResponseEntity<?> getGroupIdUsers(@RequestParam("groupId") Long id) {
+    public ResponseEntity<?> getGroupIdUsers(@PathVariable("groupId") Long id) {
         return userService.getGroupsIdUsers(id);
     }
 
@@ -205,11 +174,12 @@ public class AdminController {
 
     @GetMapping("/v1/Teacher")
     public ResponseEntity<?> getAllTeacher() {
+        System.out.println("getMappin teacherga keldi:)");
         return teacherService.getAllTeachers();
     }
 
     @GetMapping("/v1/{teacherId}")
-    public ResponseEntity<?> getTeacherIdGroups(@RequestParam("teacherId") Long id) {
+    public ResponseEntity<?> getTeacherIdGroups(@PathVariable("teacherId") Long id) {
         return teacherService.getTeacherIdGroups(id);
     }
 

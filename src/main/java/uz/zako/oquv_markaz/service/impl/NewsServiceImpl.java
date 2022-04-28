@@ -73,7 +73,7 @@ public class NewsServiceImpl implements NewsService {
     public ResponseEntity<?> getCategoryIdNews(Long categoryId) {
         System.out.println(categoryId);
         try {
-            return (ResponseEntity.ok(newsRepository.getByAllNewsCategoryId(categoryId)));
+            return (ResponseEntity.ok(newsRepository.findByAllNewsCategoryId(categoryId)));
         } catch (Exception e) {
             log.error("get news CategorId error -> {}", e.getMessage());
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);

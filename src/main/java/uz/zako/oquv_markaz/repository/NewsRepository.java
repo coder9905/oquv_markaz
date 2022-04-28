@@ -14,7 +14,7 @@ import java.util.List;
 public interface NewsRepository extends JpaRepository<News,Long> {
 
     @Query(nativeQuery = true, value = "select * from news where categorys_id=:categoryId")
-    List<News> getByAllNewsCategoryId(@Param("categoryId") Long id);
+    List<News> findByAllNewsCategoryId(@Param("categoryId") Long id);
 
     @Query("select new uz.zako.oquv_markaz.payload.NewsPayload(n.id,n.title,n.body,n.img.hashId,n.categorys.id) from News n where n.categorys.id=:categoryId")
     Page<NewsPayload> findAllByPage(Pageable pageable, @Param("categoryId") Long id);

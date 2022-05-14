@@ -22,4 +22,10 @@ public class NewsPayload {
         this.categoryId = categoryId;
     }
 
+    public NewsPayload(String title, String body, String img, Long categoryId) {
+        this.title = title;
+        this.body = body;
+        this.img = img;
+        this.categoryId = categoryId;
+    }
 }

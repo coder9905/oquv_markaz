@@ -1,24 +1,25 @@
 package uz.zako.oquv_markaz.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 public class News extends AbstractEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
 //    @Column(unique = true)
     private String title;
@@ -26,12 +27,12 @@ public class News extends AbstractEntity {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Categorys categorys;
 
-    @OneToOne()
-//    @JsonBackReference
+    @OneToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Attachment img;
 
 }

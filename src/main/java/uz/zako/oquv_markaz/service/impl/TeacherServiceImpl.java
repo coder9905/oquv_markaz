@@ -35,10 +35,11 @@ public class TeacherServiceImpl implements TeacherService {
     public ResponseEntity<?> addTeacher(TeacherPayload teacherPayload) {
         try {
             Teacher teacher = new Teacher();
+            System.out.println(teacherPayload.getGroupsId()+"=teacherGroupPayload"+groupsRepository.findByIdGroup(teacherPayload.getGroupsId()));
             teacher.setFullName(teacherPayload.getFullName());
             teacher.setPhone(teacherPayload.getPhone());
             teacher.setImg(attachmentRepository.findByHashId(teacherPayload.getImg()));
-            teacher.setGroups(Arrays.asList(groupsRepository.findByIdGroup(teacherPayload.getGroupsName())));
+            teacher.setGroups(Arrays.asList(groupsRepository.findByIdGroup(teacherPayload.getGroupsId())));
             System.out.println(teacher);
             return ResponseEntity.ok(teachersRepository.save(teacher));
         } catch (Exception e) {
@@ -50,12 +51,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public ResponseEntity<?> editTeacher(TeacherPayload teacherPayload) {
         try {
-            Teacher teacher = teachersRepository.getById(teacherPayload.getId());
-            teacher.setId(teacherPayload.getId());
+            Teacher teacher = teachersRepository.findById(teacherPayload.getId()).get();
             teacher.setFullName(teacherPayload.getFullName());
             teacher.setPhone(teacherPayload.getPhone());
             teacher.setImg(attachmentRepository.findByHashId(teacherPayload.getImg()));
-            teacher.setGroups(Arrays.asList(groupsRepository.findByIdGroup(teacherPayload.getGroupsName())));
+            teacher.setGroups(Arrays.asList(groupsRepository.findByIdGroup(teacherPayload.getGroupsId())));
             return ResponseEntity.ok(teachersRepository.save(teacher));
         } catch (Exception e) {
             log.error("add news error -> {}", e.getMessage());
@@ -68,6 +68,9 @@ public class TeacherServiceImpl implements TeacherService {
 
         PageRequest request = PageRequest.of(page, size);
         Page<TeacherPayload> teachers = teachersRepository.findAllByPage(request);
+
+        System.out.println(teachers.getContent().size()+" ");
+
         for (int i = 0; i < teachers.getContent().size(); i++) {
             teachers.getContent().get(i).setImg(teachers.getContent().get(i).getImg());
         }

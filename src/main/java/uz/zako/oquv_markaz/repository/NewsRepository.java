@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import uz.zako.oquv_markaz.entity.Categorys;
 import uz.zako.oquv_markaz.entity.News;
 import uz.zako.oquv_markaz.payload.NewsPayload;
+import uz.zako.oquv_markaz.payload.TeacherPayload;
 
 import java.util.List;
 
@@ -22,5 +23,8 @@ public interface NewsRepository extends JpaRepository<News,Long> {
     void deleteById(Long id);
 
     News getById(Long id);
+
+    @Query("select new uz.zako.oquv_markaz.payload.NewsPayload(n.id,n.title,n.body,n.img.hashId,n.categorys.id) from News n")
+    Page<NewsPayload> findAllByPage(Pageable pageable);
 
 }

@@ -2,32 +2,24 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileUrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import uz.zako.oquv_markaz.entity.Attachment;
 import uz.zako.oquv_markaz.entity.Categorys;
 import uz.zako.oquv_markaz.entity.News;
 import uz.zako.oquv_markaz.model.Result;
-import uz.zako.oquv_markaz.payload.CategoryPayload;
 import uz.zako.oquv_markaz.payload.NewsPayload;
+import uz.zako.oquv_markaz.payload.TeacherPayload;
 import uz.zako.oquv_markaz.repository.AttachmentRepository;
 import uz.zako.oquv_markaz.repository.CategoryRepository;
 import uz.zako.oquv_markaz.repository.NewsRepository;
-import uz.zako.oquv_markaz.service.AttachmentService;
 import uz.zako.oquv_markaz.service.NewsService;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.util.Date;
 import java.util.Optional;
-import java.util.UUID;
+
+import static java.lang.String.format;
 
 @Service
 @Slf4j
@@ -44,9 +36,15 @@ public class NewsServiceImpl implements NewsService {
             News news = new News();
             news.setTitle(newsPayload.getTitle());
             news.setBody(newsPayload.getBody());
-            news.setCategorys(categoryRepository.getById(newsPayload.getCategoryId()));
+            Optional<Categorys> categorys = categoryRepository.findById(newsPayload.getCategoryId());
+            if (!categorys.isPresent()){
+                throw new RuntimeException(format("Category by this id = {%s} not found!", newsPayload.getCategoryId()));
+            }
+            news.setCategorys(categorys.get());
             news.setImg(attachmentRepository.findByHashId(newsPayload.getImg()));
-            return ResponseEntity.ok(newsRepository.save(news));
+            System.out.println("keldi news = "+news.toString());
+            Long id = newsRepository.save(news).getId();
+            return ResponseEntity.ok(new Result(true,"created",null));
         } catch (Exception e) {
             log.error("add news error -> {}", e.getMessage());
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
@@ -56,8 +54,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public ResponseEntity<?> editNews(NewsPayload newsPayload) {
         try {
-            News news = newsRepository.getById(newsPayload.getId());
-            news.setId(newsPayload.getId());
+            News news = newsRepository.findById(newsPayload.getId()).get();
             news.setTitle(newsPayload.getTitle());
             news.setBody(newsPayload.getBody());
             news.setCategorys(categoryRepository.getById(newsPayload.getCategoryId()));
@@ -112,6 +109,21 @@ public class NewsServiceImpl implements NewsService {
             log.error("getNewsBody");
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    public Page<NewsPayload> getPageNews(int page, int size) {
+
+        PageRequest request = PageRequest.of(page, size);
+        Page<NewsPayload> news = newsRepository.findAllByPage(request);
+
+        System.out.println(news.getContent().size()+" ");
+
+        for (int i = 0; i < news.getContent().size(); i++) {
+            news.getContent().get(i).setImg(news.getContent().get(i).getImg());
+        }
+        return news;
+
     }
 
 

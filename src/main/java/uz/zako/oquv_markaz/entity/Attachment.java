@@ -12,10 +12,10 @@ import javax.persistence.*;
 @Data
 @Entity
 public class Attachment extends AbstractEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
     @Column(nullable = false,length = 50)
     private String name;

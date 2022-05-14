@@ -1,11 +1,23 @@
 package uz.zako.oquv_markaz.payload;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@AllArgsConstructor
+@Getter
+@Setter
 public class GroupPayload {
 
     private Long id;
     private String name;
     private Long courceId;
+
+    public GroupPayload() {
+    }
+
+    public GroupPayload(String name) {
+        this.name = name;
+    }
 }

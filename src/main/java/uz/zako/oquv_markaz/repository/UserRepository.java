@@ -9,9 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Long> {
+
     User findByUsername(String username);
 
-    @Query(nativeQuery = true,value = "select u.id,u.fullName,u.username,u.isAdmin from users u inner join user_groups g on u.id=g.users_id  where g.groups_id=:groupsId")
-    List<User> getByGroupIdUsers(@Param("groupsId") Long id);
+    @Query(nativeQuery = true, value = "select * from public.users u where u.id=:id")
+    User findByIdUser(@Param("id") Long id);
+
+    User getById(Long id);
+
+    @Query(nativeQuery = true, value = "select * from users u inner join users_group ug on ug.users_id=u.id where ug.group_id=?1")
+    List<User> getByGroupIdUsers(Long id);
 
 }

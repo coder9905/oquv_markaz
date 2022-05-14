@@ -6,8 +6,6 @@ import uz.zako.oquv_markaz.entity.Categorys;
 
 public interface CategoryRepository extends JpaRepository<Categorys,Long> {
 
-    void deleteById(Long id);
-
     Categorys findByName(String name);
 
 

@@ -35,9 +35,9 @@ public class CategoryServiceImpl implements CategoryService {
     public ResponseEntity<?> editCategory(CategoryPayload payload){
 
         try {
-            Categorys categorys = categoryRepository.findByName(payload.getName());
-            categorys.setId(payload.getId());
+            Categorys categorys = categoryRepository.findById(payload.getId()).get();
             categorys.setName(payload.getName());
+            System.out.println(categorys);
             return ResponseEntity.ok(categoryRepository.save(categorys));
         }catch (Exception e){
             log.error("add category error -> {}",e.getMessage());
@@ -67,6 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public boolean deleteById(Long id){
         try {
+            System.out.println("delete ById ga keldi");
             categoryRepository.deleteById(id);
             return true;
         }catch (Exception e){

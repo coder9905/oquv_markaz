@@ -2,6 +2,7 @@ package uz.zako.oquv_markaz.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping(value = "/api/admin", produces= MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -60,10 +61,8 @@ public class AdminController {
     }
 
     @PostMapping("/v1/{userId}")
-    public boolean addUserIdGroup(@RequestBody GroupPayload payload,@PathVariable("id") Long id) {
-
+    public boolean addUserIdGroup(@RequestBody GroupPayload payload, @PathVariable("userId") Long id) {
         return userService.saveUserIdGroup(payload,id);
-
     }
 
 
@@ -120,6 +119,8 @@ public class AdminController {
 
     @DeleteMapping("/category/{categoryId}")
     public boolean deleteCategory(@PathVariable("categoryId") Long id) {
+
+        System.out.println("delete category="+id);
         return categoryService.deleteById(id);
     }
 
@@ -164,6 +165,7 @@ public class AdminController {
 
     @GetMapping("/v1/users/{groupId}")
     public ResponseEntity<?> getGroupIdUsers(@PathVariable("groupId") Long id) {
+        System.out.println("id="+id);
         return userService.getGroupsIdUsers(id);
     }
 

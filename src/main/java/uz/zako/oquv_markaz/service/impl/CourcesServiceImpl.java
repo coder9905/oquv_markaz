@@ -2,6 +2,8 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import uz.zako.oquv_markaz.entity.News;
 import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.CourcesPayload;
 import uz.zako.oquv_markaz.payload.NewsPayload;
+import uz.zako.oquv_markaz.payload.TeacherPayload;
 import uz.zako.oquv_markaz.repository.AttachmentRepository;
 import uz.zako.oquv_markaz.repository.CategoryRepository;
 import uz.zako.oquv_markaz.repository.CourcesRepository;
@@ -30,9 +33,9 @@ public class CourcesServiceImpl implements CourcesService {
         try {
             Cource cource = new Cource();
             cource.setName(courcesPayload.getName());
-            cource.setTitle(cource.getTitle());
+            cource.setTitle(courcesPayload.getTitle());
             cource.setPrice(courcesPayload.getPrice());
-            courcesPayload.setBody(courcesPayload.getBody());
+            cource.setBody(courcesPayload.getBody());
             cource.setImg(attachmentRepository.findByHashId(courcesPayload.getImg()));
             return ResponseEntity.ok(courcesRepository.save(cource));
         } catch (Exception e) {
@@ -44,18 +47,33 @@ public class CourcesServiceImpl implements CourcesService {
     @Override
     public ResponseEntity<?> editCources(CourcesPayload courcesPayload) {
         try {
-            Cource cource = courcesRepository.getById(courcesPayload.getId());
-            cource.setId(courcesPayload.getId());
+            Cource cource = courcesRepository.findById(courcesPayload.getId()).get();
             cource.setName(courcesPayload.getName());
-            cource.setTitle(cource.getTitle());
+            cource.setTitle(courcesPayload.getTitle());
+            cource.setTitle(courcesPayload.getTitle());
             cource.setPrice(courcesPayload.getPrice());
-            courcesPayload.setBody(courcesPayload.getBody());
+            cource.setBody(courcesPayload.getBody());
             cource.setImg(attachmentRepository.findByHashId(courcesPayload.getImg()));
             return ResponseEntity.ok(courcesRepository.save(cource));
         } catch (Exception e) {
             log.error("add news error -> {}", e.getMessage());
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @Override
+    public Page<CourcesPayload> getPageCource(int page, int size) {
+
+        PageRequest request = PageRequest.of(page, size);
+        Page<CourcesPayload> cource = courcesRepository.findAllByPage(request);
+
+        System.out.println(cource.getContent().size());
+
+        for (int i = 0; i < cource.getContent().size(); i++) {
+            cource.getContent().get(i).setImg(cource.getContent().get(i).getImg());
+        }
+        return cource;
+
     }
 
     @Override

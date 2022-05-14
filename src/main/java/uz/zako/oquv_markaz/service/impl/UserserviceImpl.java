@@ -55,9 +55,18 @@ public class UserserviceImpl implements UserService {
     @Override
     public boolean saveUserIdGroup(GroupPayload payload, Long userId) {
         try {
-            User user=new User();
+            System.out.println("saveUserIdGroup="+payload+" = "+userId);
+            User user=userRepository.findByIdUser(userId);
             user.setGroup(Arrays.asList(groupsRepository.findByName(payload.getName())));
-            return true;
+            user.setUsername("alii");
+            user = userRepository.save(user);
+            System.out.println(user.getGroup()+"=group");
+            System.out.println(user+"=user");
+
+            if (user != null){
+                return true;
+            }
+
         } catch (Exception e) {
             log.error("save User error - {}", e.getMessage());
         }
@@ -67,8 +76,7 @@ public class UserserviceImpl implements UserService {
     @Override
     public boolean editUser(UserPayload payload) {
         try {
-            User user = userRepository.getById(payload.getId());
-            user.setId(payload.getId());
+            User user = userRepository.findById(payload.getId()).get();
             user.setFullName(payload.getFullName());
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
             user.setUsername(payload.getUsername());
@@ -88,13 +96,13 @@ public class UserserviceImpl implements UserService {
     public boolean saveAdmin(UserPayload payload) {
         try {
             User user =userRepository.findByUsername(payload.getUsername());
+            System.out.println(user+"=user saveAdmin");
             user.setId(payload.getId());
             user.setAdmin(true);
             user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
             user.setUsername(payload.getUsername());
             user.setFullName(payload.getFullName());
             user.setPassword(encoder.encode(payload.getPassword()));
-            System.out.println(user.toString() + "=keldi");
             User user1 = userRepository.save(user);
             if (user1 != null) {
                 return true;

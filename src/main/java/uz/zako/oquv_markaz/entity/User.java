@@ -17,9 +17,9 @@ import java.util.List;
 @Data
 public class User extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
     @Column(unique = true,columnDefinition = "TEXT")//hohlagancha yoza olasz cheksiz
     private String username;
@@ -37,8 +37,7 @@ public class User extends AbstractEntity {
 
     private boolean isAdmin;
 
-    @ManyToMany(fetch = FetchType.LAZY,mappedBy ="users")
-    @JsonBackReference
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Groups> group;
 
 }

@@ -19,5 +19,7 @@ public interface NewsService {
 
     ResponseEntity<?> getAllNews();
 
+    Page<NewsPayload> getPageNews(int page, int size);
+
     boolean deleteById(Long id);
 }

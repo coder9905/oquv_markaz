@@ -1,8 +1,13 @@
 package uz.zako.oquv_markaz.payload;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@AllArgsConstructor
+@Getter
+@Setter
 public class TeacherPayload {
 
     private Long id;
@@ -20,6 +25,6 @@ public class TeacherPayload {
     public TeacherPayload() {
     }
 
-    private Long groupsName;
+    private Long groupsId;
 
 }

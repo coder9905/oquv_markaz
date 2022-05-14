@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface GroupsRepository extends JpaRepository<Groups,Long> {
 
-    @Query(nativeQuery = true, value = "select * from public.groups g where id=:id")
+    @Query(nativeQuery = true, value = "select * from public.groups g where g.id=:id")
     Groups findByIdGroup(@Param("id") Long id);
 
     Groups findByName(String name);

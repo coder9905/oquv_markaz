@@ -9,17 +9,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 import uz.zako.oquv_markaz.entity.User;
 import uz.zako.oquv_markaz.model.Result;
-import uz.zako.oquv_markaz.payload.LoginPayload;
-import uz.zako.oquv_markaz.payload.NewsPayload;
-import uz.zako.oquv_markaz.payload.TeacherPayload;
-import uz.zako.oquv_markaz.payload.UserPayload;
+import uz.zako.oquv_markaz.payload.*;
 import uz.zako.oquv_markaz.repository.UserRepository;
 import uz.zako.oquv_markaz.security.JwtTokenProvider;
 import uz.zako.oquv_markaz.security.SecurityUtils;
-import uz.zako.oquv_markaz.service.CategoryService;
-import uz.zako.oquv_markaz.service.NewsService;
-import uz.zako.oquv_markaz.service.TeacherService;
-import uz.zako.oquv_markaz.service.UserService;
+import uz.zako.oquv_markaz.service.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +28,7 @@ public class AuthController {
     private final CategoryService categoryService;
     private final NewsService newsService;
     private final TeacherService teacherService;
+    private final CourcesService courcesService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final SecurityUtils securityUtils;
@@ -79,10 +74,17 @@ public class AuthController {
 
     }
 
-    @GetMapping("/page/{id}")
-    public Page<NewsPayload> getPage(@PathVariable("id") Long id, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size){
+    @GetMapping("/page/cource")
+    public Page<CourcesPayload> getPageCource(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size){
 
-        return newsService.getPage(id,page,size);
+        return courcesService.getPageCource(page,size);
+
+    }
+
+    @GetMapping("/page/news")
+    public Page<NewsPayload> getPageNews(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size){
+
+        return newsService.getPageNews(page,size);
 
     }
 
@@ -96,6 +98,13 @@ public class AuthController {
     @GetMapping("/news/view/{id}")
     public ResponseEntity<?> getIdNews(@PathVariable("id") Long id){
         return newsService.getNewsBody(id);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getMe() {
+        String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
+        System.out.println(username+"=user");
+        return ResponseEntity.ok(userRepository.findByUsername(username));
     }
 
 }

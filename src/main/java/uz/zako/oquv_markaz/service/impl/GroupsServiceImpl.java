@@ -38,8 +38,7 @@ public class GroupsServiceImpl implements GroupsService {
     @Override
     public ResponseEntity<?> editGroups(GroupPayload payload){
         try {
-            Groups groups= groupsRepository.getById(payload.getId());
-            groups.setId(payload.getId());
+            Groups groups= groupsRepository.findById(payload.getId()).get();
             groups.setName(payload.getName());
             groups.setCource(courcesRepository.getById(payload.getCourceId()));
             return ResponseEntity.ok(groupsRepository.save(groups));

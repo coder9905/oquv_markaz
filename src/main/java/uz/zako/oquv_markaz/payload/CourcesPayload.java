@@ -1,8 +1,13 @@
 package uz.zako.oquv_markaz.payload;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@AllArgsConstructor
+@Getter
+@Setter
 public class CourcesPayload {
 
     private Long id;
@@ -13,4 +18,7 @@ public class CourcesPayload {
     private String img;
 
 
+
+    public CourcesPayload() {
+    }
 }

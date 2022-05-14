@@ -16,6 +16,12 @@ public class UserPayload {
     private String password;
     private String fullName;
 
+    public UserPayload(String username, String password, String fullName) {
+        this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+    }
+
     public UserPayload() {
     }
 

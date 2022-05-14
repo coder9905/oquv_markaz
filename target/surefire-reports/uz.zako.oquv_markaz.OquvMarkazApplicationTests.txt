@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: uz.zako.oquv_markaz.OquvMarkazApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.669 s - in uz.zako.oquv_markaz.OquvMarkazApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.385 s - in uz.zako.oquv_markaz.OquvMarkazApplicationTests

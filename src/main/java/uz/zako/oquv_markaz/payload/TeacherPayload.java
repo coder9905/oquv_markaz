@@ -15,6 +15,13 @@ public class TeacherPayload {
     private String phone;
     private String img;
 
+    public TeacherPayload(String fullName, String phone, String img, Long groupsId) {
+        this.fullName = fullName;
+        this.phone = phone;
+        this.img = img;
+        this.groupsId = groupsId;
+    }
+
     public TeacherPayload(Long id, String fullName, String phone, String img) {
         this.id = id;
         this.fullName = fullName;

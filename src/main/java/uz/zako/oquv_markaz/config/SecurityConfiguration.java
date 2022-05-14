@@ -42,7 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/api/**").permitAll()
                 .antMatchers("/api/user/**").hasRole("USER")
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/admin/**", "/api/file/**","/api/file/**").hasRole("ADMIN")
+                .antMatchers("/api/admin/**", "/api/file/**","/api/file/**").permitAll()
+//                .hasRole("USER")
                 // Rest api documentition ni chiqazib beradi
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/**", "/csrf").permitAll()
                 //qolganlari royhatdan otiwini talab qiladi

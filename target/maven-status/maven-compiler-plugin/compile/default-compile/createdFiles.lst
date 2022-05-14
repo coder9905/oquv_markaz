@@ -35,6 +35,7 @@ uz\zako\oquv_markaz\service\impl\CourcesServiceImpl.class
 uz\zako\oquv_markaz\entity\User.class
 uz\zako\oquv_markaz\entity\abstractEntity\AbstractEntity.class
 uz\zako\oquv_markaz\OquvMarkazApplication.class
+uz\zako\oquv_markaz\entity\tolov.class
 uz\zako\oquv_markaz\repository\CategoryRepository.class
 uz\zako\oquv_markaz\repository\CourcesRepository.class
 uz\zako\oquv_markaz\service\impl\UserserviceImpl.class

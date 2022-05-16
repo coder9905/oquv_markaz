@@ -53,10 +53,10 @@ public class AttachmentServiceImpl implements AttachmentService {
             if(!catalog.exists()){
                 catalog.mkdirs();
             }
-            attachmentRepository.save(attachment);
+            Attachment attachment1=attachmentRepository.save(attachment);
             multipartFile.transferTo(catalog.getAbsoluteFile());
 
-            return ResponseEntity.ok(Result.ok(null));
+            return ResponseEntity.ok(new Result(true,attachment1.getHashId(),null));
 
         }catch (Exception e){
             log.error("error save attachment - {}", e.getMessage());

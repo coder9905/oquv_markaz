@@ -1,5 +1,6 @@
 package uz.zako.oquv_markaz.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileUrlResource;
@@ -20,37 +21,37 @@ import java.net.URLEncoder;
 @RequestMapping("/api/file")
 public class AttachmentController {
 
-    @Autowired
+    @Autowired(required = false)
     private AttachmentService attachmentService;
 
     @GetMapping("/")
-    public String get(){
+    public String get() {
         return "Hello:)";
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile multipartFile){
+    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile multipartFile) {
         System.out.println(multipartFile.toString());
         return attachmentService.upload(multipartFile);
     }
 
     @GetMapping("/preview/{hashId}")
-    public ResponseEntity<?> getPreview(@PathVariable("hashId") String hashId){
+    public ResponseEntity<?> getPreview(@PathVariable("hashId") String hashId) {
         return attachmentService.preview(hashId);
     }
 
     @GetMapping("/download/{hashId}")
-    public ResponseEntity<?> getDownload(@PathVariable("hashId") String hashId){
+    public ResponseEntity<?> getDownload(@PathVariable("hashId") String hashId) {
         return attachmentService.download(hashId);
     }
 
     @GetMapping("/delete/{hashId}")
-    public ResponseEntity<?> getDelete(@PathVariable("hashId") String hashId){
+    public ResponseEntity<?> getDelete(@PathVariable("hashId") String hashId) {
         return attachmentService.delete(hashId);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAllAttachment(){
+    public ResponseEntity<?> getAllAttachment() {
         return attachmentService.getAllAttachment();
     }
 

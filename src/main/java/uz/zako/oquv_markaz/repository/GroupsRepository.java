@@ -9,7 +9,7 @@ import uz.zako.oquv_markaz.entity.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface GroupsRepository extends JpaRepository<Groups,Long> {
+public interface GroupsRepository extends JpaRepository<Groups, Long> {
 
     @Query(nativeQuery = true, value = "select * from public.groups g where g.id=:id")
     Groups findByIdGroup(@Param("id") Long id);
@@ -17,7 +17,7 @@ public interface GroupsRepository extends JpaRepository<Groups,Long> {
     Groups findByName(String name);
 
 
-    @Query(nativeQuery = true,value = "select g from public.groups g inner join groups_teachers t on g.id=t.groups_id  where t.teachers_id=:teachersId")
+    @Query(nativeQuery = true, value = "select g from public.groups g inner join groups_teachers t on g.id=t.groups_id  where t.teachers_id=:teachersId")
     List<User> getByTeacherIdGroup(@Param("teachersId") Long id);
 
 

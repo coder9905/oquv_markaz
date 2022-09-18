@@ -39,7 +39,7 @@ public class DataLoader implements CommandLineRunner {
                 roleUser.setName("ROLE_USER");
                 roleUser.setId(1L);
                 Role roleAdmin = new Role(2L, "ROLE_ADMIN");
-                List<Role> roleList = new ArrayList<>(Arrays.asList(roleUser,roleAdmin));
+                List<Role> roleList = new ArrayList<>(Arrays.asList(roleUser, roleAdmin));
                 roleRepository.saveAll(roleList);
                 Admin admin = new Admin();
                 admin.setAdmin(true);
@@ -48,7 +48,6 @@ public class DataLoader implements CommandLineRunner {
                 admin.setPassword(passwordEncoder.encode("admin123"));
                 admin.setSocial("t.me/test");
                 admin.setRoles(roleList);
-                System.out.println(admin.getPassword()+"=admin=");
                 adminRepository.save(admin);
                 System.out.println("Admin saqlandi");
 

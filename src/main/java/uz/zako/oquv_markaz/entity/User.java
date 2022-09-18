@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name="users")
+@Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,7 +21,7 @@ public class User extends AbstractEntity {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
 
-    @Column(unique = true,columnDefinition = "TEXT")//hohlagancha yoza olasz cheksiz
+    @Column(unique = true, columnDefinition = "TEXT")//hohlagancha yoza olasz cheksiz
     private String username;
 
     private String password;

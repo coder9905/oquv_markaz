@@ -48,7 +48,7 @@ uz\zako\oquv_markaz\entity\Role.class
 uz\zako\oquv_markaz\exception\ResourceNotFoundException.class
 uz\zako\oquv_markaz\service\impl\NewsServiceImpl.class
 uz\zako\oquv_markaz\payload\GroupPayload.class
-uz\zako\oquv_markaz\service\impl\AttachmentServiceImpl.class
+uz\zako\online_test\service\impl\AttachmentServiceImpl.class
 uz\zako\oquv_markaz\repository\NewsRepository.class
 uz\zako\oquv_markaz\security\SecurityUtils.class
 uz\zako\oquv_markaz\service\GroupsService.class

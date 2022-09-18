@@ -23,7 +23,7 @@ public class Cource extends AbstractEntity {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
 
-    @Column(unique = true,length = 50)
+    @Column(unique = true, length = 50)
     private String name;
 
     private Long price;
@@ -35,7 +35,6 @@ public class Cource extends AbstractEntity {
     @OneToOne(cascade = CascadeType.MERGE)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Attachment img;
-
 
 
 }

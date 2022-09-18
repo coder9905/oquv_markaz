@@ -25,7 +25,7 @@ public class Groups extends AbstractEntity {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
 
-    @Column(unique = true,length = 50)
+    @Column(unique = true, length = 50)
     private String name;
 //
 //    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)

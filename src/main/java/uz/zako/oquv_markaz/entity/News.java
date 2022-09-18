@@ -21,7 +21,7 @@ public class News extends AbstractEntity {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
 
-//    @Column(unique = true)
+    //    @Column(unique = true)
     private String title;
 
     @Column(columnDefinition = "TEXT")
@@ -31,7 +31,7 @@ public class News extends AbstractEntity {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Categorys categorys;
 
-    @OneToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Attachment img;
 

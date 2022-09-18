@@ -17,7 +17,7 @@ public class Attachment extends AbstractEntity {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
 
-    @Column(nullable = false,length = 50)
+    @Column(nullable = false, length = 50)
     private String name;
 
     private String contentType;

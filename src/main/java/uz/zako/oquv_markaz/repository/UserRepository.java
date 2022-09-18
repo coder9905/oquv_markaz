@@ -8,7 +8,7 @@ import uz.zako.oquv_markaz.entity.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUsername(String username);
 

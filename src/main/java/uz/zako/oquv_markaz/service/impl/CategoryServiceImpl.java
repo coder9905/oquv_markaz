@@ -19,61 +19,62 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public ResponseEntity<?> addCategory(CategoryPayload payload){
+    public ResponseEntity<?> addCategory(CategoryPayload payload) {
 
         try {
             Categorys categorys = new Categorys();
             categorys.setName(payload.getName());
             return ResponseEntity.ok(categoryRepository.save(categorys));
-        }catch (Exception e){
-            log.error("add category error -> {}",e.getMessage());
-            return new ResponseEntity(new Result(false,"error",null),HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.error("add category error -> {}", e.getMessage());
+            return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
-    public ResponseEntity<?> editCategory(CategoryPayload payload){
+    public ResponseEntity<?> editCategory(CategoryPayload payload) {
 
         try {
             Categorys categorys = categoryRepository.findById(payload.getId()).get();
             categorys.setName(payload.getName());
             System.out.println(categorys);
             return ResponseEntity.ok(categoryRepository.save(categorys));
-        }catch (Exception e){
-            log.error("add category error -> {}",e.getMessage());
-            return new ResponseEntity(new Result(false,"error",null),HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.error("add category error -> {}", e.getMessage());
+            return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
-    public ResponseEntity<?> getIdCategory(Long id){
+    public ResponseEntity<?> getIdCategory(Long id) {
         try {
             return ResponseEntity.ok(categoryRepository.findById(id));
-        }catch (Exception e){
-            log.error("getIdCategory error -> {}",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getIdCategory",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            log.error("getIdCategory error -> {}", e.getMessage());
+            return new ResponseEntity(new Result(false, "error getIdCategory", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getAllCategorys(){
+    public ResponseEntity<?> getAllCategorys() {
         try {
             return ResponseEntity.ok(categoryRepository.findAll());
-        }catch (Exception e){
-            log.error("getIdCategory error -> {}",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getIdCategory",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            log.error("getIdCategory error -> {}", e.getMessage());
+            return new ResponseEntity(new Result(false, "error getIdCategory", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @Override
-    public boolean deleteById(Long id){
+    public boolean deleteById(Long id) {
         try {
             System.out.println("delete ById ga keldi");
             categoryRepository.deleteById(id);
             return true;
-        }catch (Exception e){
-            log.error("getIdCategory error -> {}",e.getMessage());
+        } catch (Exception e) {
+            log.error("getIdCategory error -> {}", e.getMessage());
 //            return new ResponseEntity(new Result(false,"error getIdCategory",null),HttpStatus.INTERNAL_SERVER_ERROR);
-        return false;
+            return false;
         }
     }
 

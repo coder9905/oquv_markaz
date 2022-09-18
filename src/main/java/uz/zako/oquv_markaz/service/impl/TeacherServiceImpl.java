@@ -35,7 +35,7 @@ public class TeacherServiceImpl implements TeacherService {
     public ResponseEntity<?> addTeacher(TeacherPayload teacherPayload) {
         try {
             Teacher teacher = new Teacher();
-            System.out.println(teacherPayload.getGroupsId()+"=teacherGroupPayload"+groupsRepository.findByIdGroup(teacherPayload.getGroupsId()));
+            System.out.println(teacherPayload.getGroupsId() + "=teacherGroupPayload" + groupsRepository.findByIdGroup(teacherPayload.getGroupsId()));
             teacher.setFullName(teacherPayload.getFullName());
             teacher.setPhone(teacherPayload.getPhone());
             teacher.setImg(attachmentRepository.findByHashId(teacherPayload.getImg()));
@@ -69,7 +69,7 @@ public class TeacherServiceImpl implements TeacherService {
         PageRequest request = PageRequest.of(page, size);
         Page<TeacherPayload> teachers = teachersRepository.findAllByPage(request);
 
-        System.out.println(teachers.getContent().size()+" ");
+        System.out.println(teachers.getContent().size() + " ");
 
         for (int i = 0; i < teachers.getContent().size(); i++) {
             teachers.getContent().get(i).setImg(teachers.getContent().get(i).getImg());

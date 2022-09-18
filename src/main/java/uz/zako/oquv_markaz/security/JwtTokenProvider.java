@@ -32,7 +32,7 @@ public class JwtTokenProvider {
 
     private final CustomUserDetailsService customUserDetailsService;
 
-    private final Logger logger= LoggerFactory.getLogger(JwtTokenProvider.class);
+    private final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     @PostConstruct
     protected void init() {
@@ -73,13 +73,13 @@ public class JwtTokenProvider {
             if (!claimsJwts.getExpiration().before(new Date())) {
                 return true;
             }
-        }catch (MalformedJwtException e){
+        } catch (MalformedJwtException e) {
             logger.error(e.getMessage());
-        }catch (ExpiredJwtException e){
+        } catch (ExpiredJwtException e) {
             logger.error(e.getMessage());
-        }catch (PrematureJwtException e){
+        } catch (PrematureJwtException e) {
             logger.error(e.getMessage());
-        }catch (UnsupportedJwtException e){
+        } catch (UnsupportedJwtException e) {
             logger.error(e.getMessage());
         }
         return false;

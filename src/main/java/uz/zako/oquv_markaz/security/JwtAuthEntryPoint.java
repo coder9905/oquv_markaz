@@ -14,11 +14,11 @@ import java.io.IOException;
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 
-    private final Logger logger= LoggerFactory.getLogger(JwtAuthEntryPoint.class);
+    private final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         logger.error("error message - {}", authException.getMessage());
-        response.sendError(500,"You are not Authenticaton");
+        response.sendError(500, "You are not Authenticaton");
     }
 }

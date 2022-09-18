@@ -27,7 +27,7 @@ public class AbstractEntity implements Serializable {
     private Long id;
 
     @CreationTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private Date createdAt;
 
     @UpdateTimestamp

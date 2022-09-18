@@ -1,6 +1,7 @@
 package uz.zako.oquv_markaz.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import uz.zako.oquv_markaz.entity.User;
 import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.*;
 import uz.zako.oquv_markaz.repository.UserRepository;
+import uz.zako.oquv_markaz.security.AuthService;
 import uz.zako.oquv_markaz.security.JwtTokenProvider;
 import uz.zako.oquv_markaz.security.SecurityUtils;
 import uz.zako.oquv_markaz.service.*;
@@ -21,6 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
     private final UserRepository userRepository;
@@ -32,7 +35,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final SecurityUtils securityUtils;
-
+    private final AuthService authService;
 
 
     @PostMapping("/token")
@@ -52,6 +55,16 @@ public class AuthController {
             return ResponseEntity.ok(map);
         }
         return ResponseEntity.ok(new Result(false, "error", null));
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<?> refreshToken(@RequestBody AuthTokenPayload payload) {
+        try {
+            return ResponseEntity.ok(authService.refreshToken(payload));
+        } catch (Exception e) {
+            log.error("error in refresh token - {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Result.error(e.getMessage()));
+        }
     }
 
     @PostMapping("/save")
@@ -75,35 +88,35 @@ public class AuthController {
     }
 
     @GetMapping("/page/cource")
-    public Page<CourcesPayload> getPageCource(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size){
+    public Page<CourcesPayload> getPageCource(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
 
-        return courcesService.getPageCource(page,size);
+        return courcesService.getPageCource(page, size);
 
     }
 
     @GetMapping("/page/news")
-    public Page<NewsPayload> getPageNews(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size){
+    public Page<NewsPayload> getPageNews(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
 
-        return newsService.getPageNews(page,size);
+        return newsService.getPageNews(page, size);
 
     }
 
     @GetMapping("/page/teacher")
-    public Page<TeacherPayload> getPageTeacher(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size){
+    public Page<TeacherPayload> getPageTeacher(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
 
-        return teacherService.getPageTeacher(page,size);
+        return teacherService.getPageTeacher(page, size);
 
     }
 
     @GetMapping("/news/view/{id}")
-    public ResponseEntity<?> getIdNews(@PathVariable("id") Long id){
+    public ResponseEntity<?> getIdNews(@PathVariable("id") Long id) {
         return newsService.getNewsBody(id);
     }
 
     @GetMapping("/me")
     public ResponseEntity<?> getMe() {
         String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
-        System.out.println(username+"=user");
+        System.out.println(username + "=user");
         return ResponseEntity.ok(userRepository.findByUsername(username));
     }
 

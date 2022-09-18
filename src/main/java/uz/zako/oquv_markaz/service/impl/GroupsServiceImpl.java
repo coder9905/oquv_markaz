@@ -24,37 +24,38 @@ public class GroupsServiceImpl implements GroupsService {
     private final CourcesRepository courcesRepository;
 
     @Override
-    public ResponseEntity<?> addGroups(GroupPayload payload){
+    public ResponseEntity<?> addGroups(GroupPayload payload) {
         try {
-            Groups groups=new Groups();
+            Groups groups = new Groups();
             groups.setName(payload.getName());
             groups.setCource(courcesRepository.getById(payload.getCourceId()));
             return ResponseEntity.ok(groupsRepository.save(groups));
-        }catch (Exception e){
-            log.error("add groups error -> {}",e.getMessage());
-            return new ResponseEntity(new Result(false,"error",null),HttpStatus.BAD_REQUEST);
-        }
-    }
-    @Override
-    public ResponseEntity<?> editGroups(GroupPayload payload){
-        try {
-            Groups groups= groupsRepository.findById(payload.getId()).get();
-            groups.setName(payload.getName());
-            groups.setCource(courcesRepository.getById(payload.getCourceId()));
-            return ResponseEntity.ok(groupsRepository.save(groups));
-        }catch (Exception e){
-            log.error("add groups error -> {}",e.getMessage());
-            return new ResponseEntity(new Result(false,"error",null),HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.error("add groups error -> {}", e.getMessage());
+            return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
-    public ResponseEntity<?> getAllGroups(){
+    public ResponseEntity<?> editGroups(GroupPayload payload) {
+        try {
+            Groups groups = groupsRepository.findById(payload.getId()).get();
+            groups.setName(payload.getName());
+            groups.setCource(courcesRepository.getById(payload.getCourceId()));
+            return ResponseEntity.ok(groupsRepository.save(groups));
+        } catch (Exception e) {
+            log.error("add groups error -> {}", e.getMessage());
+            return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllGroups() {
         try {
             return ResponseEntity.ok(groupsRepository.findAll());
-        }catch (Exception e){
-            log.error("add groups error -> {}",e.getMessage());
-            return new ResponseEntity(new Result(false,"error",null),HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.error("add groups error -> {}", e.getMessage());
+            return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
         }
     }
 

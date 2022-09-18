@@ -37,14 +37,14 @@ public class NewsServiceImpl implements NewsService {
             news.setTitle(newsPayload.getTitle());
             news.setBody(newsPayload.getBody());
             Optional<Categorys> categorys = categoryRepository.findById(newsPayload.getCategoryId());
-            if (!categorys.isPresent()){
+            if (!categorys.isPresent()) {
                 throw new RuntimeException(format("Category by this id = {%s} not found!", newsPayload.getCategoryId()));
             }
             news.setCategorys(categorys.get());
             news.setImg(attachmentRepository.findByHashId(newsPayload.getImg()));
-            System.out.println("keldi news = "+news.toString());
+            System.out.println("keldi news = " + news.toString());
             Long id = newsRepository.save(news).getId();
-            return ResponseEntity.ok(new Result(true,"created",null));
+            return ResponseEntity.ok(new Result(true, "created", null));
         } catch (Exception e) {
             log.error("add news error -> {}", e.getMessage());
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
@@ -117,7 +117,7 @@ public class NewsServiceImpl implements NewsService {
         PageRequest request = PageRequest.of(page, size);
         Page<NewsPayload> news = newsRepository.findAllByPage(request);
 
-        System.out.println(news.getContent().size()+" ");
+        System.out.println(news.getContent().size() + " ");
 
         for (int i = 0; i < news.getContent().size(); i++) {
             news.getContent().get(i).setImg(news.getContent().get(i).getImg());

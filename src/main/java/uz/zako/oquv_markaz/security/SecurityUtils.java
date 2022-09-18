@@ -9,14 +9,14 @@ import java.util.Optional;
 
 @Component
 public class SecurityUtils {
-    public Optional<String> getCurrentUser(){
-        SecurityContext securityContext=SecurityContextHolder.getContext();
-        if (securityContext.getAuthentication() != null){
+    public Optional<String> getCurrentUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        if (securityContext.getAuthentication() != null) {
             return Optional.ofNullable(securityContext.getAuthentication())
                     .map(authentication -> {
-                        if (authentication.getPrincipal() instanceof UserDetails){
+                        if (authentication.getPrincipal() instanceof UserDetails) {
                             return ((UserDetails) authentication.getPrincipal()).getUsername();
-                        }else if (authentication.getPrincipal() instanceof String){
+                        } else if (authentication.getPrincipal() instanceof String) {
                             return (String) authentication.getPrincipal();
                         }
                         return null;

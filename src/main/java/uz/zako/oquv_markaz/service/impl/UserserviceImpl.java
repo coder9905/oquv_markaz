@@ -30,9 +30,10 @@ public class UserserviceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
-    private  final GroupsRepository groupsRepository;
+    private final GroupsRepository groupsRepository;
     private final AdminRepository adminRepository;
     private final PasswordEncoder encoder;
+
     @Override
     public boolean save(UserPayload payload) {
         try {
@@ -55,15 +56,15 @@ public class UserserviceImpl implements UserService {
     @Override
     public boolean saveUserIdGroup(GroupPayload payload, Long userId) {
         try {
-            System.out.println("saveUserIdGroup="+payload+" = "+userId);
-            User user=userRepository.findByIdUser(userId);
+            System.out.println("saveUserIdGroup=" + payload + " = " + userId);
+            User user = userRepository.findByIdUser(userId);
             user.setGroup(Arrays.asList(groupsRepository.findByName(payload.getName())));
             user.setUsername("alii");
             user = userRepository.save(user);
-            System.out.println(user.getGroup()+"=group");
-            System.out.println(user+"=user");
+            System.out.println(user.getGroup() + "=group");
+            System.out.println(user + "=user");
 
-            if (user != null){
+            if (user != null) {
                 return true;
             }
 
@@ -95,8 +96,8 @@ public class UserserviceImpl implements UserService {
     @Override
     public boolean saveAdmin(UserPayload payload) {
         try {
-            User user =userRepository.findByUsername(payload.getUsername());
-            System.out.println(user+"=user saveAdmin");
+            User user = userRepository.findByUsername(payload.getUsername());
+            System.out.println(user + "=user saveAdmin");
             user.setId(payload.getId());
             user.setAdmin(true);
             user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));

@@ -10,7 +10,7 @@ import uz.zako.oquv_markaz.payload.TeacherPayload;
 
 import java.util.Optional;
 
-public interface CourcesRepository extends JpaRepository<Cource,Long> {
+public interface CourcesRepository extends JpaRepository<Cource, Long> {
 
     Cource getById(Long id);
 

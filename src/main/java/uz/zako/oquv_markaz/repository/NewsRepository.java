@@ -12,7 +12,7 @@ import uz.zako.oquv_markaz.payload.TeacherPayload;
 
 import java.util.List;
 
-public interface NewsRepository extends JpaRepository<News,Long> {
+public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Query(nativeQuery = true, value = "select * from news where categorys_id=:categoryId")
     List<News> findByAllNewsCategoryId(@Param("categoryId") Long id);

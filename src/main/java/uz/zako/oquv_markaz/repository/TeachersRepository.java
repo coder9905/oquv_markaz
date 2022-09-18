@@ -10,7 +10,7 @@ import uz.zako.oquv_markaz.entity.Teacher;
 import uz.zako.oquv_markaz.payload.NewsPayload;
 import uz.zako.oquv_markaz.payload.TeacherPayload;
 
-public interface TeachersRepository extends JpaRepository<Teacher,Long> {
+public interface TeachersRepository extends JpaRepository<Teacher, Long> {
 
     @Query("select new uz.zako.oquv_markaz.payload.TeacherPayload(n.id,n.fullName,n.phone,n.img.hashId) from Teacher n")
     Page<TeacherPayload> findAllByPage(Pageable pageable);

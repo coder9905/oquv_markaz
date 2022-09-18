@@ -20,12 +20,12 @@ public class Teacher extends AbstractEntity {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
 
-    @Column(nullable = false,length = 50)
+    @Column(nullable = false, length = 50)
     private String fullName;
 
     private String phone;
 
-    @OneToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 
     @ToString.Exclude
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

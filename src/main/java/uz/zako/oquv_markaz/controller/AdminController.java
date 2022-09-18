@@ -19,18 +19,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api/admin", produces= MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/admin", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class AdminController {
 
     private final UserService userService;
     private final CategoryService categoryService;
     private final NewsService newsService;
-    private final AttachmentService attachmentService;
     private final CourcesService courcesService;
     private final TeacherService teacherService;
     private final GroupsService groupsService;
-    private final UserRepository userRepository;
 
     @PostMapping("/v1/category")
     public ResponseEntity<?> addCategory(@RequestBody CategoryPayload payload) {
@@ -62,7 +60,7 @@ public class AdminController {
 
     @PostMapping("/v1/{userId}")
     public boolean addUserIdGroup(@RequestBody GroupPayload payload, @PathVariable("userId") Long id) {
-        return userService.saveUserIdGroup(payload,id);
+        return userService.saveUserIdGroup(payload, id);
     }
 
 
@@ -76,7 +74,7 @@ public class AdminController {
 
     @PutMapping("/v1/admin")
     public ResponseEntity<?> addAdmin(@RequestBody UserPayload payload) {
-        System.out.println("admin ga keldi="+payload);
+        System.out.println("admin ga keldi=" + payload);
         return ResponseEntity.ok(userService.saveAdmin(payload));
 
     }
@@ -120,7 +118,7 @@ public class AdminController {
     @DeleteMapping("/category/{categoryId}")
     public boolean deleteCategory(@PathVariable("categoryId") Long id) {
 
-        System.out.println("delete category="+id);
+        System.out.println("delete category=" + id);
         return categoryService.deleteById(id);
     }
 
@@ -165,7 +163,7 @@ public class AdminController {
 
     @GetMapping("/v1/users/{groupId}")
     public ResponseEntity<?> getGroupIdUsers(@PathVariable("groupId") Long id) {
-        System.out.println("id="+id);
+        System.out.println("id=" + id);
         return userService.getGroupsIdUsers(id);
     }
 

@@ -13,13 +13,4 @@ public class MyConfiguration implements WebMvcConfigurer {
                 .allowedMethods("*");
     }
 
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:3001","http://localhost:3002","http://localhost:3003");
-            }
-        };
-    }
-
 }

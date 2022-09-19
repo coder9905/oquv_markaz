@@ -1,6 +1,7 @@
 package uz.zako.oquv_markaz.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +14,8 @@ import uz.zako.oquv_markaz.service.AttachmentService;
 @CrossOrigin(origins = "http://localhost:3002")
 public class AttachmentController {
 
-    private final AttachmentService attachmentService;
+    @Autowired(required = false)
+    private AttachmentService attachmentService;
 
     @GetMapping("/")
     public String get() {

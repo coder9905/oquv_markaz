@@ -13,11 +13,12 @@ public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
 
     Attachment findByHashId(String hashId);
 
+
     @Query(value = "select * from attachment a where a.hash_id=:hashId", nativeQuery = true)
     Optional<Attachment> findByHashId1(@Param("hashId") String hashId);
 
     @Query(nativeQuery = true, value = "delete from attachment a where a.hash_id=:hashId")
-    Boolean deleteById(@Param("hashId") String hashId);
+    boolean deleteByhashId(@Param("hashId") String hashId);
 
     @Query(nativeQuery = true, value = "select a.hash_id from attachment a where a.product_id=?1 limit 1")
     String getByProductsId(Long productId);

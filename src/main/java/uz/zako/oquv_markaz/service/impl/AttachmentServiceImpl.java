@@ -116,7 +116,7 @@ public class AttachmentServiceImpl implements AttachmentService {
             File file = new File(attachment.get().getUploadPath());
             System.out.println(file);
             if (file.delete()) {
-                if (!attachmentRepository.deleteById(hashId)) {
+                if (!attachmentRepository.deleteByhashId(hashId)) {
                     return new ResponseEntity(Result.error(String.format("attachment not found hashId - %s", hashId)), HttpStatus.BAD_REQUEST);
                 }
                 return new ResponseEntity(Result.ok(attachment), HttpStatus.BAD_REQUEST);

@@ -32,10 +32,6 @@ public class AdminController {
     private final TeacherService teacherService;
     private final GroupsService groupsService;
 
-    @GetMapping("/skbchdj")
-    public ResponseEntity<?> tekwir(){
-        return null;
-    }
 
     @PostMapping("/v1/category")
     public ResponseEntity<?> addCategory(@RequestBody CategoryPayload payload) {

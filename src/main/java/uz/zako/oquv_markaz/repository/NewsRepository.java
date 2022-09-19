@@ -5,13 +5,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import uz.zako.oquv_markaz.entity.Categorys;
 import uz.zako.oquv_markaz.entity.News;
 import uz.zako.oquv_markaz.payload.NewsPayload;
 import uz.zako.oquv_markaz.payload.TeacherPayload;
 
 import java.util.List;
-
+@Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Query(nativeQuery = true, value = "select * from news where categorys_id=:categoryId")

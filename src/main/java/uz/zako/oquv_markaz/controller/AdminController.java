@@ -21,6 +21,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api/admin", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3002")
+
 public class AdminController {
 
     private final UserService userService;
@@ -29,6 +31,11 @@ public class AdminController {
     private final CourcesService courcesService;
     private final TeacherService teacherService;
     private final GroupsService groupsService;
+
+    @GetMapping("/skbchdj")
+    public ResponseEntity<?> tekwir(){
+        return null;
+    }
 
     @PostMapping("/v1/category")
     public ResponseEntity<?> addCategory(@RequestBody CategoryPayload payload) {

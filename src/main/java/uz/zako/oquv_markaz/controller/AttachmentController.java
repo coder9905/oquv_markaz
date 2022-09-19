@@ -1,28 +1,19 @@
 package uz.zako.oquv_markaz.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileUrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.service.AttachmentService;
-
-import java.net.MalformedURLException;
-import java.net.URLEncoder;
 
 
 @RestController
 @RequestMapping("/api/file")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3002")
 public class AttachmentController {
 
-    @Autowired(required = false)
-    private AttachmentService attachmentService;
+    private final AttachmentService attachmentService;
 
     @GetMapping("/")
     public String get() {

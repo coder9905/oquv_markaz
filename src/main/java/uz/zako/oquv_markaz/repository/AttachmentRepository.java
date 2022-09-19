@@ -3,10 +3,12 @@ package uz.zako.oquv_markaz.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import uz.zako.oquv_markaz.entity.Attachment;
 
 import java.util.Optional;
 
+@Repository
 public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
 
     Attachment findByHashId(String hashId);

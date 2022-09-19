@@ -1,6 +1,5 @@
-package uz.zako.online_test.service.impl;
+package uz.zako.oquv_markaz.service.impl;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileUrlResource;
@@ -22,13 +21,16 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class AttachmentServiceImpl implements AttachmentService {
 
-    @Value(("upload"))
+    @Value("${file.upload.folder}")
     private String uploadPath;
 
     private final AttachmentRepository attachmentRepository;
+
+    public AttachmentServiceImpl(AttachmentRepository attachmentRepository) {
+        this.attachmentRepository = attachmentRepository;
+    }
 
     @Override
     public ResponseEntity<?> upload(MultipartFile multipartFile) {

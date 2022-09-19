@@ -21,7 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api/admin", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3002")
+@CrossOrigin(origins = "*")
 
 public class AdminController {
 

@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(jwtAuthEntryPoint)
                 .and()
                 .cors()
-                .disable()
+                .and()
                 .headers()
                 .frameOptions()
                 .and().and()

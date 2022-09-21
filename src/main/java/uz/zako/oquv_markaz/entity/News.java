@@ -13,12 +13,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 public class News extends AbstractEntity {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
 
-    //    @Column(unique = true)
     private String title;
 
     @Column(columnDefinition = "TEXT")
@@ -26,7 +21,7 @@ public class News extends AbstractEntity {
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Categorys categorys;
+    private Category categorys;
 
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

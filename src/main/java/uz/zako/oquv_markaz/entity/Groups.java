@@ -9,27 +9,38 @@ import org.hibernate.annotations.Proxy;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Proxy(lazy = false)
 @Data
 @Entity
 public class Groups extends AbstractEntity {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
 
     @Column(unique = true, length = 50)
     private String name;
-//
-//    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
-//    private Teacher teachers;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Cource cource;
+    private Long price;
+
+    private String title;
+
+    @Column(columnDefinition = "TEXT")
+    private String discription;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Attachment img;
+
+    private String duration;
+
+    private Long capacity;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Subject> subject;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Employee> employees;
+
+
 }

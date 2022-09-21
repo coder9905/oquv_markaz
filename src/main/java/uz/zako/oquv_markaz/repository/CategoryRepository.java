@@ -2,12 +2,12 @@ package uz.zako.oquv_markaz.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import uz.zako.oquv_markaz.entity.Categorys;
+import uz.zako.oquv_markaz.entity.Category;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Categorys, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    Categorys findByName(String name);
+    Category findByName(String name);
 
 
 }

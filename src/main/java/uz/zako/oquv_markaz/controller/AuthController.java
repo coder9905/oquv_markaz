@@ -31,8 +31,6 @@ public class AuthController {
     private final UserService userService;
     private final CategoryService categoryService;
     private final NewsService newsService;
-    private final TeacherService teacherService;
-    private final CourcesService courcesService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final SecurityUtils securityUtils;
@@ -74,45 +72,32 @@ public class AuthController {
     }
 
 
-    @GetMapping("/category/{id}")
-    public ResponseEntity<?> getIdCategory(@PathVariable("id") Long id) {
-
-        return categoryService.getIdCategory(id);
-
-    }
-
-    @GetMapping("/news/{categoryId}")
-    public ResponseEntity<?> getCategoryIdNews(@PathVariable("categoryId") Long id) {
-        System.out.println("keldi /news/categoryId");
-        return newsService.getCategoryIdNews(id);
-
-    }
-
-    @GetMapping("/page/cource")
-    public Page<CourcesPayload> getPageCource(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
-
-        return courcesService.getPageCource(page, size);
-
-    }
-
-    @GetMapping("/page/news")
-    public Page<NewsPayload> getPageNews(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
-
-        return newsService.getPageNews(page, size);
-
-    }
-
-    @GetMapping("/page/teacher")
-    public Page<TeacherPayload> getPageTeacher(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
-
-        return teacherService.getPageTeacher(page, size);
-
-    }
-
-    @GetMapping("/news/view/{id}")
-    public ResponseEntity<?> getIdNews(@PathVariable("id") Long id) {
-        return newsService.getNewsBody(id);
-    }
+//    @GetMapping("/category/{id}")
+//    public ResponseEntity<?> getIdCategory(@PathVariable("id") Long id) {
+//
+//        return categoryService.getIdCategory(id);
+//
+//    }
+//
+//    @GetMapping("/news/{categoryId}")
+//    public ResponseEntity<?> getCategoryIdNews(@PathVariable("categoryId") Long id) {
+//        System.out.println("keldi /news/categoryId");
+//        return newsService.getCategoryIdNews(id);
+//
+//    }
+//
+//
+//    @GetMapping("/page/news")
+//    public Page<NewsPayload> getPageNews(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
+//
+//        return newsService.getPageNews(page, size);
+//
+//    }
+//
+//    @GetMapping("/news/view/{id}")
+//    public ResponseEntity<?> getIdNews(@PathVariable("id") Long id) {
+//        return newsService.getNewsBody(id);
+//    }
 
     @GetMapping("/me")
     public ResponseEntity<?> getMe() {

@@ -3,6 +3,7 @@ package uz.zako.oquv_markaz.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,16 +15,10 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-public class Training_Center {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class TrainingCenter extends AbstractEntity {
 
     private String name;
 
     private String phone;
-
-    private Date working_time;
 
 }

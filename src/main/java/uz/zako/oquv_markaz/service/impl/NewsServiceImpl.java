@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import uz.zako.oquv_markaz.entity.Categorys;
+import uz.zako.oquv_markaz.entity.Category;
 import uz.zako.oquv_markaz.entity.News;
 import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.NewsPayload;
@@ -35,7 +35,7 @@ public class NewsServiceImpl implements NewsService {
             News news = new News();
             news.setTitle(newsPayload.getTitle());
             news.setBody(newsPayload.getBody());
-            Optional<Categorys> categorys = categoryRepository.findById(newsPayload.getCategoryId());
+            Optional<Category> categorys = categoryRepository.findById(newsPayload.getCategoryId());
             if (!categorys.isPresent()) {
                 throw new RuntimeException(format("Category by this id = {%s} not found!", newsPayload.getCategoryId()));
             }

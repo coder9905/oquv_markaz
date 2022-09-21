@@ -11,16 +11,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-public class Categorys extends AbstractEntity {
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+public class Category extends AbstractEntity {
 
     @Column(unique = true, nullable = false, length = 50)
     private String name;
 
-//    @OneToMany(mappedBy = "categorys")
-//    private List<News> news;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CenterBranches center_branches;
 
 }

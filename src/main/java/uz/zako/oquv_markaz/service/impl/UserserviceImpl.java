@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import uz.zako.oquv_markaz.entity.User;
 import uz.zako.oquv_markaz.exception.ResourceNotFoundException;
 import uz.zako.oquv_markaz.model.Result;
-import uz.zako.oquv_markaz.payload.GroupPayload;
 import uz.zako.oquv_markaz.payload.UserPayload;
 import uz.zako.oquv_markaz.repository.AdminRepository;
-import uz.zako.oquv_markaz.repository.GroupsRepository;
 import uz.zako.oquv_markaz.repository.RoleRepository;
 import uz.zako.oquv_markaz.repository.UserRepository;
 import uz.zako.oquv_markaz.service.UserService;
@@ -27,7 +25,6 @@ public class UserserviceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
-    private final GroupsRepository groupsRepository;
     private final AdminRepository adminRepository;
     private final PasswordEncoder encoder;
 
@@ -44,27 +41,6 @@ public class UserserviceImpl implements UserService {
             if (user1 != null) {
                 return true;
             }
-        } catch (Exception e) {
-            log.error("save User error - {}", e.getMessage());
-        }
-        return false;
-    }
-
-    @Override
-    public boolean saveUserIdGroup(GroupPayload payload, Long userId) {
-        try {
-            System.out.println("saveUserIdGroup=" + payload + " = " + userId);
-            User user = userRepository.findByIdUser(userId);
-            user.setGroup(Arrays.asList(groupsRepository.findByName(payload.getName())));
-            user.setUsername("alii");
-            user = userRepository.save(user);
-            System.out.println(user.getGroup() + "=group");
-            System.out.println(user + "=user");
-
-            if (user != null) {
-                return true;
-            }
-
         } catch (Exception e) {
             log.error("save User error - {}", e.getMessage());
         }
@@ -132,16 +108,6 @@ public class UserserviceImpl implements UserService {
     public ResponseEntity<?> getAllUser() {
         try {
             return ResponseEntity.ok(userRepository.findAll());
-        } catch (Exception e) {
-            log.error("save User error - {}", e.getMessage());
-            return new ResponseEntity(new Result(false, "error", null), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public ResponseEntity<?> getGroupsIdUsers(Long groupId) {
-        try {
-            return ResponseEntity.ok(userRepository.getByGroupIdUsers(groupId));
         } catch (Exception e) {
             log.error("save User error - {}", e.getMessage());
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.INTERNAL_SERVER_ERROR);

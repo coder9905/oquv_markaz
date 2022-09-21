@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import uz.zako.oquv_markaz.entity.Categorys;
+import uz.zako.oquv_markaz.entity.Category;
 import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.CategoryPayload;
 import uz.zako.oquv_markaz.repository.CategoryRepository;
@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
     public ResponseEntity<?> addCategory(CategoryPayload payload) {
 
         try {
-            Categorys categorys = new Categorys();
+            Category categorys = new Category();
             categorys.setName(payload.getName());
             return ResponseEntity.ok(categoryRepository.save(categorys));
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
     public ResponseEntity<?> editCategory(CategoryPayload payload) {
 
         try {
-            Categorys categorys = categoryRepository.findById(payload.getId()).get();
+            Category categorys = categoryRepository.findById(payload.getId()).get();
             categorys.setName(payload.getName());
             System.out.println(categorys);
             return ResponseEntity.ok(categoryRepository.save(categorys));

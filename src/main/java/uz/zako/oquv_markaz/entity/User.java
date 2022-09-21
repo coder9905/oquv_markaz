@@ -25,11 +25,17 @@ public class User extends AbstractEntity {
 
     private String fullName;
 
+    private String phone;
+
+    private String adress;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Attachment img;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
-//    @JsonIgnore bizga olib beriwni berkitib qoyadi
     private List<Role> roles;
 
     private boolean isAdmin;

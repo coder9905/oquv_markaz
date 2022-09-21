@@ -1,5 +1,6 @@
 package uz.zako.oquv_markaz.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,19 +12,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-public class Attachment extends AbstractEntity {
+public class Outputs extends AbstractEntity {
 
-    @Column(nullable = false, length = 50)
-    private String name;
+    private String title;
 
-    private String contentType;
+    @Column(columnDefinition = "TEXT")
+    private String discription;
 
-    private Long fileSize;
+    private Long price;
 
-    private String uploadPath;
-
-    private String hashId;
-
-    private String extension;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private User user;
 
 }

@@ -40,9 +40,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/api/auth/**").permitAll()
 //                .antMatchers("/api/**").permitAll()
-                .antMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/admin/**", "/api/file/**").hasRole("ADMIN")
+//                .antMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/**").permitAll()
+//                .antMatchers("/api/admin/**", "/api/file/**").hasRole("SUPERADMIN")
 //                .hasRole("USER")
                 // Rest api documentition ni chiqazib beradi
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/**", "/csrf").permitAll()

@@ -6,17 +6,21 @@ import uz.zako.oquv_markaz.payload.UserPayload;
 
 public interface UserService {
 
-    boolean save(UserPayload payload);
+    ResponseEntity<?> saveUser(String hashId, UserPayload payload);
 
-    boolean saveAdmin(UserPayload payload);
+    ResponseEntity<?> getOne(Long userId);
 
-    User edit(Long id, UserPayload payload);
+    ResponseEntity<?> getUserGroupId(Long groupId);
 
-    ResponseEntity<?> getAllUser();
+    ResponseEntity<?> getUsercenterBranchesId(Long id);
 
-    boolean editUser(UserPayload payload);
+    ResponseEntity<?> getAllUsers();
 
-    boolean editAdmin(Long id);
+    ResponseEntity<?> editUser(String hashId, UserPayload payload);
 
-    boolean deleteById(Long id);
+    ResponseEntity<?> deleteUserId(Long id);
+
+    ResponseEntity<?> deleteUserGroupId(Long id);
+
+    ResponseEntity<?> deleteUserCenterBranchesId(Long id);
 }

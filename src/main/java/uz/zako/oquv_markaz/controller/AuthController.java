@@ -66,10 +66,10 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/save")
-    public boolean saveUser(@RequestBody UserPayload payload) {
-        return userService.save(payload);
-    }
+//    @PostMapping("/save")
+//    public boolean saveUser(@RequestBody UserPayload payload) {
+//        return userService.save(payload);
+//    }
 
 
 //    @GetMapping("/category/{id}")

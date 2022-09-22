@@ -43,4 +43,7 @@ public class User extends AbstractEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Groups> group;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<CenterBranches> centerBranches;
+
 }

@@ -29,8 +29,8 @@ public class Groups extends AbstractEntity {
     @Column(columnDefinition = "TEXT")
     private String discription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Attachment img;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Attachment> img;
 
     private String duration;
 

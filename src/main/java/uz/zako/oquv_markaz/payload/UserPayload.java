@@ -14,6 +14,13 @@ public class UserPayload {
     private String username;
     private String password;
     private String fullName;
+    private String phone;
+    private String adress;
+    private boolean isAdmin;
+    private String hashId;
+    private Long groupId;
+    private String role;
+    private Long centerBranchesId;
 
     public UserPayload(String username, String password, String fullName) {
         this.username = username;

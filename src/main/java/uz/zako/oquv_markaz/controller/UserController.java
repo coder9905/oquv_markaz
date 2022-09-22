@@ -30,11 +30,4 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findByUsername(username));
     }
 
-    @PutMapping("/edit")
-    public ResponseEntity<?> editUser(@RequestBody UserPayload payload) {
-        String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
-        System.out.println(username + "=edit username");
-        return ResponseEntity.ok(userService.save(payload));
-    }
-
 }

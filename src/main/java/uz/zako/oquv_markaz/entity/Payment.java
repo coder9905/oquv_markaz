@@ -16,7 +16,8 @@ public class Payment extends AbstractEntity {
 
     private Long price;
 
-    private String moon;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Moon moon;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private Discount discount;

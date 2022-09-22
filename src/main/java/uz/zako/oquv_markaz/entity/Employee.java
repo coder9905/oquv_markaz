@@ -25,6 +25,8 @@ public class Employee extends AbstractEntity {
 
     private boolean isTeacher;
 
+    private String position;
+
     private String seniority;
 
     private Long monthly;

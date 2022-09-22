@@ -18,7 +18,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User getById(Long id);
 
-    @Query(nativeQuery = true, value = "select * from users u inner join users_group ug on ug.users_id=u.id where ug.group_id=?1")
+    @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
     List<User> getByGroupIdUsers(Long id);
+
+    @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
+    List<User> getBycenterBranchesIdUsers(Long id);
+
+    @Query(nativeQuery = true, value = "delete from users u where u.group_id=?1")
+    void deleteGroupIdUser(Long id);
+
+    @Query(nativeQuery = true, value = "delete from users u where u.center_branches_id=?1")
+    void deleteCenterBranchesIdUser(Long id);
+
 
 }

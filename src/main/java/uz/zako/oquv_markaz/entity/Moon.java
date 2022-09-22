@@ -6,20 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class Nb extends AbstractEntity {
+public class Moon extends AbstractEntity {
 
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<User> user;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<User> users;
+    private String name;
 
 }

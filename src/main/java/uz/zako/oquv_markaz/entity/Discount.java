@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,11 +15,11 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Discount extends AbstractEntity {
 
-    private String time;
+    private Long time;
 
     private Long foiz;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
-    private Groups groups;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Groups> groups;
 
 }

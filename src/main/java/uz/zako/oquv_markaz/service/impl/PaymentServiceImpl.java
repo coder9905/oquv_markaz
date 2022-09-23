@@ -27,7 +27,6 @@ public class PaymentServiceImpl implements PaymentService {
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
     private final SecurityUtils securityUtils;
-    String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
 
     @Override
     public ResponseEntity<?> savePayment(PaymentPayload payload){
@@ -122,6 +121,7 @@ public class PaymentServiceImpl implements PaymentService {
     public ResponseEntity<?> deletePaymentId(Long paymentId){
         try {
             Payment payment=paymentRepository.findById(paymentId).orElseThrow(()->new ResourceNotFoundException("payment not found"));
+            String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
             if (payment.getUsers().get(0).getUsername().equals(username)){
                 paymentRepository.deleteById(paymentId);
                 return ResponseEntity.ok(Result.ok("delete succesfull"));

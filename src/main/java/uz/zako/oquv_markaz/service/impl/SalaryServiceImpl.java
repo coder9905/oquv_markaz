@@ -27,7 +27,6 @@ public class SalaryServiceImpl implements SalaryService {
     private final UserRepository userRepository;
     private final EmployesRepository employesRepository;
     private final SecurityUtils securityUtils;
-    String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
 
     @Override
     public ResponseEntity<?> saveSalary(SalaryPayload payload){

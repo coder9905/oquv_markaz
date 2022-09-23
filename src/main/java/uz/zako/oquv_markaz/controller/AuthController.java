@@ -66,39 +66,6 @@ public class AuthController {
         }
     }
 
-//    @PostMapping("/save")
-//    public boolean saveUser(@RequestBody UserPayload payload) {
-//        return userService.save(payload);
-//    }
-
-
-//    @GetMapping("/category/{id}")
-//    public ResponseEntity<?> getIdCategory(@PathVariable("id") Long id) {
-//
-//        return categoryService.getIdCategory(id);
-//
-//    }
-//
-//    @GetMapping("/news/{categoryId}")
-//    public ResponseEntity<?> getCategoryIdNews(@PathVariable("categoryId") Long id) {
-//        System.out.println("keldi /news/categoryId");
-//        return newsService.getCategoryIdNews(id);
-//
-//    }
-//
-//
-//    @GetMapping("/page/news")
-//    public Page<NewsPayload> getPageNews(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
-//
-//        return newsService.getPageNews(page, size);
-//
-//    }
-//
-//    @GetMapping("/news/view/{id}")
-//    public ResponseEntity<?> getIdNews(@PathVariable("id") Long id) {
-//        return newsService.getNewsBody(id);
-//    }
-
     @GetMapping("/me")
     public ResponseEntity<?> getMe() {
         String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));

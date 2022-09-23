@@ -34,7 +34,6 @@ public class DiscountServiceImpl implements DiscountService {
             Discount discount=new Discount();
             discount.setTime(payload.getTime());
             discount.setFoiz(payload.getFoizi());
-            discount.setGroups(Arrays.asList(groupRepository.findById(groupId).orElseThrow(()->new ResourceNotFoundException("discount not found"))));
             discount=discountRepository.save(discount);
             if (discount != null){
                 return ResponseEntity.ok(Result.ok(discount));
@@ -63,6 +62,63 @@ public class DiscountServiceImpl implements DiscountService {
             return new ResponseEntity(new Result(false,"error edit discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public ResponseEntity<?> getDiscountId(Long discountId){
+        try {
+            Discount discount=discountRepository.findById(discountId).orElseThrow(()->new ResourceNotFoundException("discount not found"));
+            return ResponseEntity.ok(Result.ok(discount));
+        }catch (Exception e){
+            log.error("error discount(chegirma)",e.getMessage());
+            return new ResponseEntity(new Result(false,"error getDiscountId discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllDiscount(){
+        try {
+            List<Discount> discounts=discountRepository.findAll();
+            return ResponseEntity.ok(Result.ok(discounts));
+        }catch (Exception e){
+            log.error("error discount(chegirma)",e.getMessage());
+            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getDiscountGroupId(Long groupId){
+        try {
+            List<Discount> discounts=discountRepository.getDiscountGroupId(groupId);
+            return ResponseEntity.ok(Result.ok(discounts));
+        }catch (Exception e){
+            log.error("error discount(chegirma)",e.getMessage());
+            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> deleteDiscountGroupId(Long groupId){
+        try {
+            discountRepository.deleteDiscountGroupId(groupId);
+            return ResponseEntity.ok(Result.ok("delete succesfull"));
+        }catch (Exception e){
+            log.error("error discount(chegirma)",e.getMessage());
+            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> deleteDiscountId(Long discountId){
+        try {
+            discountRepository.deleteById(discountId);
+            return ResponseEntity.ok(Result.ok("delete succesfull"));
+        }catch (Exception e){
+            log.error("error discount(chegirma)",e.getMessage());
+            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 
 

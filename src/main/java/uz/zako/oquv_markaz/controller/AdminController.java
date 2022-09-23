@@ -22,6 +22,10 @@ public class AdminController {
     private final ScheduleService scheduleService;
     private final WeekService weekService;
     private final MoonService moonService;
+    private final DiscountService discountService;
+    private final OutputService outputService;
+    private final PaymentService paymentService;
+    private final SalaryService salaryService;
 
     @PostMapping("/save/employee/{hashId}")
     public ResponseEntity<?> saveEmployee(@RequestBody EmployePayload payload, @PathVariable("hashId") String id) {
@@ -239,6 +243,139 @@ public class AdminController {
     public ResponseEntity<?> getAllMoon(){
         return moonService.getAllMoon();
     }
+
+    @PostMapping("/save/discount/{discountId}")
+    public ResponseEntity<?> saveDiscount(@PathVariable("discountId") Long id, @RequestBody DiscountPayload payload){
+        return discountService.saveDiscount(id,payload);
+    }
+
+    @PutMapping("/edit/discount/{discountId}")
+    public ResponseEntity<?> editDiscount(@PathVariable("discountId") Long id, @RequestBody DiscountPayload payload){
+        return discountService.editDiscount(id,payload);
+    }
+
+    @GetMapping("/get/discount/{discountId}")
+    public ResponseEntity<?> editDiscount(@PathVariable("discountId") Long id){
+        return discountService.getDiscountId(id);
+    }
+
+    @GetMapping("/all/discount")
+    public ResponseEntity<?> allDiscount(){
+        return discountService.getAllDiscount();
+    }
+
+    @GetMapping("/getGroupId/discount/{groupId}")
+    public ResponseEntity<?> getDiscountGroupId(@PathVariable("groupId") Long id){
+        return discountService.getDiscountGroupId(id);
+    }
+
+    @DeleteMapping("/delete/discount/{groupId}")
+    public ResponseEntity<?> deleteDiscountGroupId(@PathVariable("groupId") Long id){
+        return discountService.getDiscountGroupId(id);
+    }
+
+    @DeleteMapping("/deleteDiscountId/discount/{discountId}")
+    public ResponseEntity<?> deleteDiscountId(@PathVariable("discountId") Long id){
+        return discountService.getDiscountGroupId(id);
+    }
+
+    @PostMapping("/save/output")
+    public ResponseEntity<?> saveOutput(@RequestBody OutputPayload payload){
+        return outputService.saveOutput(payload);
+    }
+
+    @PutMapping("/edit/output/{outputId}")
+    public ResponseEntity<?> saveOutput(@PathVariable("outputId") Long id, @RequestBody OutputPayload payload){
+        return outputService.editDiscount(id,payload);
+    }
+
+    @DeleteMapping("/delete/output/{userId}")
+    public ResponseEntity<?> deleteOutput(@PathVariable("userId") Long id){
+        return outputService.deleteOutputuserId(id);
+    }
+
+    @GetMapping("/all/output")
+    public ResponseEntity<?> getAllOutput(){
+        return outputService.getAllOutput();
+    }
+
+    @GetMapping("/getUserId/output/{userId}")
+    public ResponseEntity<?> getAllOutput(@PathVariable("userId") Long id){
+        return outputService.getOutputGroupId(id);
+    }
+
+    @PostMapping("/save/payment")
+    public ResponseEntity<?> savePAyment(@RequestBody PaymentPayload payload){
+        return paymentService.savePayment(payload);
+    }
+
+    @PutMapping("/edit/payment/{paymentId}")
+    public ResponseEntity<?> editPayment(@PathVariable("paymentId") Long id,@RequestBody PaymentPayload payload){
+        return paymentService.editPayment(id,payload);
+    }
+
+    @DeleteMapping("/delete/payment/{paymentId}")
+    public ResponseEntity<?> deletePaymentId(@PathVariable("paymentId") Long id){
+        return paymentService.deletePaymentId(id);
+    }
+
+    @DeleteMapping("/deleteGroupId/payment/{groupId}")
+    public ResponseEntity<?> deletePaymentGroupId(@PathVariable("groupId") Long id){
+        return paymentService.deletePaymentGroupId(id);
+    }
+
+    @GetMapping("/all/payment")
+    public ResponseEntity<?> getAllPayment(){
+        return paymentService.getAllPayment();
+    }
+
+    @GetMapping("/getUserId/payment/{userId}")
+    public ResponseEntity<?> getPaymentUserId(@PathVariable("userId") Long id){
+        return paymentService.getPaymentUserId(id);
+    }
+
+    @GetMapping("/getGroupId/payment/{groupId}")
+    public ResponseEntity<?> getPaymentGroupId(@PathVariable("groupId") Long id){
+        return paymentService.getPaymentUserId(id);
+    }
+
+    @GetMapping("/getMoonId/payment/{moonId}")
+    public ResponseEntity<?> getPaymentMoonId(@PathVariable("moonId") Long id){
+        return paymentService.getPaymentMoonId(id);
+    }
+
+    @PostMapping("/save/salary")
+    public ResponseEntity<?> saveSalary(@RequestBody SalaryPayload payload){
+        return salaryService.saveSalary(payload);
+    }
+
+    @PutMapping("/edit/salary/{salaryId}")
+    public ResponseEntity<?> editSalaryId(@PathVariable("salaryId") Long id, @RequestBody SalaryPayload payload){
+        return salaryService.editSalary(id, payload);
+    }
+
+    @DeleteMapping("/delete/salary/{salaryId}")
+    public ResponseEntity<?> deleteSalaryId(@PathVariable("salaryId") Long id){
+        return salaryService.deleteSalaryId(id);
+    }
+
+    @DeleteMapping("/deleteEmployeId/salary/{employeId}")
+    public ResponseEntity<?> deleteSalaryemployeId(@PathVariable("employeId") Long id){
+        return salaryService.deleteSalaryEmployeId(id);
+    }
+
+    @GetMapping("/all/salary")
+    public ResponseEntity<?> getAllSalary(){
+        return salaryService.getAllSalary();
+    }
+
+    @GetMapping("/getMoonId/salary/{moonId}")
+    public ResponseEntity<?> getSalaryMoonId(@PathVariable("moonId") Long id){
+        return salaryService.getSalaryMoonId(id);
+    }
+
+
+
 
 
 }

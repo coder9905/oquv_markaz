@@ -4,30 +4,28 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import uz.zako.oquv_markaz.entity.Discount;
-import uz.zako.oquv_markaz.entity.Groups;
-import uz.zako.oquv_markaz.entity.Moon;
+import uz.zako.oquv_markaz.entity.Employee;
 import uz.zako.oquv_markaz.entity.User;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import java.util.List;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @Data
-public class PaymentPayload {
+public class SalaryPayload {
+
+    private Long id;
+
+    private String title;
 
     private Long price;
 
-    private String moon;
+    private String month;
 
-    private Long discountId;
-
-    private Long groupsId;
+    private Long employeeId;
 
     private Long userId;
 

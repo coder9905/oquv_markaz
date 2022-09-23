@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.zako.oquv_markaz.payload.CenterBranchesPayload;
 import uz.zako.oquv_markaz.payload.TrainingCenterPayload;
+import uz.zako.oquv_markaz.service.BlockService;
 import uz.zako.oquv_markaz.service.CenterBranchesService;
 import uz.zako.oquv_markaz.service.TrainingCenterService;
 
@@ -17,6 +18,7 @@ public class SuperAdminController {
 
     private final TrainingCenterService trainingCenterService;
     private final CenterBranchesService centerBranchesService;
+    private final BlockService blockService;
 
     @GetMapping("/getOneTrainingCenter/{trainingCenterId}")
     public ResponseEntity<?> getOneTrainingCenter(@PathVariable("trainingCenterId") Long id){
@@ -67,6 +69,21 @@ public class SuperAdminController {
     @DeleteMapping("/deleteCenterBranches/{centerBranchesId}")
     public ResponseEntity<?> deleteCenterBranches(@PathVariable("centerBranchesId") Long id){
         return centerBranchesService.delete(id);
+    }
+
+    @PostMapping("/save/block/{trainingCenterId}")
+    public ResponseEntity<?> saveBlock(@PathVariable("trainingCenterId") Long id){
+        return blockService.saveBlock(id);
+    }
+
+    @DeleteMapping("/delete/block/{blockId}")
+    public ResponseEntity<?> deleteBlock(@PathVariable("blockId") Long id){
+        return blockService.deleteBlock(id);
+    }
+
+    @GetMapping("/all/block")
+    public ResponseEntity<?> getAllBlock(){
+        return blockService.getAllBlock();
     }
 
 }

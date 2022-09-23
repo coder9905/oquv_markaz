@@ -153,6 +153,11 @@ public class AdminController {
         return userService.editUser(hashId, payload);
     }
 
+    @GetMapping("/all/user")
+    public ResponseEntity<?> getAllUser(){
+        return userService.getAllUsers();
+    }
+
     @DeleteMapping("/delete/user/{userId}")
     public ResponseEntity<?> deleteUserId(@PathVariable("userId") Long id) {
         return userService.deleteUserId(id);
@@ -167,7 +172,6 @@ public class AdminController {
     public ResponseEntity<?> deleteUserCenterBranchesId(@PathVariable("centerBranchesId") Long id) {
         return userService.deleteUserCenterBranchesId(id);
     }
-
 
     @GetMapping("/getOne/user{userId}")
     public ResponseEntity<?> getOneUser(@PathVariable("userId") Long id) {

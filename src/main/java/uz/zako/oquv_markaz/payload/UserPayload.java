@@ -36,4 +36,13 @@ public class UserPayload {
         this.username = username;
         this.fullName = fullName;
     }
+
+    public UserPayload(Long id, String username, String password, String fullName, String phone, String adress) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.adress = adress;
+    }
 }

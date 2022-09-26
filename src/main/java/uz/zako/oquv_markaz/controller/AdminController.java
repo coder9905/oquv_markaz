@@ -147,7 +147,6 @@ public class AdminController {
         return userService.saveUser(hashId, payload);
     }
 
-
     @PutMapping("/edit/user/{hashId}")
     public ResponseEntity<?> editUser(@PathVariable("hashId") String hashId, @RequestBody UserPayload payload) {
         return userService.editUser(hashId, payload);

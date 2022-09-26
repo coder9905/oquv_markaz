@@ -39,7 +39,7 @@ public class DataLoader implements CommandLineRunner {
                 roleUser.setId(1L);
                 Role roleAdmin = new Role(2L, "ROLE_ADMIN");
                 Role roleSupperAdmin=new Role(3L, "ROLE_SUPERADMIN");
-                Role roleMenedger=new Role(4L, "ROLE_MENEJER");
+                Role roleMenedger=new Role(4L, "ROLE_CREATOR");
                 Role roleTeacher=new Role(5L, "ROLE_TEACHER");
 
                 List<Role> roleList = new ArrayList<>(Arrays.asList(roleUser, roleAdmin,roleSupperAdmin,roleMenedger,roleTeacher));
@@ -48,13 +48,27 @@ public class DataLoader implements CommandLineRunner {
                 Admin admin = new Admin();
 
                 admin.setAdmin(true);
-                admin.setFullName("superAdmin");
-                admin.setUsername("superAdmin");
-                admin.setPassword(passwordEncoder.encode("superAdmin"));
+                admin.setFullName("joha");
+                admin.setUsername("joha");
+                admin.setPassword(passwordEncoder.encode("joha123"));
                 admin.setAdress("Tashkent");
-                admin.setPhone("90-789-07-55");
+                admin.setPhone("90-377-89-90");
                 admin.setSocial("t.me/test");
                 admin.setRoles(roleList);
+
+                adminRepository.save(admin);
+
+                admin=new Admin();
+
+                admin.setAdmin(true);
+                admin.setFullName("coder");
+                admin.setUsername("coder");
+                admin.setPassword(passwordEncoder.encode("coder123"));
+                admin.setAdress("Tashkent");
+                admin.setPhone("90-377-89-90");
+                admin.setSocial("t.me/test");
+                admin.setRoles(roleList);
+
                 adminRepository.save(admin);
 
                 System.out.println("Admin saqlandi");

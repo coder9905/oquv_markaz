@@ -10,14 +10,13 @@ import org.springframework.stereotype.Service;
 import uz.zako.oquv_markaz.entity.Category;
 import uz.zako.oquv_markaz.entity.News;
 import uz.zako.oquv_markaz.entity.TrainingCenter;
+import uz.zako.oquv_markaz.entity.User;
 import uz.zako.oquv_markaz.exception.ResourceNotFoundException;
 import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.NewsPayload;
 import uz.zako.oquv_markaz.payload.TrainingCenterPayload;
-import uz.zako.oquv_markaz.repository.AttachmentRepository;
-import uz.zako.oquv_markaz.repository.CategoryRepository;
-import uz.zako.oquv_markaz.repository.NewsRepository;
-import uz.zako.oquv_markaz.repository.TrainingCenterRepository;
+import uz.zako.oquv_markaz.repository.*;
+import uz.zako.oquv_markaz.security.SecurityUtils;
 import uz.zako.oquv_markaz.service.NewsService;
 import uz.zako.oquv_markaz.service.TrainingCenterService;
 
@@ -32,6 +31,9 @@ import static java.lang.String.format;
 public class TrainingCenterServiceImpl implements TrainingCenterService {
 
     private final TrainingCenterRepository trainingCenterRepository;
+    private final SecurityUtils securityUtils;
+//    private final String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
+
 
     @Override
     public ResponseEntity<?> save(TrainingCenterPayload payload){

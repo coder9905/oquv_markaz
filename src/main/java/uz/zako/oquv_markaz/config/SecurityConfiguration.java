@@ -38,9 +38,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .frameOptions()
                 .and().and()
                 .authorizeRequests()
+                .antMatchers("/api/**").hasRole("SUPERADMIN")
                 .antMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/superAdmin/**").hasRole("SUPERADMIN")
                 .antMatchers("/api/admin/**", "/api/file/**").hasAnyRole("ADMIN","SUPERADMIN")
                 // Rest api documentition ni chiqazib beradi
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/**", "/csrf").permitAll()

@@ -6,9 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.zako.oquv_markaz.payload.CenterBranchesPayload;
 import uz.zako.oquv_markaz.payload.TrainingCenterPayload;
+import uz.zako.oquv_markaz.payload.UserPayload;
 import uz.zako.oquv_markaz.service.BlockService;
 import uz.zako.oquv_markaz.service.CenterBranchesService;
 import uz.zako.oquv_markaz.service.TrainingCenterService;
+import uz.zako.oquv_markaz.service.UserService;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +21,7 @@ public class SuperAdminController {
     private final TrainingCenterService trainingCenterService;
     private final CenterBranchesService centerBranchesService;
     private final BlockService blockService;
+    private final UserService userService;
 
     @GetMapping("/getOneTrainingCenter/{trainingCenterId}")
     public ResponseEntity<?> getOneTrainingCenter(@PathVariable("trainingCenterId") Long id){
@@ -84,6 +87,11 @@ public class SuperAdminController {
     @GetMapping("/all/block")
     public ResponseEntity<?> getAllBlock(){
         return blockService.getAllBlock();
+    }
+
+    @PostMapping("/save/user/{hashId}")
+    public ResponseEntity<?> saveUser(@PathVariable("hashId") String hashId, @RequestBody UserPayload payload) {
+        return userService.saveUser(hashId, payload);
     }
 
 }

@@ -12,6 +12,7 @@ public class OquvMarkazApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(OquvMarkazApplication.class, args);
+
     }
 
     public WebMvcConfigurer corsConfigurer() {

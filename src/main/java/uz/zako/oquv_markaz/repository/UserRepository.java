@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import uz.zako.oquv_markaz.entity.User;
+import uz.zako.oquv_markaz.payload.UserPayload;
 
 import java.util.List;
 
@@ -18,8 +19,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User getById(Long id);
 
-    @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
-    List<User> getByGroupIdUsers(Long id);
+//    @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
+//    List<User> getByUsersGroupId(Long id);
+
+    @Query("select new uz.zako.oquv_markaz.payload.UserPayload(u.id,u.username,u.password,u.fullName,u.phone,u.adress) from users u inner join u.group ug inner join u.centerBranches uc where ug.id=?1 and uc.id=?2")
+    List<UserPayload> getByUsersGroupId(Long groupId, Long centerBranchesId);
+
 
     @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
     List<User> getBycenterBranchesIdUsers(Long id);

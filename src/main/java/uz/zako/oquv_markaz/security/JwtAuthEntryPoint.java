@@ -19,6 +19,6 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         logger.error("error message - {}", authException.getMessage());
-        response.sendError(500, "You are not Authenticaton");
+        response.sendError(403, "You are not Authenticaton");
     }
 }

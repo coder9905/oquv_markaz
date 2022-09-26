@@ -57,6 +57,36 @@ public class AuthController {
         }
     }
 
+
+//    @PostMapping("/token")
+//    public ResponseEntity<?> login(@RequestBody UserPayload payload) {
+//
+//        if (true) {
+//            User user = userRepository.findByUsername(payload.getUsername());
+//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(payload.getUsername(), payload.getPassword()));
+//            String token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+//            System.out.println(token.toString());
+//            if (token == null) {
+//                return new ResponseEntity(new Result(false, "error", null), HttpStatus.BAD_REQUEST);
+//            }
+//            Map<String, Object> map = new HashMap();
+//            map.put("token", token);
+//            map.put("username", true);
+//            return ResponseEntity.ok(map);
+//        }
+//        return ResponseEntity.ok(new Result(false, "error", null));
+//    }
+//
+//    @PostMapping("/refresh-token")
+//    public ResponseEntity<?> refreshToken(@RequestBody AuthTokenPayload payload) {
+//        try {
+//            return ResponseEntity.ok(authService.refreshToken(payload));
+//        } catch (Exception e) {
+//            log.error("error in refresh token - {}", e.getMessage());
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Result.error(e.getMessage()));
+//        }
+//    }
+
     @GetMapping("/me")
     public ResponseEntity<?> getMe() {
         String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));

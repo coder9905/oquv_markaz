@@ -31,8 +31,6 @@ public class UserserviceImpl implements UserService {
     private final CenterBranchesRepository centerBranchesRepository;
     private final AttachmentRepository attachmentRepository;
     private final SecurityUtils securityUtils;
-    private final String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
-    private final User userToken=userRepository.findByUsername(username);
 
     @Override
     public ResponseEntity<?> saveUser(String hashId, UserPayload payload) {
@@ -43,6 +41,8 @@ public class UserserviceImpl implements UserService {
             user.setPhone(payload.getPhone());
             user.setAdress(payload.getAdress());
             user.setAdmin(payload.isAdmin());
+            String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
+            User userToken=userRepository.findByUsername(username);
             if (userToken.getUsername().equals("joha") || userToken.getUsername().equals("coder")){
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_CREATOR")));
             }else if (userToken.getRoles().get(0).getName().equals("ROLE_CREATOR")){
@@ -70,6 +70,8 @@ public class UserserviceImpl implements UserService {
     public ResponseEntity<?> getOne(Long userId) {
         try {
             User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user not found"));
+            String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
+            User userToken=userRepository.findByUsername(username);
             if (user.getCenterBranches().get(0).getId()==userToken.getCenterBranches().get(0).getId()) {
                 return ResponseEntity.ok(new Result(true, "get One User", user));
             }
@@ -83,6 +85,8 @@ public class UserserviceImpl implements UserService {
     @Override
     public ResponseEntity<?> getUserGroupId(Long groupId) {
         try {
+            String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
+            User userToken=userRepository.findByUsername(username);
             List<UserPayload> users = userRepository.getByUsersGroupId(groupId,userToken.getCenterBranches().get(0).getId());
             if (users != null) {
                 return ResponseEntity.ok(new Result(true, "getUserGroupId", users));
@@ -97,6 +101,8 @@ public class UserserviceImpl implements UserService {
     @Override
     public ResponseEntity<?> getUsercenterBranchesId(Long id) {
         try {
+            String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
+            User userToken=userRepository.findByUsername(username);
             if (userToken.getCenterBranches().get(0).getId()==id) {
                 List<User> users = userRepository.getBycenterBranchesIdUsers(id);
                 return ResponseEntity.ok(new Result(true, "getUsercenterBranchesId", users));

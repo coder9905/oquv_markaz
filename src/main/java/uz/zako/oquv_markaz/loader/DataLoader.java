@@ -41,10 +41,10 @@ public class DataLoader implements CommandLineRunner {
                 Role roleAdmin = new Role(2L, "ROLE_ADMIN");
                 Role roleTeacher=new Role(3L, "ROLE_TEACHER");
                 Role roleMeneger=new Role(4L,"ROLE_MENEGER");
-                Role roleMenedger=new Role(5L, "ROLE_CREATOR");
+                Role roleCreator=new Role(5L, "ROLE_CREATOR");
                 Role roleSupperAdmin=new Role(6L, "ROLE_SUPERADMIN");
 
-                List<Role> roleList = new ArrayList<>(Arrays.asList(roleUser, roleAdmin,roleSupperAdmin,roleMenedger,roleTeacher));
+                List<Role> roleList = new ArrayList<>(Arrays.asList(roleUser, roleAdmin,roleTeacher,roleMeneger,roleCreator,roleSupperAdmin));
                 roleRepository.saveAll(roleList);
 
                 Admin admin = new Admin();

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import uz.zako.oquv_markaz.entity.CenterBranches;
+import uz.zako.oquv_markaz.entity.Phone;
 import uz.zako.oquv_markaz.entity.TrainingCenter;
 import uz.zako.oquv_markaz.entity.User;
 import uz.zako.oquv_markaz.exception.ResourceNotFoundException;
@@ -14,12 +15,14 @@ import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.CenterBranchesPayload;
 import uz.zako.oquv_markaz.payload.TrainingCenterPayload;
 import uz.zako.oquv_markaz.repository.CenterBranchesRepository;
+import uz.zako.oquv_markaz.repository.PhoneRepository;
 import uz.zako.oquv_markaz.repository.TrainingCenterRepository;
 import uz.zako.oquv_markaz.repository.UserRepository;
 import uz.zako.oquv_markaz.security.SecurityUtils;
 import uz.zako.oquv_markaz.service.CenterBranchesService;
 import uz.zako.oquv_markaz.service.TrainingCenterService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,6 +34,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
     private final TrainingCenterRepository trainingCenterRepository;
     private final SecurityUtils securityUtils;
     private final UserRepository userRepository;
+    private final PhoneRepository phoneRepository;
 
     @Override
     public ResponseEntity<?> save(Long trainingCenterId, CenterBranchesPayload payload){
@@ -39,7 +43,14 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
                 CenterBranches centerBranches=new CenterBranches();
 
                 centerBranches.setName(payload.getName());
-                centerBranches.setPhone(payload.getPhone());
+                List<Phone> phones=new ArrayList<>();
+                for (int i = 0; i < payload.getPhone().size(); i++) {
+                    Phone phone=new Phone();
+                    phone.setPhone(payload.getPhone().get(i));
+                    phone=phoneRepository.save(phone);
+                    phones.add(phone);
+                }
+                centerBranches.setPhones(phones);
                 centerBranches.setWorkingTime(payload.getWorkingTime());
 
                 centerBranches.setTraining_center(trainingCenterRepository.findById(trainingCenterId).orElseThrow(()->new ResourceNotFoundException("training center topilmadi")));
@@ -73,7 +84,14 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
             CenterBranches centerBranches=centerBranchesRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("centerBranches not found"));
 
             centerBranches.setName(payload.getName());
-            centerBranches.setPhone(payload.getPhone());
+            List<Phone> phones1=centerBranches.getPhones();
+            for (int i = 0; i < payload.getPhone().size(); i++) {
+                Phone phone=new Phone();
+                phone.setPhone(payload.getPhone().get(i));
+                phone=phoneRepository.save(phone);
+                phones1.add(phone);
+            }
+            centerBranches.setPhones(phones1);
             centerBranches.setWorkingTime(payload.getWorkingTime());
             centerBranches.setTraining_center(trainingCenterRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("TrainingCenter not found")));
 

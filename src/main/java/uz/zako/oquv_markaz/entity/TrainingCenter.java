@@ -19,7 +19,6 @@ public class TrainingCenter extends AbstractEntity {
 
     private String workingTime;
 
-    @Column(table = "false")
     private boolean block;
 
     @ManyToMany

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -15,15 +17,20 @@ public class CenterBranchesPayload {
 
     private String name;
 
-    private String phone;
+    private List<String> phone;
 
     private String workingTime;
 
     private Long TrainingCenter;
 
-    public CenterBranchesPayload(Long id, String name, String phone) {
+    public CenterBranchesPayload(Long id, String name, List<String> phone) {
         this.id = id;
         this.name = name;
         this.phone = phone;
+    }
+
+    public CenterBranchesPayload(Long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 }

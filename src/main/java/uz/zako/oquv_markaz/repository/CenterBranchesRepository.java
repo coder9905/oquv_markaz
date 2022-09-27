@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface CenterBranchesRepository extends JpaRepository<CenterBranches, Long> {
 
-    @Query("select new uz.zako.oquv_markaz.payload.CenterBranchesPayload(c.id,c.name,c.phone) from CenterBranches c where c.training_center.id=?1")
+    @Query("select new uz.zako.oquv_markaz.payload.CenterBranchesPayload(c.id,c.name) from CenterBranches c where c.training_center.id=?1")
     List<CenterBranchesPayload> getTrainingCenterId(Long id);
 
     @Query(nativeQuery = true, value = "select cb.* from center_branches cb join users_center_branches ucb on cb.id = ucb.center_branches_id join users u on ucb.users_id = u.id where u.username=?1")

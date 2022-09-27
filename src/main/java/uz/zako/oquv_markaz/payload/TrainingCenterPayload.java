@@ -21,5 +21,12 @@ public class TrainingCenterPayload {
     private Date createdAt;
     private Date updatedAt;
 
-
+    public TrainingCenterPayload(Long id, String name, boolean block, String workingTime, Date createdAt, Date updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.block = block;
+        this.workingTime = workingTime;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }

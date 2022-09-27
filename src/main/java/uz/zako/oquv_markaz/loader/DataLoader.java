@@ -34,13 +34,15 @@ public class DataLoader implements CommandLineRunner {
 
         try {
             if (init.equalsIgnoreCase("create")) {
+
                 Role roleUser = new Role();
                 roleUser.setName("ROLE_USER");
                 roleUser.setId(1L);
                 Role roleAdmin = new Role(2L, "ROLE_ADMIN");
-                Role roleSupperAdmin=new Role(3L, "ROLE_SUPERADMIN");
-                Role roleMenedger=new Role(4L, "ROLE_CREATOR");
-                Role roleTeacher=new Role(5L, "ROLE_TEACHER");
+                Role roleTeacher=new Role(3L, "ROLE_TEACHER");
+                Role roleMeneger=new Role(4L,"ROLE_MENEGER");
+                Role roleMenedger=new Role(5L, "ROLE_CREATOR");
+                Role roleSupperAdmin=new Role(6L, "ROLE_SUPERADMIN");
 
                 List<Role> roleList = new ArrayList<>(Arrays.asList(roleUser, roleAdmin,roleSupperAdmin,roleMenedger,roleTeacher));
                 roleRepository.saveAll(roleList);
@@ -68,7 +70,6 @@ public class DataLoader implements CommandLineRunner {
                 admin.setPhone("90-377-89-90");
                 admin.setSocial("t.me/test");
                 admin.setRoles(roleList);
-
                 adminRepository.save(admin);
 
                 System.out.println("Admin saqlandi");

@@ -21,6 +21,7 @@ public class RefreshToken extends AbstractEntity {
     private String refreshToken;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
     private Date expiredTime;

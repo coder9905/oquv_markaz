@@ -1,7 +1,11 @@
 package uz.zako.oquv_markaz.payload;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class NewsPayload {
 
@@ -10,17 +14,6 @@ public class NewsPayload {
     private String body;
     private String img;
     private Long categoryId;
-
-    public NewsPayload() {
-    }
-
-    public NewsPayload(Long id, String title, String body, String img, Long categoryId) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
-        this.img = img;
-        this.categoryId = categoryId;
-    }
 
     public NewsPayload(String title, String body, String img, Long categoryId) {
         this.title = title;

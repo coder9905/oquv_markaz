@@ -15,6 +15,7 @@ import uz.zako.oquv_markaz.repository.*;
 import uz.zako.oquv_markaz.security.SecurityUtils;
 import uz.zako.oquv_markaz.service.UserService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,28 +37,33 @@ public class UserserviceImpl implements UserService {
     public ResponseEntity<?> saveUser(String hashId, UserPayload payload) {
         try {
             User user = new User();
+            User user1 =new User();
             user.setUsername(payload.getUsername());
             user.setFullName(payload.getFullName());
             user.setPhone(payload.getPhone());
             user.setAdress(payload.getAdress());
-            user.setAdmin(payload.isAdmin());
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
             User userToken=userRepository.findByUsername(username);
-            if (userToken.getUsername().equals("joha") || userToken.getUsername().equals("coder")){
+            if (userToken.getRoles().get(2).getName().equals("ROLE_SUPERADMIN") || userToken.getRoles().get(2).getName().equals("ROLE_SUPERADMIN")){
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_CREATOR")));
+                user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
             }else if (userToken.getRoles().get(0).getName().equals("ROLE_CREATOR")){
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
-                user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(userToken.getCenterBranches().get(0).getId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
+                user.setAdmin(true);
+                user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
             }else if (userToken.getRoles().get(0).getName().equals("ROLE_ADMIN")){
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
-                user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(userToken.getCenterBranches().get(0).getId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
+                user.setAdmin(false);
+                user.setGroup(Arrays.asList(groupRepository.findById(payload.getGroupId()).orElseThrow(()->new ResourceNotFoundException("Group id not found"))));
+                user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
             }
             if (user.getRoles() != null) {
                 user.setPassword(passwordEncoder.encode(payload.getPassword()));
                 user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
-                user = userRepository.save(user);
-            }else if (user != null) {
-                return ResponseEntity.ok(new Result(true, "save succesfull", user));
+                user1=userRepository.save(user);
+                if (user1 != null) {
+                    return ResponseEntity.ok(new Result(true, "save succesfull", user));
+                }
             }
             return new ResponseEntity(new Result(false, "save not succesfull", null), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -183,11 +189,32 @@ public class UserserviceImpl implements UserService {
         try {
             userRepository.deleteCenterBranchesIdUser(id);
             return ResponseEntity.ok("delete succesfull");
-        } catch (Exception e) {
+        }catch (Exception e) {
             log.error("error user", e.getMessage());
             return new ResponseEntity(new Result(false, "delete not succesfull", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @Override
+    public ResponseEntity<?> saveUserCenterBranches(UserPayload payload){
+        try {
+            User user=userRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("User not found"));
+            List<CenterBranches> centerBranches=new ArrayList<>();
+            for (int i = 0; i < user.getCenterBranches().size(); i++) {
+                CenterBranches centerBranches1=centerBranchesRepository.findById(user.getCenterBranches().get(i).getId()).get();
+                centerBranches.add(centerBranches1);
+            }
+            centerBranches.add(centerBranchesRepository.findById(payload.getCenterBranchesId()).get());
+            user.setCenterBranches(centerBranches);
+            user=userRepository.save(user);
+            if (user != null){
+                return ResponseEntity.ok(Result.ok(user));
+            }
+            return new ResponseEntity(new Result(false, "saveUserCenterBranches not succesfull", null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (Exception e) {
+            log.error("error user", e.getMessage());
+            return new ResponseEntity(new Result(false, "saveUserCenterBranches not succesfull", null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

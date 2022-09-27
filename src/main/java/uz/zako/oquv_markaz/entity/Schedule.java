@@ -1,6 +1,7 @@
 package uz.zako.oquv_markaz.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,10 +22,11 @@ public class Schedule extends AbstractEntity {
 
     private String finishTime;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Week> weeks;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Employee employee;
 
 

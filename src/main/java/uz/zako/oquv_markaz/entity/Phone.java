@@ -1,28 +1,25 @@
 package uz.zako.oquv_markaz.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @Entity
-public class TrainingCenter extends AbstractEntity {
+public class Phone extends AbstractEntity {
 
-    private String name;
-
-    private String workingTime;
-
-    @Column(table = "false")
-    private boolean block;
-
-    @ManyToMany
-    private List<Phone> phones;
+    private String phone;
 
 }

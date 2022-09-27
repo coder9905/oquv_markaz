@@ -1,9 +1,6 @@
 package uz.zako.oquv_markaz.payload;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import uz.zako.oquv_markaz.entity.Discount;
 import uz.zako.oquv_markaz.entity.Groups;
 import uz.zako.oquv_markaz.entity.Moon;
@@ -16,8 +13,8 @@ import javax.persistence.ManyToOne;
 import java.util.List;
 
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
+
 @Data
 public class PaymentPayload {
 

@@ -1,10 +1,7 @@
 package uz.zako.oquv_markaz.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Proxy;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
@@ -29,17 +26,23 @@ public class Groups extends AbstractEntity {
     @Column(columnDefinition = "TEXT")
     private String discription;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @ManyToMany
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Attachment> img;
 
     private String duration;
 
     private Long capacity;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @ManyToMany
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Subject> subject;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @ManyToMany
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Employee> employees;
 
 

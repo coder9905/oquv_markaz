@@ -1,6 +1,7 @@
 package uz.zako.oquv_markaz.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Outputs extends AbstractEntity {
     private Long price;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
 }

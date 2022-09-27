@@ -19,7 +19,7 @@ public class Discount extends AbstractEntity {
 
     private Long foiz;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Groups> groups;
 
 }

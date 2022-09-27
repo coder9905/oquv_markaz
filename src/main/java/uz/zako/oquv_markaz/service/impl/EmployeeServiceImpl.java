@@ -12,8 +12,10 @@ import uz.zako.oquv_markaz.payload.EmployePayload;
 import uz.zako.oquv_markaz.repository.AttachmentRepository;
 import uz.zako.oquv_markaz.repository.CenterBranchesRepository;
 import uz.zako.oquv_markaz.repository.EmployesRepository;
+import uz.zako.oquv_markaz.repository.RoleRepository;
 import uz.zako.oquv_markaz.service.EmployeeService;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -24,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployesRepository employesRepository;
     private final CenterBranchesRepository centerBranchesRepository;
     private final AttachmentRepository attachmentRepository;
-
+    private final RoleRepository roleRepository;
     @Override
     public ResponseEntity<?>  save(EmployePayload payload, String hashId){
         try {
@@ -36,8 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setTeacher(payload.isTeacher());
             employee.setPosition(payload.getPosition());
             employee.setSeniority(payload.getSeniority());
+            employee.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
             employee.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("Attachment not found")));
-            employee.setCenterBranches(centerBranchesRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));
+            employee.setCenterBranches(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));
             employee=employesRepository.save(employee);
             if (employee != null) {
                 return ResponseEntity.ok("save succesfull");

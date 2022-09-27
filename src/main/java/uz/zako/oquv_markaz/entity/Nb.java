@@ -16,10 +16,10 @@ import java.util.List;
 public class Nb extends AbstractEntity {
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<User> user;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<User> users;
 
 }

@@ -1,8 +1,10 @@
 package uz.zako.oquv_markaz.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
 import javax.persistence.*;
@@ -29,7 +31,9 @@ public class User extends AbstractEntity {
 
     private String adress;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Attachment img;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -38,9 +42,10 @@ public class User extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private List<Role> roles;
 
+
     private boolean isAdmin;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Groups> group;
 
     @ManyToMany(fetch = FetchType.LAZY)

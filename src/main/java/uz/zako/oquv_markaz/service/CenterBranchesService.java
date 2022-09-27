@@ -16,4 +16,6 @@ public interface CenterBranchesService {
     ResponseEntity<?> getAll();
 
     ResponseEntity<?> getTrainingId(Long id);
+
+    ResponseEntity<?> getCenterBranchesTokenId(Long trainingCenterId);
 }

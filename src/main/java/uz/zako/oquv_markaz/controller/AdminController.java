@@ -47,11 +47,6 @@ public class AdminController {
         return employeeService.deleteEmployeCenterBranchesId(id);
     }
 
-    @GetMapping("/getone/employe/{emploeId}")
-    public ResponseEntity<?> getOneEmploye(@PathVariable("employeId") Long id) {
-        return employeeService.getOne(id);
-    }
-
     @GetMapping("/getAll/employee")
     public ResponseEntity<?> getAllEmployee() {
         return employeeService.getAllEmployee();
@@ -142,30 +137,6 @@ public class AdminController {
         return groupService.getAllGroups();
     }
 
-    @PostMapping("/save/user/{hashId}")
-    public ResponseEntity<?> saveUser(@PathVariable("hashId") String hashId, @RequestBody UserPayload payload) {
-        return userService.saveUser(hashId, payload);
-    }
-
-    @PutMapping("/edit/user/{hashId}")
-    public ResponseEntity<?> editUser(@PathVariable("hashId") String hashId, @RequestBody UserPayload payload) {
-        return userService.editUser(hashId, payload);
-    }
-
-    @GetMapping("/all/user")
-    public ResponseEntity<?> getAllUser(){
-        return userService.getAllUsers();
-    }
-
-    @DeleteMapping("/delete/user/{userId}")
-    public ResponseEntity<?> deleteUserId(@PathVariable("userId") Long id) {
-        return userService.deleteUserId(id);
-    }
-
-    @DeleteMapping("/deleteGroupId/user/{groupId}")
-    public ResponseEntity<?> deleteUserGroupId(@PathVariable("groupId") Long id) {
-        return userService.deleteUserGroupId(id);
-    }
 
     @DeleteMapping("/deleteUserCenterBranchesId/user/{centerBranchesId}")
     public ResponseEntity<?> deleteUserCenterBranchesId(@PathVariable("centerBranchesId") Long id) {

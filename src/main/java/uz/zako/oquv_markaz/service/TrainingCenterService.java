@@ -14,4 +14,12 @@ public interface TrainingCenterService {
     ResponseEntity<?> getOne(Long id);
 
     ResponseEntity<?> getAll();
+
+    ResponseEntity<?> getAllPage(int page, int size);
+
+    ResponseEntity<?> getUserTokenTrainingCenter();
+
+    ResponseEntity<?> savetrainingCenterBlock(Long trainingCenterId);
+
+    ResponseEntity<?> deletetrainingCenterBlock(Long trainingCenterId);
 }

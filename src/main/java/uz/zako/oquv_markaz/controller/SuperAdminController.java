@@ -68,7 +68,6 @@ public class SuperAdminController {
         return centerBranchesService.edit(payload,id);
     }
 
-
     @DeleteMapping("/deleteCenterBranches/{centerBranchesId}")
     public ResponseEntity<?> deleteCenterBranches(@PathVariable("centerBranchesId") Long id){
         return centerBranchesService.delete(id);
@@ -76,23 +75,24 @@ public class SuperAdminController {
 
     @PostMapping("/save/block/{trainingCenterId}")
     public ResponseEntity<?> saveBlock(@PathVariable("trainingCenterId") Long id){
-        return blockService.saveBlock(id);
+        return trainingCenterService.savetrainingCenterBlock(id);
     }
 
-    @DeleteMapping("/delete/block/{blockId}")
-    public ResponseEntity<?> deleteBlock(@PathVariable("blockId") Long id){
-        return blockService.deleteBlock(id);
+    @DeleteMapping("/delete/block/{trainingCenterId}")
+    public ResponseEntity<?> deleteBlock(@PathVariable("trainingCenterId") Long id){
+        return trainingCenterService.deletetrainingCenterBlock(id);
     }
 
-    @GetMapping("/all/block")
-    public ResponseEntity<?> getAllBlock(){
-        return blockService.getAllBlock();
+    @PostMapping("/saveCenterBranchesId/user")
+    public ResponseEntity<?> saveUserCenterBranchesId(@RequestBody UserPayload payload){
+        return userService.saveUserCenterBranches(payload);
     }
 
-    @PostMapping("/save/user/{hashId}")
-    public ResponseEntity<?> saveUser(@PathVariable("hashId") String hashId, @RequestBody UserPayload payload) {
-        return userService.saveUser(hashId, payload);
+    @GetMapping("/getAllTrainingCenter")
+    public ResponseEntity<?> getAllTrainingCenter(@RequestParam(defaultValue = "0") int page, int size) {
+        return trainingCenterService.getAllPage(page, size);
     }
+
 
 }
 

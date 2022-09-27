@@ -23,4 +23,6 @@ public interface UserService {
     ResponseEntity<?> deleteUserGroupId(Long id);
 
     ResponseEntity<?> deleteUserCenterBranchesId(Long id);
+
+    ResponseEntity<?> saveUserCenterBranches(UserPayload payload);
 }

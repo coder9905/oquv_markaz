@@ -1,9 +1,11 @@
 package uz.zako.oquv_markaz.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
 import javax.persistence.*;
@@ -21,10 +23,14 @@ public class Subject extends AbstractEntity {
     @Column(columnDefinition = "TEXT")
     private String discription;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Attachment img;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CenterBranches centerBranches;
 
 }

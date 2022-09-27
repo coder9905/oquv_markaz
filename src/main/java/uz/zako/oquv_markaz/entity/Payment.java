@@ -1,5 +1,6 @@
 package uz.zako.oquv_markaz.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
@@ -20,12 +21,13 @@ public class Payment extends AbstractEntity {
     private Moon moon;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Discount discount;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Groups> groups;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<User> users;
 
 }

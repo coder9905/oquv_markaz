@@ -1,9 +1,6 @@
 package uz.zako.oquv_markaz.payload;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import uz.zako.oquv_markaz.entity.Attachment;
 import uz.zako.oquv_markaz.entity.CenterBranches;
 
@@ -12,8 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor
 @Data
 public class EmployePayload {
 
@@ -37,6 +33,8 @@ public class EmployePayload {
 
     private Long centerBranchesId;
 
+    private String role;
+
     public EmployePayload(Long id, String fullName, String phone, String adress, boolean isTeacher, Long monthly, String position, String seniority) {
         this.id = id;
         this.fullName = fullName;
@@ -48,4 +46,13 @@ public class EmployePayload {
         this.seniority = seniority;
     }
 
+    public EmployePayload(String fullName, String phone, String adress, boolean isTeacher, String position, String seniority, Long monthly) {
+        this.fullName = fullName;
+        this.phone = phone;
+        this.adress = adress;
+        this.isTeacher = isTeacher;
+        this.position = position;
+        this.seniority = seniority;
+        this.monthly = monthly;
+    }
 }

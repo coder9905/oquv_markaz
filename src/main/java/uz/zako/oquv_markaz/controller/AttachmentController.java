@@ -14,11 +14,6 @@ public class AttachmentController {
 
     private  final AttachmentService attachmentService;
 
-    @GetMapping("/")
-    public String get() {
-        return "Hello:)";
-    }
-
     @PostMapping("/")
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile multipartFile) {
         System.out.println(multipartFile.toString());

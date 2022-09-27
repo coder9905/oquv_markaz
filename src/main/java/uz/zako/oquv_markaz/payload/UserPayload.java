@@ -2,9 +2,11 @@ package uz.zako.oquv_markaz.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class UserPayload {
@@ -28,9 +30,6 @@ public class UserPayload {
         this.fullName = fullName;
     }
 
-    public UserPayload() {
-    }
-
     public UserPayload(Long id, String username, String fullName) {
         this.id = id;
         this.username = username;
@@ -44,5 +43,10 @@ public class UserPayload {
         this.fullName = fullName;
         this.phone = phone;
         this.adress = adress;
+    }
+
+    public UserPayload(Long id, Long centerBranchesId) {
+        this.id = id;
+        this.centerBranchesId = centerBranchesId;
     }
 }

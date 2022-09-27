@@ -36,4 +36,11 @@ public class SubjectPayload {
         this.hashId = hashId;
     }
 
+    public SubjectPayload(String name, String title, String discription, String hashId, Long centerBranchesId) {
+        this.name = name;
+        this.title = title;
+        this.discription = discription;
+        this.hashId = hashId;
+        this.centerBranchesId = centerBranchesId;
+    }
 }

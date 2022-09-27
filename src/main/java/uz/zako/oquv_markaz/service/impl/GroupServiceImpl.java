@@ -70,6 +70,7 @@ public class GroupServiceImpl implements GroupService {
     public ResponseEntity<?> getAllGroups(){
         try {
             List<Groups> groupss=groupRepository.findAll();
+            System.out.println(groupss.toString());
             if (groupss != null){
                 return ResponseEntity.ok(new Result(true,"getAll Groups",groupss));
             }

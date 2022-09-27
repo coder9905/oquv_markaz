@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,12 +19,13 @@ public class CenterBranches extends AbstractEntity {
 
     private String name;
 
-    private String phone;
-
     private String workingTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,optional = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private TrainingCenter training_center;
+
+    @ManyToMany
+    private List<Phone> phones;
 
 }

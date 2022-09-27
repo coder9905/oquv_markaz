@@ -1,6 +1,7 @@
 package uz.zako.oquv_markaz.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,10 @@ import javax.persistence.ManyToOne;
 @Entity(name = "blocks")
 public class Block extends AbstractEntity {
 
+    private boolean Block;
+
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private TrainingCenter trainingCenter;
 
 }

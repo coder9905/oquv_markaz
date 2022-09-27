@@ -2,17 +2,21 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import uz.zako.oquv_markaz.entity.CenterBranches;
 import uz.zako.oquv_markaz.entity.TrainingCenter;
+import uz.zako.oquv_markaz.entity.User;
 import uz.zako.oquv_markaz.exception.ResourceNotFoundException;
 import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.CenterBranchesPayload;
 import uz.zako.oquv_markaz.payload.TrainingCenterPayload;
 import uz.zako.oquv_markaz.repository.CenterBranchesRepository;
 import uz.zako.oquv_markaz.repository.TrainingCenterRepository;
+import uz.zako.oquv_markaz.repository.UserRepository;
+import uz.zako.oquv_markaz.security.SecurityUtils;
 import uz.zako.oquv_markaz.service.CenterBranchesService;
 import uz.zako.oquv_markaz.service.TrainingCenterService;
 
@@ -25,6 +29,8 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
 
     private final CenterBranchesRepository centerBranchesRepository;
     private final TrainingCenterRepository trainingCenterRepository;
+    private final SecurityUtils securityUtils;
+    private final UserRepository userRepository;
 
     @Override
     public ResponseEntity<?> save(Long trainingCenterId, CenterBranchesPayload payload){
@@ -120,6 +126,23 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> getCenterBranchesTokenId(Long trainingCenterId){
+        try {
+            String username=securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
+            User user=userRepository.findByUsername(username);
+
+            List<CenterBranches> centerBranches=centerBranchesRepository.getCenterBranchesUserToken(user.getUsername());
+
+            if (centerBranches != null){
+                return ResponseEntity.ok(Result.ok(centerBranches));
+            }
+            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            log.error("error TrainingCenter",e.getMessage());
+            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 

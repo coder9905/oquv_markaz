@@ -20,6 +20,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenUtils refreshTokenUtils;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final SecurityUtils securityUtils;
 
     public AuthTokenPayload createToken(UserPayload payload) {
         User user = userRepository.findByUsername(payload.getUsername());
@@ -73,4 +74,13 @@ public class AuthService {
         return createTokenByUsername(refreshToken.getUser().getUsername());
     }
 
+
+    public User getUserToken(){
+            String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
+            User user=userRepository.findByUsername(username);
+            if (user == null){
+                return null;
+            }
+            return user;
+    }
 }

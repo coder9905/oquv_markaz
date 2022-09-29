@@ -71,7 +71,7 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
 
                 centerBranches=centerBranchesRepository.save(centerBranches);
 
-                return ResponseEntity.ok(Result.ok(centerBranches));
+                return ResponseEntity.ok(Result.ok(trainingCenter));
 
             }
             return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.BAD_REQUEST);

@@ -27,8 +27,6 @@ public class User extends AbstractEntity {
 
     private String fullName;
 
-    private String phone;
-
     private String adress;
 
     @ToString.Exclude
@@ -42,11 +40,13 @@ public class User extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private List<Role> roles;
 
-
     private boolean isAdmin;
 
     @ManyToMany
     private List<Groups> group;
+
+    @ManyToMany
+    private List<Phone> phones;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private List<CenterBranches> centerBranches;

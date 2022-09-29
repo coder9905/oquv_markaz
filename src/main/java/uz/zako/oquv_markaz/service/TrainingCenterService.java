@@ -22,4 +22,6 @@ public interface TrainingCenterService {
     ResponseEntity<?> savetrainingCenterBlock(Long trainingCenterId);
 
     ResponseEntity<?> deletetrainingCenterBlock(Long trainingCenterId);
+
+    ResponseEntity<?> getTrainingCenterToken();
 }

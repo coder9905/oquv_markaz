@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.zako.oquv_markaz.entity.CenterBranches;
+import uz.zako.oquv_markaz.entity.Phone;
+import uz.zako.oquv_markaz.entity.Role;
 import uz.zako.oquv_markaz.entity.User;
 import uz.zako.oquv_markaz.exception.ResourceNotFoundException;
 import uz.zako.oquv_markaz.model.Result;
@@ -30,55 +32,53 @@ public class UserserviceImpl implements UserService {
     private final AdminRepository adminRepository;
     private final GroupRepository groupRepository;
     private final CenterBranchesRepository centerBranchesRepository;
+    private final TrainingCenterRepository trainingCenterRepository;
     private final AttachmentRepository attachmentRepository;
+    private final PhoneRepository phoneRepository;
     private final SecurityUtils securityUtils;
 
     @Override
     public ResponseEntity<?> saveUser(String hashId, UserPayload payload) {
         try {
             User user = new User();
-            User user1 =new User();
+            User user1 = new User();
             user.setUsername(payload.getUsername());
             user.setFullName(payload.getFullName());
-            user.setPhone(payload.getPhone());
+            List<Phone> phones = new ArrayList<>();
+
+            for (int i = 0; i < payload.getPhone().size(); i++) {
+                Phone phone = new Phone();
+                phone.setPhone(payload.getPhone().get(i));
+                phone = phoneRepository.save(phone);
+                phones.add(phone);
+            }
+            user.setPhones(phones);
             user.setAdress(payload.getAdress());
-            String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
-            User userToken=userRepository.findByUsername(username);
-            if (userToken.getRoles().get(2).getName().equals("ROLE_SUPERADMIN") || userToken.getRoles().get(2).getName().equals("ROLE_SUPERADMIN")){
-                user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_CREATOR")));
-                user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
-            }else if (userToken.getRoles().get(0).getName().equals("ROLE_CREATOR")){
-                user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_ADMIN")));
-                user.setAdmin(true);
-                user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
-            }else if (userToken.getRoles().get(0).getName().equals("ROLE_ADMIN")){
-                user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
-                user.setAdmin(false);
-                user.setGroup(Arrays.asList(groupRepository.findById(payload.getGroupId()).orElseThrow(()->new ResourceNotFoundException("Group id not found"))));
-                user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
+            user.setRoles(Arrays.asList(roleRepository.findByName("USER")));
+            user.setPassword(passwordEncoder.encode(payload.getPassword()));
+            user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+            user1 = userRepository.save(user);
+            if (user1 != null) {
+                return ResponseEntity.ok(new Result(true, "save succesfull", user));
             }
-            if (user.getRoles() != null) {
-                user.setPassword(passwordEncoder.encode(payload.getPassword()));
-                user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
-                user1=userRepository.save(user);
-                if (user1 != null) {
-                    return ResponseEntity.ok(new Result(true, "save succesfull", user));
-                }
-            }
-            return new ResponseEntity(new Result(false, "save not succesfull", null), HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            log.error("error user", e.getMessage());
-            return new ResponseEntity(new Result(false, "save not succesfull", null), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity(new Result(false, "save not succesfull", null), HttpStatus.BAD_REQUEST);
+    } catch(
+    Exception e)
+
+    {
+        log.error("error user", e.getMessage());
+        return new ResponseEntity(new Result(false, "save not succesfull", null), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+}
 
     @Override
     public ResponseEntity<?> getOne(Long userId) {
         try {
             User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user not found"));
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
-            User userToken=userRepository.findByUsername(username);
-            if (user.getCenterBranches().get(0).getId()==userToken.getCenterBranches().get(0).getId()) {
+            User userToken = userRepository.findByUsername(username);
+            if (user.getCenterBranches().get(0).getId() == userToken.getCenterBranches().get(0).getId()) {
                 return ResponseEntity.ok(new Result(true, "get One User", user));
             }
             return new ResponseEntity(new Result(false, "error user", null), HttpStatus.BAD_REQUEST);
@@ -92,8 +92,8 @@ public class UserserviceImpl implements UserService {
     public ResponseEntity<?> getUserGroupId(Long groupId) {
         try {
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
-            User userToken=userRepository.findByUsername(username);
-            List<UserPayload> users = userRepository.getByUsersGroupId(groupId,userToken.getCenterBranches().get(0).getId());
+            User userToken = userRepository.findByUsername(username);
+            List<UserPayload> users = userRepository.getByUsersGroupId(groupId, userToken.getCenterBranches().get(0).getId());
             if (users != null) {
                 return ResponseEntity.ok(new Result(true, "getUserGroupId", users));
             }
@@ -108,8 +108,8 @@ public class UserserviceImpl implements UserService {
     public ResponseEntity<?> getUsercenterBranchesId(Long id) {
         try {
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
-            User userToken=userRepository.findByUsername(username);
-            if (userToken.getCenterBranches().get(0).getId()==id) {
+            User userToken = userRepository.findByUsername(username);
+            if (userToken.getCenterBranches().get(0).getId() == id) {
                 List<User> users = userRepository.getBycenterBranchesIdUsers(id);
                 return ResponseEntity.ok(new Result(true, "getUsercenterBranchesId", users));
             }
@@ -140,7 +140,15 @@ public class UserserviceImpl implements UserService {
             User user = userRepository.findById(payload.getId()).orElseThrow(() -> new ResourceNotFoundException("user not found"));
             user.setUsername(payload.getUsername());
             user.setFullName(payload.getFullName());
-            user.setPhone(payload.getPhone());
+            List<Phone> phones = user.getPhones();
+
+            for (int i = 0; i < payload.getPhone().size(); i++) {
+                Phone phone = new Phone();
+                phone.setPhone(payload.getPhone().get(i));
+                phone = phoneRepository.save(phone);
+                phones.add(phone);
+            }
+            user.setPhones(phones);
             user.setAdress(payload.getAdress());
             user.setAdmin(payload.isAdmin());
             if (payload.getRole() != null) {
@@ -189,31 +197,122 @@ public class UserserviceImpl implements UserService {
         try {
             userRepository.deleteCenterBranchesIdUser(id);
             return ResponseEntity.ok("delete succesfull");
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error("error user", e.getMessage());
             return new ResponseEntity(new Result(false, "delete not succesfull", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> saveUserCenterBranches(UserPayload payload){
+    public ResponseEntity<?> saveCreator(String hashId, UserPayload payload) {
         try {
-            User user=userRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("User not found"));
-            List<CenterBranches> centerBranches=new ArrayList<>();
-            for (int i = 0; i < user.getCenterBranches().size(); i++) {
-                CenterBranches centerBranches1=centerBranchesRepository.findById(user.getCenterBranches().get(i).getId()).get();
-                centerBranches.add(centerBranches1);
+            User user = new User();
+            user.setUsername(payload.getUsername());
+            user.setFullName(payload.getFullName());
+            List<Phone> phones = new ArrayList<>();
+
+            for (int i = 0; i < payload.getPhone().size(); i++) {
+                Phone phone = new Phone();
+                phone.setPhone(payload.getPhone().get(i));
+                phone = phoneRepository.save(phone);
+                phones.add(phone);
             }
-            centerBranches.add(centerBranchesRepository.findById(payload.getCenterBranchesId()).get());
-            user.setCenterBranches(centerBranches);
+            user.setAdress(payload.getAdress());
+            user.setAdmin(false);
+            user.setImg(attachmentRepository.findByHashId1(hashId).get());
+            user.setPhones(phones);
+            user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
+            user.setPassword(passwordEncoder.encode(payload.getPassword()));
+            user = userRepository.save(user);
+            if (user != null) {
+                return ResponseEntity.ok(Result.ok(user));
+            }
+            return new ResponseEntity(Result.error("error save not succesfull creator"), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.error("save cretor error", e.getMessage());
+            return new ResponseEntity(Result.error("error save not succesfull creator"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> saveMenegerAdmin(String hashId, UserPayload payload){
+        try {
+            User user=new User();
+            user.setUsername(payload.getUsername());
+            user.setFullName(payload.getFullName());
+            List<Phone> phones = new ArrayList<>();
+
+            for (int i = 0; i < payload.getPhone().size(); i++) {
+                Phone phone = new Phone();
+                phone.setPhone(payload.getPhone().get(i));
+                phone = phoneRepository.save(phone);
+                phones.add(phone);
+            }
+            user.setPhones(phones);
+            user.setAdress(payload.getAdress());
+            user.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
+            user.setPassword(passwordEncoder.encode(payload.getPassword()));
+            user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+
             user=userRepository.save(user);
             if (user != null){
                 return ResponseEntity.ok(Result.ok(user));
             }
-            return new ResponseEntity(new Result(false, "saveUserCenterBranches not succesfull", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.INTERNAL_SERVER_ERROR);
         }catch (Exception e) {
-            log.error("error user", e.getMessage());
-            return new ResponseEntity(new Result(false, "saveUserCenterBranches not succesfull", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            log.error("saveMenegerAdmin error", e.getMessage());
+            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> editMenegerAdmin(String hashId, UserPayload payload){
+        try {
+            User user=userRepository.findById(payload.getId()).get();
+            user.setUsername(payload.getUsername());
+            user.setFullName(payload.getFullName());
+            List<Phone> phones = new ArrayList<>();
+
+            for (int i = 0; i < payload.getPhone().size(); i++) {
+                Phone phone = new Phone();
+                phone.setPhone(payload.getPhone().get(i));
+                phone = phoneRepository.save(phone);
+                phones.add(phone);
+            }
+            user.setPhones(phones);
+            user.setAdress(payload.getAdress());
+            user.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
+            user.setPassword(passwordEncoder.encode(payload.getPassword()));
+            user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+
+            user=userRepository.save(user);
+            if (user != null){
+                return ResponseEntity.ok(Result.ok(user));
+            }
+            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (Exception e) {
+            log.error("saveMenegerAdmin error", e.getMessage());
+            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllRole(){
+        try {
+            List<Role> roles=new ArrayList<>();
+            Role role=roleRepository.findByName("MENEGER");
+            roles.add(role);
+            Role role1=roleRepository.findByName("ADMIN");
+            roles.add(role1);
+            Role role2=roleRepository.findByName("USER");
+            roles.add(role2);
+            if (roles.size()>=1){
+                return ResponseEntity.ok(Result.ok(roles));
+            }
+            return new ResponseEntity(Result.error("error getAllRole"), HttpStatus.BAD_REQUEST);
+        }catch (Exception e) {
+            log.error("getAllRole error", e.getMessage());
+            return new ResponseEntity(Result.error("error getAllRole"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

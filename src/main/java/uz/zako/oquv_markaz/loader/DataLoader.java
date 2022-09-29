@@ -54,7 +54,6 @@ public class DataLoader implements CommandLineRunner {
                 admin.setUsername("joha");
                 admin.setPassword(passwordEncoder.encode("joha123"));
                 admin.setAdress("Tashkent");
-                admin.setPhone("90-377-89-90");
                 admin.setSocial("t.me/test");
                 admin.setRoles(roleList);
 
@@ -67,7 +66,6 @@ public class DataLoader implements CommandLineRunner {
                 admin.setUsername("coder");
                 admin.setPassword(passwordEncoder.encode("coder123"));
                 admin.setAdress("Tashkent");
-                admin.setPhone("90-377-89-90");
                 admin.setSocial("t.me/test");
                 admin.setRoles(roleList);
                 adminRepository.save(admin);

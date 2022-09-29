@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -16,7 +18,7 @@ public class UserPayload {
     private String username;
     private String password;
     private String fullName;
-    private String phone;
+    private List<String> phone;
     private String adress;
     private boolean isAdmin;
     private String hashId;
@@ -36,7 +38,7 @@ public class UserPayload {
         this.fullName = fullName;
     }
 
-    public UserPayload(Long id, String username, String password, String fullName, String phone, String adress) {
+    public UserPayload(Long id, String username, String password, String fullName, List<String> phone, String adress) {
         this.id = id;
         this.username = username;
         this.password = password;

@@ -14,22 +14,12 @@ import uz.zako.oquv_markaz.service.UserService;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/superAdmin/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/superAdmin/v1")
 public class SuperAdminController {
 
     private final TrainingCenterService trainingCenterService;
     private final CenterBranchesService centerBranchesService;
     private final UserService userService;
-
-    @GetMapping("/getOneTrainingCenter/{trainingCenterId}")
-    public ResponseEntity<?> getOneTrainingCenter(@PathVariable("trainingCenterId") Long id){
-        return trainingCenterService.getOne(id);
-    }
-
-    @GetMapping("/allTrainingCenter")
-    public ResponseEntity<?> getAllTrainingCenter(){
-        return trainingCenterService.getAll();
-    }
 
     @PostMapping("/saveTrainingCenter")
     public ResponseEntity<?> saveTrainingCenter(@RequestBody TrainingCenterPayload payload){
@@ -46,19 +36,14 @@ public class SuperAdminController {
         return trainingCenterService.delete(id);
     }
 
-    @GetMapping("/getOneCenterBranches/{CenterBranchesId}")
-    public ResponseEntity<?> getOneCenterBranches(@PathVariable("CenterBranchesId") Long id){
-        return centerBranchesService.getOne(id);
+    @GetMapping("/allTrainingCenter")
+    public ResponseEntity<?> getAllTrainingCenter(){
+        return trainingCenterService.getUserTokenTrainingCenter();
     }
 
-    @GetMapping("/allCenterBranches")
-    public ResponseEntity<?> getAllCenterBranches(){
-        return centerBranchesService.getAll();
-    }
-
-    @PostMapping("/saveCenterBranches/{trainingCenterId}")
-    public ResponseEntity<?> saveCenterBranches(@RequestBody CenterBranchesPayload payload, @PathVariable("trainingCenterId") Long id){
-        return centerBranchesService.save(id,payload);
+    @GetMapping("/getOneTrainingCenter/{trainingCenterId}")
+    public ResponseEntity<?> getOneTrainingCenter(@PathVariable("trainingCenterId") Long id){
+        return trainingCenterService.getOne(id);
     }
 
     @PutMapping("/editCenterBranches/{trainingCenterId}")
@@ -71,6 +56,16 @@ public class SuperAdminController {
         return centerBranchesService.delete(id);
     }
 
+    @GetMapping("/getOneCenterBranches/{CenterBranchesId}")
+    public ResponseEntity<?> getOneCenterBranches(@PathVariable("CenterBranchesId") Long id){
+        return centerBranchesService.getOne(id);
+    }
+
+    @GetMapping("/allCenterBranches")
+    public ResponseEntity<?> getAllCenterBranches(){
+        return centerBranchesService.getAll();
+    }
+
     @PostMapping("/save/block/{trainingCenterId}")
     public ResponseEntity<?> saveBlock(@PathVariable("trainingCenterId") Long id){
         return trainingCenterService.savetrainingCenterBlock(id);
@@ -81,9 +76,9 @@ public class SuperAdminController {
         return trainingCenterService.deletetrainingCenterBlock(id);
     }
 
-    @PostMapping("/saveCenterBranchesId/user")
-    public ResponseEntity<?> saveUserCenterBranchesId(@RequestBody UserPayload payload){
-        return userService.saveUserCenterBranches(payload);
+    @PostMapping("/saveTrainingCenterId/creator/{hashId}")
+    public ResponseEntity<?> saveUserCenterBranchesId(@PathVariable("hashId") String id,@RequestBody UserPayload payload){
+        return userService.saveCreator(id, payload);
     }
 
     @GetMapping("/getAllTrainingCenter")

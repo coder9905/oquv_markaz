@@ -11,7 +11,7 @@ import uz.zako.oquv_markaz.service.*;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/admin/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/admin/v1")
 public class AdminController {
 
     private final EmployeeService employeeService;
@@ -27,35 +27,6 @@ public class AdminController {
     private final PaymentService paymentService;
     private final SalaryService salaryService;
 
-    @PostMapping("/save/employee/{hashId}")
-    public ResponseEntity<?> saveEmployee(@RequestBody EmployePayload payload, @PathVariable("hashId") String id) {
-        return employeeService.save(payload, id);
-    }
-
-    @PutMapping("/edit/employee/{hashId}")
-    public ResponseEntity<?> editEmployee(@RequestBody EmployePayload payload, @PathVariable("hashId") String id) {
-        return employeeService.editEmploye(payload, id);
-    }
-
-    @DeleteMapping("/delete/employee/{emloyeId}")
-    public ResponseEntity<?> deleteEmploye(@PathVariable("employeId") Long id) {
-        return employeeService.deleteEmploye(id);
-    }
-
-    @DeleteMapping("/delete/employee/{centerBranchesId}")
-    public ResponseEntity<?> deleteEmployeeCenterBranchesId(@PathVariable("centerBranchesId") Long id) {
-        return employeeService.deleteEmployeCenterBranchesId(id);
-    }
-
-    @GetMapping("/getAll/employee")
-    public ResponseEntity<?> getAllEmployee() {
-        return employeeService.getAllEmployee();
-    }
-
-    @GetMapping("/getCenterBranchesId/employee/{centerBranchesId}")
-    public ResponseEntity<?> getemployeCenterBranchesId(@PathVariable("centerBranchesId") Long id) {
-        return employeeService.getEmployeCenterBranchesId(id);
-    }
 
     @PostMapping("/save/subject/{hashId}")
     public ResponseEntity<?> saveSubject(@RequestBody SubjectPayload payload, @PathVariable("hashId") String hashId) {

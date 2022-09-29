@@ -24,6 +24,7 @@ public interface TrainingCenterRepository extends JpaRepository<TrainingCenter, 
     Page<TrainingCenterPayload> getAllTrainingCenter(Pageable pageable);
 
 
+
 //    @Query("select new com.example.booksstory.payload.CategoryPayload(b.id, bt.name, bt.id, bt.lang) from Category b inner join b.categoryTranslates bt where bt.lang=?1")
 //    public Page<CategoryPayload> getAllWithLang(Pageable pageable, LanguageEnum languageEnum);
 

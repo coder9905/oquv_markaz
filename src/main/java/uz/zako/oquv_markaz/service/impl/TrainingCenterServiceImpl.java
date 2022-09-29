@@ -45,6 +45,7 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
                 TrainingCenter trainingCenter=new TrainingCenter();
 
                 List<Phone> phones=new ArrayList<>();
+
                 for (int i = 0; i < payload.getPhone().size(); i++) {
                     Phone phone=new Phone();
                     phone.setPhone(payload.getPhone().get(i));
@@ -52,6 +53,7 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
                     phones.add(phone);
                 }
 
+                trainingCenter.setWorkingTime(payload.getWorkingTime());
                 trainingCenter.setBlock(payload.isBlock());
                 trainingCenter.setName(payload.getName());
                 trainingCenter.setPhones(phones);
@@ -67,9 +69,9 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
 
                 centerBranches.setTraining_center(trainingCenterRepository.findById(trainingCenter.getId()).orElseThrow(()->new ResourceNotFoundException("TrainingCenter not found")));
 
-                centerBranchesRepository.save(centerBranches);
+                centerBranches=centerBranchesRepository.save(centerBranches);
 
-                return ResponseEntity.ok("save succesfull");
+                return ResponseEntity.ok(Result.ok(centerBranches));
 
             }
             return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.BAD_REQUEST);
@@ -215,6 +217,20 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> getTrainingCenterToken(){
+        try {
+            String username=securityUtils.getCurrentUser().orElseThrow(()->new RuntimeException("error"));
+            List<TrainingCenter> trainingCenters=trainingCenterRepository.getTrainingCenterUserToken(username);
+            if (trainingCenters != null){
+                return ResponseEntity.ok(Result.ok(trainingCenters));
+            }
+            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            log.error("error TrainingCenter",e.getMessage());
+            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 //    public ResponseEntity<?> getAll(int page, int size, LanguageEnum languageEnum) {
 //        return categoryTranslateRepository.getAllWithLang(PageRequest.of(page,size), languageEnum);

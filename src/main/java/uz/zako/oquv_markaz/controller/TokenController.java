@@ -11,7 +11,7 @@ import uz.zako.oquv_markaz.service.UserService;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/token/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/token/v1")
 public class TokenController {
 
     private final TrainingCenterService trainingCenterService;
@@ -23,10 +23,6 @@ public class TokenController {
         return trainingCenterService.getUserTokenTrainingCenter();
     }
 
-    @GetMapping("/get/centerBranchesUserToken/{trainingCenterId}")
-    public ResponseEntity<?> getCenterBranchesUserToken(@PathVariable("trainingCenterId") Long id){
-        return centerBranchesService.getCenterBranchesTokenId(id);
-    }
 
 }
 

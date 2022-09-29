@@ -3,6 +3,7 @@ package uz.zako.oquv_markaz.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.security.SecurityUtil;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -59,10 +60,10 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
 
                 return ResponseEntity.ok(centerBranches);
             }
-            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            log.error("error TrainingCenter",e.getMessage());
-            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            log.error("error BranchesCenter",e.getMessage());
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -100,8 +101,8 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
             return ResponseEntity.ok("edit succesfull");
 
         }catch (Exception e){
-            log.error("error TrainingCenter",e.getMessage());
-            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            log.error("error BranchesCenter",e.getMessage());
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -111,8 +112,8 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
          CenterBranches centerBranches=centerBranchesRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found"));
          return ResponseEntity.ok(centerBranches);
      }catch (Exception e){
-         log.error("error TrainingCenter",e.getMessage());
-         return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+         log.error("error BranchesCenter",e.getMessage());
+         return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
      }
     }
 
@@ -123,46 +124,43 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
          if (centerBranches != null) {
              return ResponseEntity.ok(centerBranches);
          }
-         return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.BAD_REQUEST);
+         return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.BAD_REQUEST);
      }catch (Exception e){
-         log.error("error TrainingCenter",e.getMessage());
-         return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+         log.error("error BranchesCenter",e.getMessage());
+         return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
      }
     }
 
     @Override
-    public ResponseEntity<?> getTrainingId(Long id){
+    public ResponseEntity<?> getCenterBranchesTrainingId(Long id){
         try {
             List<CenterBranchesPayload> payloads=centerBranchesRepository.getTrainingCenterId(id);
             if (payloads != null){
                 return ResponseEntity.ok(payloads);
             }
-            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            log.error("error TrainingCenter",e.getMessage());
-            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            log.error("error BranchesCenter",e.getMessage());
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getCenterBranchesTokenId(Long trainingCenterId){
+    public ResponseEntity<?> getCenterBranchesTokenId(){
         try {
             String username=securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
             User user=userRepository.findByUsername(username);
 
-            List<CenterBranches> centerBranches=centerBranchesRepository.getCenterBranchesUserToken(user.getUsername());
+            CenterBranches centerBranches=centerBranchesRepository.getCenterBranchesUserToken(user.getUsername());
 
             if (centerBranches != null){
                 return ResponseEntity.ok(Result.ok(centerBranches));
             }
-            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            log.error("error TrainingCenter",e.getMessage());
-            return new ResponseEntity(new Result(false,"error TrainingCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            log.error("error BranchesCenter",e.getMessage());
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
 
 }

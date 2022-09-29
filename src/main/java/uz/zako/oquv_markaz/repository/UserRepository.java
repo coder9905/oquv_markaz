@@ -19,10 +19,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User getById(Long id);
 
-//    @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
-//    List<User> getByUsersGroupId(Long id);
+    @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
+    List<User> getByUsersGroupId(Long id);
 
-    @Query("select new uz.zako.oquv_markaz.payload.UserPayload(u.id,u.username,u.password,u.fullName,u.phone,u.adress) from users u inner join u.group ug inner join u.centerBranches uc where ug.id=?1 and uc.id=?2")
+    @Query("select new uz.zako.oquv_markaz.payload.UserPayload(u.id,u.username,u.password,u.fullName,u.adress) from users u inner join u.group ug inner join u.centerBranches uc inner join Phone p where ug.id=?1 and uc.id=?2")
     List<UserPayload> getByUsersGroupId(Long groupId, Long centerBranchesId);
 
 

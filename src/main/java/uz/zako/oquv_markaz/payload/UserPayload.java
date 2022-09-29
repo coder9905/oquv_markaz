@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import uz.zako.oquv_markaz.entity.Phone;
 
 import java.util.List;
 
@@ -38,12 +39,11 @@ public class UserPayload {
         this.fullName = fullName;
     }
 
-    public UserPayload(Long id, String username, String password, String fullName, List<String> phone, String adress) {
+    public UserPayload(Long id, String username, String password, String fullName,  String adress) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
-        this.phone = phone;
         this.adress = adress;
     }
 

@@ -140,7 +140,7 @@ public class UserserviceImpl implements UserService {
             User user = userRepository.findById(payload.getId()).orElseThrow(() -> new ResourceNotFoundException("user not found"));
             user.setUsername(payload.getUsername());
             user.setFullName(payload.getFullName());
-            List<Phone> phones = user.getPhones();
+            List<Phone> phones = new ArrayList<>();
 
             for (int i = 0; i < payload.getPhone().size(); i++) {
                 Phone phone = new Phone();

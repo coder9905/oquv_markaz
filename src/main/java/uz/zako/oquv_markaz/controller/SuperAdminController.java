@@ -86,6 +86,11 @@ public class SuperAdminController {
         return trainingCenterService.getAllPage(page, size);
     }
 
+    @GetMapping("/getAllCenterBranches")
+    public ResponseEntity<?> getAllCenterBranches(@RequestParam(defaultValue = "0") int page, int size) {
+        return centerBranchesService.getAllPageCenterBranches(page, size);
+    }
+
 
 }
 

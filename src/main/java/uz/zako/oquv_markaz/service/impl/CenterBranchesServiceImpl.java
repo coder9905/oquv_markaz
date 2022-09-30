@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.security.SecurityUtil;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -132,9 +133,9 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
     }
 
     @Override
-    public ResponseEntity<?> getCenterBranchesTrainingId(Long id){
+    public ResponseEntity<?> getCenterBranchesTrainingId(int page, int size,Long id){
         try {
-            List<CenterBranchesPayload> payloads=centerBranchesRepository.getTrainingCenterId(id);
+            Page<CenterBranchesPayload> payloads=centerBranchesRepository.getTrainingCenterId(PageRequest.of(page,size),id);
             if (payloads != null){
                 return ResponseEntity.ok(payloads);
             }
@@ -160,6 +161,20 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
         }catch (Exception e){
             log.error("error BranchesCenter",e.getMessage());
             return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllPageCenterBranches(int page, int size){
+        try {
+            Page<CenterBranches> centerBranches=centerBranchesRepository.findAll(PageRequest.of(page,size));
+            if (centerBranches != null) {
+                return ResponseEntity.ok(centerBranches);
+            }
+            return new ResponseEntity(new Result(false,"error CenterBranches",null),HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            log.error("error CenterBranches",e.getMessage());
+            return new ResponseEntity(new Result(false,"error CenterBranches",null),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -33,4 +33,10 @@ public class CenterBranchesPayload {
         this.id = id;
         this.name = name;
     }
+
+    public CenterBranchesPayload(Long id, String name, String workingTime) {
+        this.id = id;
+        this.name = name;
+        this.workingTime = workingTime;
+    }
 }

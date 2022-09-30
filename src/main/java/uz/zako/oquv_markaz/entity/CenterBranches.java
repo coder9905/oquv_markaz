@@ -1,6 +1,7 @@
 package uz.zako.oquv_markaz.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class CenterBranches extends AbstractEntity {
     private String workingTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private TrainingCenter training_center;
 
     @ManyToMany

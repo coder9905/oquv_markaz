@@ -24,4 +24,7 @@ public class TrainingCenter extends AbstractEntity {
     @ManyToMany
     private List<Phone> phones;
 
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, mappedBy = "training_center")
+    private List<CenterBranches> centerBranches;
+
 }

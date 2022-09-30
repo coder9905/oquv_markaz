@@ -1,5 +1,7 @@
 package uz.zako.oquv_markaz.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +26,8 @@ public class TrainingCenter extends AbstractEntity {
     @ManyToMany
     private List<Phone> phones;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, mappedBy = "training_center")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "training_center")
+    @JsonIgnore
     private List<CenterBranches> centerBranches;
 
 }

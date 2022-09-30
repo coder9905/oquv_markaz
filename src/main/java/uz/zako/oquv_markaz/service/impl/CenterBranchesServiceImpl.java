@@ -135,7 +135,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
     @Override
     public ResponseEntity<?> getCenterBranchesTrainingId(int page, int size,Long id){
         try {
-            Page<CenterBranchesPayload> payloads=centerBranchesRepository.getTrainingCenterId(PageRequest.of(page,size),id);
+            Page<CenterBranches> payloads=centerBranchesRepository.getTrainingCenterId(PageRequest.of(page,size),id);
             if (payloads != null){
                 return ResponseEntity.ok(payloads);
             }

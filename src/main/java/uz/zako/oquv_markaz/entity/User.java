@@ -1,5 +1,6 @@
 package uz.zako.oquv_markaz.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,5 +51,15 @@ public class User extends AbstractEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     private List<CenterBranches> centerBranches;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "user")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
+    private List<Outputs> outputs;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "user")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
+    private List<Salary> salaries;
 
 }

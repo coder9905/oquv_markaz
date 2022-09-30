@@ -42,8 +42,13 @@ public class Employee extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private List<Role> roles;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private CenterBranches centerBranches;
 
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "employee")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
+    private List<Salary> salaries;
 }

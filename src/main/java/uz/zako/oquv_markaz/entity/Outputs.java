@@ -22,7 +22,7 @@ public class Outputs extends AbstractEntity {
 
     private Long price;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 

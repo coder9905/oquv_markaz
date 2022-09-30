@@ -148,7 +148,7 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
     @Override
     public ResponseEntity<?> getAllPage(int page, int size){
         try {
-            Page<TrainingCenterPayload> trainingCenters=trainingCenterRepository.getAllTrainingCenter(PageRequest.of(page,size));
+            Page<TrainingCenter> trainingCenters=trainingCenterRepository.findAll(PageRequest.of(page,size));
             if (trainingCenters != null) {
                 return ResponseEntity.ok(trainingCenters);
             }

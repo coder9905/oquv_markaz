@@ -23,7 +23,7 @@ public class CenterBranches extends AbstractEntity {
     private String workingTime;
 
     @ManyToOne(optional = true)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private TrainingCenter training_center;
 
     @ManyToMany

@@ -98,7 +98,7 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
             TrainingCenter trainingCenter=trainingCenterRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("TrainingCenter not found"));
 
             trainingCenter.setName(payload.getName());
-            List<Phone> phones1=trainingCenter.getPhones();
+            List<Phone> phones1=new ArrayList<>();
 
             if (payload.getPhone() != null){
                 for (int i = 0; i < payload.getPhone().size(); i++) {
@@ -109,9 +109,10 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
                 }
             }
             trainingCenter.setPhones(phones1);
-            trainingCenterRepository.save(trainingCenter);
+            trainingCenter.setWorkingTime(payload.getWorkingTime());
+            trainingCenter=trainingCenterRepository.save(trainingCenter);
 
-            return ResponseEntity.ok("edit succesfull");
+            return ResponseEntity.ok(trainingCenter);
 
         }catch (Exception e){
             log.error("error TrainingCenter",e.getMessage());

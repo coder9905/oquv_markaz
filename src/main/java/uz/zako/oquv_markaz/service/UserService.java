@@ -16,6 +16,8 @@ public interface UserService {
 
     ResponseEntity<?> getAllUsers();
 
+    ResponseEntity<?> getAllPageUsers(int page, int size);
+
     ResponseEntity<?> editUser(String hashId, UserPayload payload);
 
     ResponseEntity<?> deleteUserId(Long id);

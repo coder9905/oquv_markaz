@@ -91,6 +91,18 @@ public class SuperAdminController {
         return centerBranchesService.getAllPageCenterBranches(page, size);
     }
 
+    @GetMapping("/allPage/users")
+    public ResponseEntity<?> getAllPageUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "0") int size){
+        return userService.getAllPageUsers(page, size);
+    }
+
+    @GetMapping("/all/users")
+    public ResponseEntity<?> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+
+
 
 }
 

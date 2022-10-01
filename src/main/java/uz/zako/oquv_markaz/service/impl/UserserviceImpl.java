@@ -137,6 +137,20 @@ public class UserserviceImpl implements UserService {
     }
 
     @Override
+    public ResponseEntity<?> getAllPageUsers(int page, int size) {
+        try {
+            Page<User> users = userRepository.findAll(PageRequest.of(page,size));
+            if (users != null) {
+                return ResponseEntity.ok(new Result(true, "getUsercenterBranchesId", users));
+            }
+            return new ResponseEntity(new Result(false, "error user", null), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.error("error user", e.getMessage());
+            return new ResponseEntity(new Result(false, "error user", null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
     public ResponseEntity<?> editUser(String hashId, UserPayload payload) {
         try {
             User user = userRepository.findById(payload.getId()).orElseThrow(() -> new ResourceNotFoundException("user not found"));

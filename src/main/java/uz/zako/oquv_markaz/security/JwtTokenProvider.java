@@ -73,7 +73,8 @@ public class JwtTokenProvider {
             }
         } catch (MalformedJwtException e) {
             logger.error(e.getMessage());
-        } catch (ExpiredJwtException e) {
+        }
+        catch (ExpiredJwtException e) {
             logger.error(e.getMessage());
         } catch (PrematureJwtException e) {
             logger.error(e.getMessage());

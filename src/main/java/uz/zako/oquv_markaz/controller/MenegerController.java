@@ -32,11 +32,6 @@ public class MenegerController {
         return employeeService.deleteEmploye(id);
     }
 
-    @DeleteMapping("/delete/employee/{centerBranchesId}")
-    public ResponseEntity<?> deleteEmployeeCenterBranchesId(@PathVariable("centerBranchesId") Long id) {
-        return employeeService.deleteEmployeCenterBranchesId(id);
-    }
-
     @GetMapping("/getAll/employee")
     public ResponseEntity<?> getAllEmployee() {
         return employeeService.getAllEmployee();
@@ -51,9 +46,6 @@ public class MenegerController {
     public ResponseEntity<?> getCenterBranchesToken(){
         return centerBranchesService.getCenterBranchesTokenId();
     }
-
-
-
 
 }
 

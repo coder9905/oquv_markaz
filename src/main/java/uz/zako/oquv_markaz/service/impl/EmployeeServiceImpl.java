@@ -124,11 +124,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseEntity<?> deleteEmploye(Long employeId){
         try {
+            Employee employee=employesRepository.findById(employeId).orElseThrow(()->new ResourceNotFoundException("employee not found"));
             employesRepository.deleteById(employeId);
             return ResponseEntity.ok("delete succesfull");
         }catch (Exception e){
             log.error("error employes",e.getMessage());
-            return new ResponseEntity(new Result(false,"delete employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"delete employe error",null), HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -2,6 +2,8 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -67,9 +69,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public ResponseEntity<?> getAllGroups(){
+    public ResponseEntity<?> getAllGroups(int page, int size){
         try {
-            List<Groups> groupss=groupRepository.findAll();
+            Page<Groups> groupss=groupRepository.findAll(PageRequest.of(page, size));
             System.out.println(groupss.toString());
             if (groupss != null){
                 return ResponseEntity.ok(new Result(true,"getAll Groups",groupss));
@@ -82,9 +84,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public ResponseEntity<?> getGroupsSubjectId(Long subjectId){
+    public ResponseEntity<?> getGroupsSubjectId(int page, int size,Long subjectId){
         try {
-            List<Groups> groupPayloads=groupRepository.getGroupsSubjectId(subjectId);
+            Page<Groups> groupPayloads=groupRepository.getGroupsSubjectId(PageRequest.of(page, size),subjectId);
             if (groupPayloads != null){
                 return ResponseEntity.ok(new Result(true,"get getGroupsSubjectId",groupPayloads));
             }
@@ -96,9 +98,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public ResponseEntity<?> getGroupsEmployesId(Long employesId){
+    public ResponseEntity<?> getGroupsEmployesId(int page,int size,Long employesId){
         try {
-            List<Groups> groupPayloads=groupRepository.getGroupsEmployesId(employesId);
+            Page<Groups> groupPayloads=groupRepository.getGroupsEmployesId(PageRequest.of(page, size),employesId);
             if (groupPayloads != null){
                 return ResponseEntity.ok(new Result(true,"get getGroupsemployesId",groupPayloads));
             }

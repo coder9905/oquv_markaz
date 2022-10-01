@@ -8,9 +8,9 @@ public interface SubjcetService {
 
     ResponseEntity<?> getOne(Long subjectId);
 
-    ResponseEntity<?> getSubjectCenterBranchesId(Long cemterBranchesId);
+    ResponseEntity<?> getSubjectCenterBranchesId(int page, int size,Long cemterBranchesId);
 
-    ResponseEntity<?> getAllSubject();
+    ResponseEntity<?> getAllSubject(int page, int size);
 
     ResponseEntity<?> editSubject(String hashId, SubjectPayload payload);
 

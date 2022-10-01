@@ -6,9 +6,9 @@ import uz.zako.oquv_markaz.payload.SchedulePayload;
 public interface ScheduleService {
     ResponseEntity<?> save(SchedulePayload payload, Long teacherId);
 
-    ResponseEntity<?> getScheduleTeacherId(Long id);
+    ResponseEntity<?> getScheduleTeacherId(int page, int size,Long id);
 
-    ResponseEntity<?> getScheduleWeekId(Long id);
+    ResponseEntity<?> getScheduleWeekId(int page,int size,Long id);
 
     ResponseEntity<?> getAllSchedule();
 }

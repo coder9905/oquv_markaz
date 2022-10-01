@@ -8,11 +8,11 @@ public interface GroupService {
 
     ResponseEntity<?> getOne(Long id);
 
-    ResponseEntity<?> getAllGroups();
+    ResponseEntity<?> getAllGroups(int page, int size);
 
-    ResponseEntity<?> getGroupsSubjectId(Long subjectId);
+    ResponseEntity<?> getGroupsSubjectId(int page, int size,Long subjectId);
 
-    ResponseEntity<?> getGroupsEmployesId(Long employesId);
+    ResponseEntity<?> getGroupsEmployesId(int page,int size,Long employesId);
 
     ResponseEntity<?> editGroups(GroupPayload payload, String hashId);
 

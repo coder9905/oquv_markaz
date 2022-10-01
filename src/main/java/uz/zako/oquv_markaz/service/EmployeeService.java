@@ -8,7 +8,7 @@ public interface EmployeeService {
 
     ResponseEntity<?> getOne(Long id);
 
-    ResponseEntity<?> getEmployeCenterBranchesId(Long id);
+    ResponseEntity<?> getEmployeCenterBranchesId(int size, int page,Long id);
 
     ResponseEntity<?> getAllEmployee();
 

@@ -43,8 +43,8 @@ public class MenegerController {
     }
 
     @GetMapping("/getCenterBranchesId/employee/{centerBranchesId}")
-    public ResponseEntity<?> getemployeCenterBranchesId(@PathVariable("centerBranchesId") Long id) {
-        return employeeService.getEmployeCenterBranchesId(id);
+    public ResponseEntity<?> getemployeCenterBranchesId(@RequestParam(defaultValue = "0") int page, int size,@PathVariable("centerBranchesId") Long id) {
+        return employeeService.getEmployeCenterBranchesId(size,page,id);
     }
 
     @GetMapping("/getCenterBranches/token")

@@ -2,6 +2,8 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -57,9 +59,9 @@ public class SubjcetServiceImpl implements SubjcetService {
     }
 
     @Override
-    public ResponseEntity<?> getSubjectCenterBranchesId(Long cemterBranchesId){
+    public ResponseEntity<?> getSubjectCenterBranchesId(int page, int size,Long centerBranchesId){
         try {
-            List<SubjectPayload> subjects=subjectRepository.getCenterBranchesId(cemterBranchesId);
+            Page<Subject> subjects=subjectRepository.getAllSubjectCenterBranchesId(PageRequest.of(page,size),centerBranchesId);
             if (subjects != null){
                 return ResponseEntity.ok(new Result(true,"getSubjectCenterBranchesId",subjects));
             }
@@ -71,9 +73,9 @@ public class SubjcetServiceImpl implements SubjcetService {
     }
 
     @Override
-    public ResponseEntity<?> getAllSubject(){
+    public ResponseEntity<?> getAllSubject(int page, int size){
         try {
-            List<Subject> subjects=subjectRepository.findAll();
+            Page<Subject> subjects=subjectRepository.findAll(PageRequest.of(page, size));
             if (subjects != null){
                 return ResponseEntity.ok(new Result(true,"getAll Subject",subjects));
             }

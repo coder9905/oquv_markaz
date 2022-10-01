@@ -2,6 +2,8 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -89,11 +91,11 @@ public class UserserviceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> getUserGroupId(Long groupId) {
+    public ResponseEntity<?> getUserGroupId(int page, int size,Long groupId) {
         try {
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
             User userToken = userRepository.findByUsername(username);
-            List<UserPayload> users = userRepository.getByUsersGroupId(groupId, userToken.getCenterBranches().get(0).getId());
+            Page<UserPayload> users = userRepository.getByUsersGroupId(PageRequest.of(page, size),groupId, userToken.getCenterBranches().get(0).getId());
             if (users != null) {
                 return ResponseEntity.ok(new Result(true, "getUserGroupId", users));
             }
@@ -105,12 +107,12 @@ public class UserserviceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> getUsercenterBranchesId(Long id) {
+    public ResponseEntity<?> getUsercenterBranchesId(int page, int size,Long id) {
         try {
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
             User userToken = userRepository.findByUsername(username);
             if (userToken.getCenterBranches().get(0).getId() == id) {
-                List<User> users = userRepository.getBycenterBranchesIdUsers(id);
+                Page<User> users = userRepository.getBycenterBranchesIdUsers(PageRequest.of(page,size),id);
                 return ResponseEntity.ok(new Result(true, "getUsercenterBranchesId", users));
             }
             return new ResponseEntity(new Result(false, "error user", null), HttpStatus.BAD_REQUEST);

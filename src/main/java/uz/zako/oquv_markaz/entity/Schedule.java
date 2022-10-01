@@ -29,5 +29,4 @@ public class Schedule extends AbstractEntity {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Employee employee;
 
-
 }

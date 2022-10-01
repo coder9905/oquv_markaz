@@ -1,5 +1,7 @@
 package uz.zako.oquv_markaz.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,11 +25,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> getByUsersGroupId(Long id);
 
     @Query("select new uz.zako.oquv_markaz.payload.UserPayload(u.id,u.username,u.password,u.fullName,u.adress) from users u inner join u.group ug inner join u.centerBranches uc inner join Phone p where ug.id=?1 and uc.id=?2")
-    List<UserPayload> getByUsersGroupId(Long groupId, Long centerBranchesId);
+    Page<UserPayload> getByUsersGroupId(Pageable pageable, Long groupId, Long centerBranchesId);
 
 
     @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
-    List<User> getBycenterBranchesIdUsers(Long id);
+    Page<User> getBycenterBranchesIdUsers(Pageable pageable,Long id);
 
     @Query(nativeQuery = true, value = "delete from users u where u.group_id=?1")
     void deleteGroupIdUser(Long id);

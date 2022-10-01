@@ -2,6 +2,8 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -48,9 +50,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public ResponseEntity<?> getScheduleTeacherId(Long id){
+    public ResponseEntity<?> getScheduleTeacherId(int page, int size,Long id){
         try {
-            List<Schedule> schedules=scheduleRepository.getScheduleTeacherId(id);
+            Page<Schedule> schedules=scheduleRepository.getScheduleTeacherId(PageRequest.of(page, size),id);
             return ResponseEntity.ok(new Result(true,"getOneEmploye",schedules));
         }catch (Exception e){
             log.error("error schedules",e.getMessage());
@@ -59,7 +61,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public ResponseEntity<?> getScheduleWeekId(Long id){
+    public ResponseEntity<?> getScheduleWeekId(int page, int size, Long id){
         try {
             List<Schedule> schedules=scheduleRepository.getScheduleWeekId(id);
             if (schedules != null){

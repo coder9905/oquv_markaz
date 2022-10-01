@@ -82,12 +82,12 @@ public class SuperAdminController {
     }
 
     @GetMapping("/getAllTrainingCenter")
-    public ResponseEntity<?> getAllTrainingCenter(@RequestParam(defaultValue = "0") int page, int size) {
+    public ResponseEntity<?> getAllTrainingCenter(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int size) {
         return trainingCenterService.getAllPage(page, size);
     }
 
     @GetMapping("/getAllCenterBranches")
-    public ResponseEntity<?> getAllCenterBranches(@RequestParam(defaultValue = "0") int page, int size) {
+    public ResponseEntity<?> getAllCenterBranches(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int size) {
         return centerBranchesService.getAllPageCenterBranches(page, size);
     }
 

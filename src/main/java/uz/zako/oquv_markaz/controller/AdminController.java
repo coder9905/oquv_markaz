@@ -43,24 +43,19 @@ public class AdminController {
         return subjcetService.deleteSubjectId(id);
     }
 
-    @DeleteMapping("/delete/subject/{centerBranchesId}")
-    public ResponseEntity<?> deleteSubjectCenterBranchesId(@PathVariable("centerBranchesId") Long id) {
-        return subjcetService.deleteSubjectCenterBranchesId(id);
-    }
-
     @GetMapping("/getOne/subject/{subjectId}")
     public ResponseEntity<?> getOneSubject(@PathVariable("subjectId") Long id) {
         return subjcetService.getOne(id);
     }
 
     @GetMapping("/getCenterBranches/subject/{centerBranchesId}")
-    public ResponseEntity<?> getSubjectCenterBranchesId(@PathVariable("centerBranchesId") Long id) {
-        return subjcetService.getSubjectCenterBranchesId(id);
+    public ResponseEntity<?> getAllSubjectCenterBranchesId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size,@PathVariable("centerBranchesId") Long id) {
+        return subjcetService.getSubjectCenterBranchesId(page,size,id);
     }
 
     @GetMapping("/all/subject")
-    public ResponseEntity<?> getAllSubject() {
-        return subjcetService.getAllSubject();
+    public ResponseEntity<?> getAllSubject(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
+        return subjcetService.getAllSubject(page, size);
     }
 
     @PostMapping("/save/group/{hashId}")
@@ -73,45 +68,24 @@ public class AdminController {
         return groupService.editGroups(payload, id);
     }
 
-    @DeleteMapping("/delete/group/{groupId}")
-    public ResponseEntity<?> deleteGroupId(@PathVariable("groupId") Long id) {
-        return groupService.deleteGroup(id);
-    }
-
-    @DeleteMapping("/delete/group/{subjectId}")
-    public ResponseEntity<?> deleteGroupSubjectId(@PathVariable("subjectId") Long id) {
-        return groupService.deleteGroupSubjectId(id);
-    }
-
-    @DeleteMapping("/delete/group/{employeId}")
-    public ResponseEntity<?> deleteGroupEmployeId(@PathVariable("employeId") Long id) {
-        return groupService.deleteGroupEmployeId(id);
-    }
-
     @GetMapping("/getOne/group/{groupId}")
     public ResponseEntity<?> getOneGroup(@PathVariable("groupId") Long id) {
         return groupService.getOne(id);
     }
 
     @GetMapping("/getSubjectId/group/{subjectId}")
-    public ResponseEntity<?> getGroupSubjectId(@PathVariable("subjectId") Long id) {
-        return groupService.getGroupsSubjectId(id);
+    public ResponseEntity<?> getAllGroupSubjectId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size,@PathVariable("subjectId") Long id) {
+        return groupService.getGroupsSubjectId(page,size,id);
     }
 
     @GetMapping("/getEmployeId/group/{employeId}")
-    public ResponseEntity<?> getGroupEmployeId(@PathVariable("employeId") Long id) {
-        return groupService.getGroupsEmployesId(id);
+    public ResponseEntity<?> getGroupEmployeId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size,@PathVariable("employeId") Long id) {
+        return groupService.getGroupsEmployesId(page,size,id);
     }
 
     @GetMapping("/all/group")
-    public ResponseEntity<?> getAllGroup() {
-        return groupService.getAllGroups();
-    }
-
-
-    @DeleteMapping("/deleteUserCenterBranchesId/user/{centerBranchesId}")
-    public ResponseEntity<?> deleteUserCenterBranchesId(@PathVariable("centerBranchesId") Long id) {
-        return userService.deleteUserCenterBranchesId(id);
+    public ResponseEntity<?> getAllGroup(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size) {
+        return groupService.getAllGroups(page,size);
     }
 
     @GetMapping("/getOne/user{userId}")
@@ -120,13 +94,13 @@ public class AdminController {
     }
 
     @GetMapping("/getUserGroupId/user{groupId}")
-    public ResponseEntity<?> getUserGroupId(@PathVariable("groupId") Long id) {
-        return userService.getUserGroupId(id);
+    public ResponseEntity<?> getUserGroupId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size,@PathVariable("groupId") Long id) {
+        return userService.getUserGroupId(page,size,id);
     }
 
     @GetMapping("/getUsercenterBranchesId/user{centerBranchesId}")
-    public ResponseEntity<?> getUsercenterBranchesId(@PathVariable("centerBranchesId") Long id) {
-        return userService.getUsercenterBranchesId(id);
+    public ResponseEntity<?> getUsercenterBranchesId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size,@PathVariable("centerBranchesId") Long id) {
+        return userService.getUsercenterBranchesId(page,size,id);
     }
 
     @PostMapping("/save/nb")
@@ -145,13 +119,13 @@ public class AdminController {
     }
 
     @GetMapping("/getTeacherId/schedule/{teacherId}")
-    public ResponseEntity<?> getScheduleTeacherId(@PathVariable("teacherId") Long id){
-        return scheduleService.getScheduleTeacherId(id);
+    public ResponseEntity<?> getScheduleTeacherId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size,@PathVariable("teacherId") Long id){
+        return scheduleService.getScheduleTeacherId(page,size,id);
     }
 
     @GetMapping("/getScheduleId/schedule/{weekId}")
-    public ResponseEntity<?> getScheduleWeekId(@PathVariable("weekId") Long id){
-        return scheduleService.getScheduleWeekId(id);
+    public ResponseEntity<?> getScheduleWeekId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size,@PathVariable("weekId") Long id){
+        return scheduleService.getScheduleWeekId(page,size,id);
     }
 
     @GetMapping("/all/schedule")
@@ -214,11 +188,6 @@ public class AdminController {
         return discountService.getDiscountGroupId(id);
     }
 
-    @DeleteMapping("/delete/discount/{groupId}")
-    public ResponseEntity<?> deleteDiscountGroupId(@PathVariable("groupId") Long id){
-        return discountService.getDiscountGroupId(id);
-    }
-
     @DeleteMapping("/deleteDiscountId/discount/{discountId}")
     public ResponseEntity<?> deleteDiscountId(@PathVariable("discountId") Long id){
         return discountService.getDiscountGroupId(id);
@@ -244,10 +213,6 @@ public class AdminController {
         return outputService.getAllOutput();
     }
 
-    @GetMapping("/getUserId/output/{userId}")
-    public ResponseEntity<?> getAllOutput(@PathVariable("userId") Long id){
-        return outputService.getOutputGroupId(id);
-    }
 
     @PostMapping("/save/payment")
     public ResponseEntity<?> savePAyment(@RequestBody PaymentPayload payload){
@@ -262,11 +227,6 @@ public class AdminController {
     @DeleteMapping("/delete/payment/{paymentId}")
     public ResponseEntity<?> deletePaymentId(@PathVariable("paymentId") Long id){
         return paymentService.deletePaymentId(id);
-    }
-
-    @DeleteMapping("/deleteGroupId/payment/{groupId}")
-    public ResponseEntity<?> deletePaymentGroupId(@PathVariable("groupId") Long id){
-        return paymentService.deletePaymentGroupId(id);
     }
 
     @GetMapping("/all/payment")
@@ -304,11 +264,6 @@ public class AdminController {
         return salaryService.deleteSalaryId(id);
     }
 
-    @DeleteMapping("/deleteEmployeId/salary/{employeId}")
-    public ResponseEntity<?> deleteSalaryemployeId(@PathVariable("employeId") Long id){
-        return salaryService.deleteSalaryEmployeId(id);
-    }
-
     @GetMapping("/all/salary")
     public ResponseEntity<?> getAllSalary(){
         return salaryService.getAllSalary();
@@ -318,9 +273,6 @@ public class AdminController {
     public ResponseEntity<?> getSalaryMoonId(@PathVariable("moonId") Long id){
         return salaryService.getSalaryMoonId(id);
     }
-
-
-
 
 
 }

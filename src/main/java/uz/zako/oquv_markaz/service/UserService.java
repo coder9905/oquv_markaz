@@ -10,9 +10,9 @@ public interface UserService {
 
     ResponseEntity<?> getOne(Long userId);
 
-    ResponseEntity<?> getUserGroupId(Long groupId);
+    ResponseEntity<?> getUserGroupId(int page, int size,Long groupId);
 
-    ResponseEntity<?> getUsercenterBranchesId(Long id);
+    ResponseEntity<?> getUsercenterBranchesId(int page, int size,Long id);
 
     ResponseEntity<?> getAllUsers();
 

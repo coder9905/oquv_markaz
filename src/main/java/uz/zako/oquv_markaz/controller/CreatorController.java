@@ -45,7 +45,7 @@ public class CreatorController {
     }
 
     @GetMapping("/getAllTrainingCenterId/CenterBranches/{trainingCenterId}")
-    public ResponseEntity<?> getAllCenterBranches(@RequestParam(defaultValue = "0") int page, int size,@PathVariable("trainingCenterId") Long id){
+    public ResponseEntity<?> getAllCenterBranches(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int size,@PathVariable("trainingCenterId") Long id){
         return centerBranchesService.getCenterBranchesTrainingId(page,size,id);
     }
 

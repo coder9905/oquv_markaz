@@ -2,6 +2,8 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -68,9 +70,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<?> getEmployeCenterBranchesId(Long id){
+    public ResponseEntity<?> getEmployeCenterBranchesId(int size, int page,Long id){
         try {
-            List<EmployePayload> employePayloads=employesRepository.getCenterBranchesId(id);
+            Page<Employee> employePayloads=employesRepository.getAllEmployeCenterBranchesId(PageRequest.of(page, size),id);
             if (employePayloads != null){
                 return ResponseEntity.ok(new Result(true,"get Employe centerBranchesId",employePayloads));
             }

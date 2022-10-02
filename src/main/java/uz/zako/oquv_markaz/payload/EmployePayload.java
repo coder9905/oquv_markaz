@@ -7,6 +7,7 @@ import uz.zako.oquv_markaz.entity.CenterBranches;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,9 +17,6 @@ public class EmployePayload {
     private Long id;
 
     private String fullName;
-
-    private String phone;
-
     private String adress;
 
     private boolean isTeacher;
@@ -26,6 +24,8 @@ public class EmployePayload {
     private String position;
 
     private String seniority;
+
+    private List<String> phones;
 
     private Long monthly;
 
@@ -35,10 +35,9 @@ public class EmployePayload {
 
     private String role;
 
-    public EmployePayload(Long id, String fullName, String phone, String adress, boolean isTeacher, Long monthly, String position, String seniority) {
+    public EmployePayload(Long id, String fullName, String adress, boolean isTeacher, Long monthly, String position, String seniority) {
         this.id = id;
         this.fullName = fullName;
-        this.phone = phone;
         this.adress = adress;
         this.isTeacher = isTeacher;
         this.monthly=monthly;
@@ -46,9 +45,8 @@ public class EmployePayload {
         this.seniority = seniority;
     }
 
-    public EmployePayload(String fullName, String phone, String adress, boolean isTeacher, String position, String seniority, Long monthly) {
+    public EmployePayload(String fullName, String adress, boolean isTeacher, String position, String seniority, Long monthly) {
         this.fullName = fullName;
-        this.phone = phone;
         this.adress = adress;
         this.isTeacher = isTeacher;
         this.position = position;

@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface EmployesRepository extends JpaRepository<Employee, Long> {
 
-    @Query("select new uz.zako.oquv_markaz.payload.EmployePayload(e.id,e.fullName,e.phone,e.adress,e.isTeacher,e.monthly,e.position,e.seniority) from Employee e where e.centerBranches.id=?1")
+    @Query("select new uz.zako.oquv_markaz.payload.EmployePayload(e.id,e.fullName,e.adress,e.isTeacher,e.monthly,e.position,e.seniority) from Employee e where e.centerBranches.id=?1")
     List<EmployePayload> getCenterBranchesId(Long id);
 
     @Query(nativeQuery = true,value = "select * from employee e where e.center_branches_id=?1")

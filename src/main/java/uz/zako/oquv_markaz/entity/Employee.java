@@ -19,8 +19,6 @@ public class Employee extends AbstractEntity {
 
     private String fullName;
 
-    private String phone;
-
     private String adress;
 
     private boolean isTeacher;
@@ -51,4 +49,7 @@ public class Employee extends AbstractEntity {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
     private List<Salary> salaries;
+
+    @ManyToMany
+    private List<Phone> phones;
 }

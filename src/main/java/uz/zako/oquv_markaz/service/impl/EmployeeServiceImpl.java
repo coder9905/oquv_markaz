@@ -6,19 +6,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.zako.oquv_markaz.entity.CenterBranches;
 import uz.zako.oquv_markaz.entity.Employee;
+import uz.zako.oquv_markaz.entity.Phone;
+import uz.zako.oquv_markaz.entity.User;
 import uz.zako.oquv_markaz.exception.ResourceNotFoundException;
 import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.EmployePayload;
-import uz.zako.oquv_markaz.repository.AttachmentRepository;
-import uz.zako.oquv_markaz.repository.CenterBranchesRepository;
-import uz.zako.oquv_markaz.repository.EmployesRepository;
-import uz.zako.oquv_markaz.repository.RoleRepository;
+import uz.zako.oquv_markaz.payload.UserPayload;
+import uz.zako.oquv_markaz.repository.*;
 import uz.zako.oquv_markaz.security.SecurityUtils;
 import uz.zako.oquv_markaz.service.EmployeeService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,13 +34,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final AttachmentRepository attachmentRepository;
     private final RoleRepository roleRepository;
     private final SecurityUtils securityUtils;
+    private final PhoneRepository phoneRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public ResponseEntity<?>  save(EmployePayload payload, String hashId){
         try {
             Employee employee=new Employee();
             employee.setFullName(payload.getFullName());
-            employee.setPhone(payload.getPhone());
+            List<Phone> phones=new ArrayList<>();
+            for (int i = 0; i < payload.getPhones().size(); i++) {
+                Phone phone = new Phone();
+                phone.setPhone(payload.getPhones().get(i));
+                phone = phoneRepository.save(phone);
+                phones.add(phone);
+            }
             employee.setAdress(payload.getAdress());
             employee.setSeniority(payload.getSeniority());
             employee.setTeacher(payload.isTeacher());
@@ -55,6 +65,39 @@ public class EmployeeServiceImpl implements EmployeeService {
         }catch (Exception e){
             log.error("error employes",e.getMessage());
             return new ResponseEntity(new Result(false,"employe saqlashda hatolik",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> saveMenegerAdmin(String hashId, EmployePayload payload){
+        try {
+            Employee employee=new Employee();
+            employee.setFullName(payload.getFullName());
+            employee.setAdress(payload.getAdress());
+            employee.setSeniority(payload.getSeniority());
+            employee.setTeacher(payload.isTeacher());
+            employee.setPosition(payload.getPosition());
+            employee.setSeniority(payload.getSeniority());
+            employee.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
+            employee.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("Attachment not found")));
+            employee.setCenterBranches(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));
+
+            List<Phone> phones=new ArrayList<>();
+            for (int i = 0; i < payload.getPhones().size(); i++) {
+                Phone phone = new Phone();
+                phone.setPhone(payload.getPhones().get(i));
+                phone = phoneRepository.save(phone);
+                phones.add(phone);
+            }
+            employee.setPhones(phones);
+            employee=employesRepository.save(employee);
+            if (employee != null){
+                return ResponseEntity.ok(Result.ok(employee));
+            }
+            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (Exception e) {
+            log.error("saveMenegerAdmin error", e.getMessage());
+            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -102,7 +145,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         try {
             Employee employee=employesRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("employe not found"));
             employee.setFullName(payload.getFullName());
-            employee.setPhone(payload.getPhone());
+            List<Phone> phones=new ArrayList<>();
+            for (int i = 0; i < payload.getPhones().size(); i++) {
+                Phone phone = new Phone();
+                phone.setPhone(payload.getPhones().get(i));
+                phone = phoneRepository.save(phone);
+                phones.add(phone);
+            }
             employee.setAdress(payload.getAdress());
             employee.setSeniority(payload.getSeniority());
             employee.setTeacher(payload.isTeacher());

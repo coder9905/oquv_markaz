@@ -69,5 +69,9 @@ public class CreatorController {
         return userService.getAllRole();
     }
 
+    @PostMapping("/save/meneger/{hashId}")
+    public ResponseEntity<?> saveMeneger(@PathVariable("hashId") String hashId,@RequestBody EmployePayload payload){
+        return employeeService.saveMenegerAdmin(hashId,payload);
+    }
 }
 

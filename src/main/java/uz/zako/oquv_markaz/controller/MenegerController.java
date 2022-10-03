@@ -1,12 +1,19 @@
 package uz.zako.oquv_markaz.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uz.zako.oquv_markaz.entity.Role;
+import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.CenterBranchesPayload;
 import uz.zako.oquv_markaz.payload.EmployePayload;
+import uz.zako.oquv_markaz.repository.RoleRepository;
 import uz.zako.oquv_markaz.service.CenterBranchesService;
 import uz.zako.oquv_markaz.service.EmployeeService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +23,7 @@ public class MenegerController {
 
     private final EmployeeService employeeService;
     private final CenterBranchesService centerBranchesService;
+    private final RoleRepository roleRepository;
 
     @PostMapping("/save/employee/{hashId}")
     public ResponseEntity<?> saveEmployee(@RequestBody EmployePayload payload, @PathVariable("hashId") String id) {
@@ -48,6 +56,19 @@ public class MenegerController {
         return centerBranchesService.getCenterBranchesTokenId();
     }
 
+    @GetMapping("/all/roles")
+    public ResponseEntity<?> getAllRole(){
+        try {
+            List<Role> roles=new ArrayList<>();
+            roles=roleRepository.findAll();
+            if (roles!=null){
+                return ResponseEntity.ok(Result.ok(roles));
+            }
+            return new ResponseEntity(new Result(false,"error get All Role",null),HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            return new ResponseEntity(Result.error("getAll Role error"), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
 

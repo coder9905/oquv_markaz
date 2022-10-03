@@ -56,7 +56,7 @@ public class UserserviceImpl implements UserService {
             }
             user.setPhones(phones);
             user.setAdress(payload.getAdress());
-            user.setRoles(Arrays.asList(roleRepository.findByName("USER")));
+            user.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
             user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
             user1 = userRepository.save(user);
@@ -64,9 +64,7 @@ public class UserserviceImpl implements UserService {
                 return ResponseEntity.ok(new Result(true, "save succesfull", user));
             }
         return new ResponseEntity(new Result(false, "save not succesfull", null), HttpStatus.BAD_REQUEST);
-    } catch(
-    Exception e)
-
+    } catch(Exception e)
     {
         log.error("error user", e.getMessage());
         return new ResponseEntity(new Result(false, "save not succesfull", null), HttpStatus.INTERNAL_SERVER_ERROR);

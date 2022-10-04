@@ -54,6 +54,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setTeacher(payload.isTeacher());
             employee.setPosition(payload.getPosition());
             employee.setSeniority(payload.getSeniority());
+            employee.setPhones(phones);
+            employee.setMonthly(payload.getMonthly());
             employee.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
             if (hashId!=null) {
                 employee.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("Attachment not found")));

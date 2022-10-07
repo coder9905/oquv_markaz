@@ -3,7 +3,10 @@ package uz.zako.oquv_markaz.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import uz.zako.oquv_markaz.entity.abstractEntity.AbstractEntity;
 
 import javax.persistence.*;
@@ -15,37 +18,19 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @Entity
-public class Employee extends AbstractEntity {
+public class Worker extends AbstractEntity {
 
     private String fullName;
 
     private String adress;
 
-    private String username;
-
-    private String password;
-
-    private boolean isTeacher;
-
-    private String seniority;
-
     private Long monthly;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Attachment img;
-
-    @ManyToMany
-    @JoinTable(name = "employe_role",
-            joinColumns = @JoinColumn(name = "employe_id"),
-            inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private List<Role> roles;
 
     @ManyToOne()
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CenterBranches centerBranches;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "worker")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
     private List<Salary> salaries;

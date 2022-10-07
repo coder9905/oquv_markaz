@@ -5,18 +5,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import uz.zako.oquv_markaz.entity.CenterBranches;
 import uz.zako.oquv_markaz.entity.Employee;
-import uz.zako.oquv_markaz.payload.CenterBranchesPayload;
-import uz.zako.oquv_markaz.payload.EmployePayload;
+import uz.zako.oquv_markaz.entity.Worker;
+import uz.zako.oquv_markaz.payload.WorkerPayload;
 
 import java.util.List;
 
 @Repository
-public interface EmployesRepository extends JpaRepository<Employee, Long> {
+public interface WorkerRepository extends JpaRepository<Worker, Long> {
 
-    @Query("select new uz.zako.oquv_markaz.payload.EmployePayload(e.id,e.fullName,e.adress,e.isTeacher,e.monthly,e.seniority) from Employee e where e.centerBranches.id=?1")
-    List<EmployePayload> getCenterBranchesId(Long id);
+    @Query("select new uz.zako.oquv_markaz.payload.WorkerPayload(e.id,e.fullName,e.adress,e.monthly) from Worker e where e.centerBranches.id=?1")
+    List<WorkerPayload> getCenterBranchesId(Long id);
+
+    @Query("select new uz.zako.oquv_markaz.payload.WorkerPayload(e.id,e.fullName,e.adress,e.monthly) from Worker e where e.centerBranches.id=?1")
+    Page<WorkerPayload> getWorkerCenterBranchesId(Pageable pageable,Long id);
 
     @Query(nativeQuery = true,value = "select * from employee e where e.center_branches_id=?1")
     Page<Employee> getAllEmployeCenterBranchesId(Pageable pageable, Long id);

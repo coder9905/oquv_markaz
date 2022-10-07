@@ -8,9 +8,11 @@ import uz.zako.oquv_markaz.entity.Role;
 import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.payload.CenterBranchesPayload;
 import uz.zako.oquv_markaz.payload.EmployePayload;
+import uz.zako.oquv_markaz.payload.WorkerPayload;
 import uz.zako.oquv_markaz.repository.RoleRepository;
 import uz.zako.oquv_markaz.service.CenterBranchesService;
 import uz.zako.oquv_markaz.service.EmployeeService;
+import uz.zako.oquv_markaz.service.WorkerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class MenegerController {
     private final EmployeeService employeeService;
     private final CenterBranchesService centerBranchesService;
     private final RoleRepository roleRepository;
+    private final WorkerService workerService;
 
     @PostMapping("/save/employee/{hashId}")
     public ResponseEntity<?> saveEmployee(@RequestBody EmployePayload payload, @PathVariable("hashId") String id) {
@@ -74,5 +77,33 @@ public class MenegerController {
     public ResponseEntity<?> getCenterBranchesTrainingCenterId(@PathVariable("trainingCenterId") Long id){
         return centerBranchesService.getAllCenterBranchesTrainingCenterId(id);
     }
+
+
+    @PostMapping("/save/worker")
+    public ResponseEntity<?> saveWorker(@RequestBody WorkerPayload payload) {
+        return workerService.save(payload);
+    }
+
+    @PutMapping("/edit/worker")
+    public ResponseEntity<?> editWorker(@RequestBody WorkerPayload payload) {
+        return workerService.editWorker(payload);
+    }
+
+    @DeleteMapping("/delete/worker/{workerId}")
+    public ResponseEntity<?> deleteWorker(@PathVariable("workerId") Long id) {
+        return workerService.deleteWorker(id);
+    }
+
+    @GetMapping("/getAll/worker")
+    public ResponseEntity<?> getAllWorker() {
+        return workerService.getAllWorker();
+    }
+
+
+    @GetMapping("/getCenterBranchesId/worker/{centerBranchesId}")
+    public ResponseEntity<?> getWorkerCenterBranchesId(@RequestParam(defaultValue = "0") int page, int size,@PathVariable("centerBranchesId") Long id) {
+        return workerService.getWorkerCenterBranchesId(size,page,id);
+    }
+
 }
 

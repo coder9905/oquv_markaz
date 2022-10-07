@@ -17,11 +17,14 @@ public class EmployePayload {
     private Long id;
 
     private String fullName;
+
+    private String username;
+
+    private String password;
+
     private String adress;
 
     private boolean isTeacher;
-
-    private String position;
 
     private String seniority;
 
@@ -35,21 +38,19 @@ public class EmployePayload {
 
     private String role;
 
-    public EmployePayload(Long id, String fullName, String adress, boolean isTeacher, Long monthly, String position, String seniority) {
+    public EmployePayload(Long id, String fullName, String adress, boolean isTeacher, Long monthly, String seniority) {
         this.id = id;
         this.fullName = fullName;
         this.adress = adress;
         this.isTeacher = isTeacher;
         this.monthly=monthly;
-        this.position = position;
         this.seniority = seniority;
     }
 
-    public EmployePayload(String fullName, String adress, boolean isTeacher, String position, String seniority, Long monthly) {
+    public EmployePayload(String fullName, String adress, boolean isTeacher, String seniority, Long monthly) {
         this.fullName = fullName;
         this.adress = adress;
         this.isTeacher = isTeacher;
-        this.position = position;
         this.seniority = seniority;
         this.monthly = monthly;
     }

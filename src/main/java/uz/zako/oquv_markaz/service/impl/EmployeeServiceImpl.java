@@ -50,9 +50,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                 phones.add(phone);
             }
             employee.setAdress(payload.getAdress());
+            employee.setUsername(payload.getUsername());
+            employee.setPassword(passwordEncoder.encode(payload.getPassword()));
             employee.setSeniority(payload.getSeniority());
             employee.setTeacher(payload.isTeacher());
-            employee.setPosition(payload.getPosition());
             employee.setSeniority(payload.getSeniority());
             employee.setPhones(phones);
             employee.setMonthly(payload.getMonthly());
@@ -80,7 +81,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setAdress(payload.getAdress());
             employee.setSeniority(payload.getSeniority());
             employee.setTeacher(payload.isTeacher());
-            employee.setPosition(payload.getPosition());
             employee.setSeniority(payload.getSeniority());
             employee.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
             employee.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("Attachment not found")));
@@ -157,9 +157,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                 phones.add(phone);
             }
             employee.setAdress(payload.getAdress());
+            employee.setUsername(payload.getUsername());
+            employee.setPassword(passwordEncoder.encode(payload.getPassword()));
             employee.setSeniority(payload.getSeniority());
             employee.setTeacher(payload.isTeacher());
-            employee.setPosition(payload.getPosition());
             employee.setSeniority(payload.getSeniority());
             employee.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("Attachment not found")));
             employee.setCenterBranches(centerBranchesRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));

@@ -3,6 +3,8 @@ package uz.zako.oquv_markaz.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import uz.zako.oquv_markaz.payload.CenterBranchesPayload;
 import uz.zako.oquv_markaz.payload.TrainingCenterPayload;

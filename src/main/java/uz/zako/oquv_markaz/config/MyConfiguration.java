@@ -11,7 +11,7 @@ public class MyConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
                 .allowedOrigins("http://loaclhost:3002,http://loaclhost:3001,http://loaclhost:3003")
-                .allowedMethods("GET","PUT", "DELETE")
+                .allowedMethods("GET","PUT", "DELETE","POST")
                 .allowedHeaders("header1", "header2", "header3")
                 .exposedHeaders("header1", "header2")
                 .allowCredentials(false).maxAge(3600);

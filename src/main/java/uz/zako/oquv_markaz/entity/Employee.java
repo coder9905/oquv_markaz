@@ -31,7 +31,6 @@ public class Employee extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIgnore
     private Attachment img;
 
     @ManyToMany
@@ -42,7 +41,6 @@ public class Employee extends AbstractEntity {
 
     @ManyToOne()
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIgnore
     private CenterBranches centerBranches;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "employee")

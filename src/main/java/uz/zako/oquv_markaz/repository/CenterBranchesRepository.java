@@ -19,6 +19,11 @@ public interface CenterBranchesRepository extends JpaRepository<CenterBranches, 
     @Query(nativeQuery = true,value = "select * from center_branches c where c.training_center_id=?1")
     Page<CenterBranches> getTrainingCenterId(Pageable pageable,Long id);
 
+    @Query(nativeQuery = true,value = "select * from center_branches c where c.training_center_id=?1")
+    List<CenterBranches> getCenterBranchesTrainingCenterId(Long id);
+
+
+
     @Query(nativeQuery = true, value = "select cb.* from center_branches cb join users_center_branches ucb on cb.id = ucb.center_branches_id join users u on ucb.users_id = u.id where u.username=?1")
     CenterBranches getCenterBranchesUserToken(String username);
 

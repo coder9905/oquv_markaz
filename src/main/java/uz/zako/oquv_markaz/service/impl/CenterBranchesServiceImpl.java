@@ -178,4 +178,18 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> getAllCenterBranchesTrainingCenterId(Long id){
+        try {
+            List<CenterBranches> centerBranches=centerBranchesRepository.getCenterBranchesTrainingCenterId(id);
+            if (centerBranches != null){
+                return ResponseEntity.ok(Result.ok(centerBranches));
+            }
+            return new ResponseEntity(new Result(false,"error CenterBranches",null),HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            log.error("error CenterBranches",e.getMessage());
+            return new ResponseEntity(new Result(false,"error CenterBranches",null),HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

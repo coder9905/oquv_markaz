@@ -70,5 +70,9 @@ public class MenegerController {
         }
     }
 
+    @GetMapping("/getAllCenterBranches/trainingCenterId/{trainingCenterId}")
+    public ResponseEntity<?> getCenterBranchesTrainingCenterId(@PathVariable("trainingCenterId") Long id){
+        return centerBranchesService.getAllCenterBranchesTrainingCenterId(id);
+    }
 }
 

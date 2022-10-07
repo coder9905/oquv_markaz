@@ -23,6 +23,11 @@ public class SuperAdminController {
     private final CenterBranchesService centerBranchesService;
     private final UserService userService;
 
+    @GetMapping()
+    public ResponseEntity<?> getAll(){
+        return ResponseEntity.ok("Hello");
+    }
+
     @PostMapping("/saveTrainingCenter")
     public ResponseEntity<?> saveTrainingCenter(@RequestBody TrainingCenterPayload payload){
         return trainingCenterService.save(payload);

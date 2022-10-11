@@ -42,7 +42,7 @@ public class OquvMarkazApplication {
 //    }
 
     // second minute hour day month weekday
-    @Scheduled(cron = "0 14 18 4 10 *")
+    @Scheduled(cron = "10 * * * * *")
     public void startCron(){
         System.out.println("startCron"+new Date());
     }

@@ -14,7 +14,7 @@ public interface EmployeeService {
 
     ResponseEntity<?> getAllEmployee();
 
-    ResponseEntity<?> editEmploye(EmployePayload payload,String hashId);
+    ResponseEntity<?> editEmploye(EmployePayload payload);
 
     ResponseEntity<?> deleteEmploye(Long employeId);
 

@@ -145,7 +145,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<?> editEmploye(EmployePayload payload,String hashId){
+    public ResponseEntity<?> editEmploye(EmployePayload payload){
         try {
             Employee employee=employesRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("employe not found"));
             employee.setFullName(payload.getFullName());

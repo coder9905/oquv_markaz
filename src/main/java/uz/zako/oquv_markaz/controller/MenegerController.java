@@ -33,9 +33,9 @@ public class MenegerController {
         return employeeService.save(payload, id);
     }
 
-    @PutMapping("/edit/employee/{hashId}")
-    public ResponseEntity<?> editEmployee(@RequestBody EmployePayload payload, @PathVariable("hashId") String id) {
-        return employeeService.editEmploye(payload, id);
+    @PutMapping("/edit/employee")
+    public ResponseEntity<?> editEmployee(@RequestBody EmployePayload payload) {
+        return employeeService.editEmploye(payload);
     }
 
     @DeleteMapping("/delete/employee/{emloyeId}")

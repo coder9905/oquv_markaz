@@ -30,7 +30,7 @@ public class AttachmentController {
         return attachmentService.download(hashId);
     }
 
-    @GetMapping("/delete/{hashId}")
+    @DeleteMapping("/delete/{hashId}")
     public ResponseEntity<?> getDelete(@PathVariable("hashId") String hashId) {
         return attachmentService.delete(hashId);
     }

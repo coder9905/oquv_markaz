@@ -21,6 +21,7 @@ public class Employee extends AbstractEntity {
 
     private String adress;
 
+    @Column(unique = true)
     private String username;
 
     private String password;

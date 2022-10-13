@@ -158,11 +158,12 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
             employee.setAdress(payload.getAdress());
             employee.setUsername(payload.getUsername());
-            employee.setPassword(passwordEncoder.encode(payload.getPassword()));
+            if(employee.getPassword() != null) {
+                employee.setPassword(passwordEncoder.encode(payload.getPassword()));
+            }
             employee.setSeniority(payload.getSeniority());
             employee.setTeacher(payload.isTeacher());
             employee.setSeniority(payload.getSeniority());
-            employee.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("Attachment not found")));
             employee.setCenterBranches(centerBranchesRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));
             employee=employesRepository.save(employee);
             if (employee != null){

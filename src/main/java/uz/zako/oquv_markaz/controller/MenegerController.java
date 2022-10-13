@@ -38,7 +38,7 @@ public class MenegerController {
         return employeeService.editEmploye(payload);
     }
 
-    @DeleteMapping("/delete/employee/{emloyeId}")
+    @DeleteMapping("/delete/employee/{employeId}")
     public ResponseEntity<?> deleteEmploye(@PathVariable("employeId") Long id) {
         return employeeService.deleteEmploye(id);
     }

@@ -33,6 +33,17 @@ public class WorkerPayload {
         this.centerBranchesId = centerBranchesId;
     }
 
+    public WorkerPayload(Long id,String fullName, String adress, List<String> phones, Long monthly, Long centerBranchesId) {
+        this.id=id;
+        this.fullName = fullName;
+        this.adress = adress;
+        this.phones = phones;
+        this.monthly = monthly;
+        this.centerBranchesId = centerBranchesId;
+    }
+
+
+
     public WorkerPayload(Long id, String fullName, String adress, Long monthly) {
         this.id = id;
         this.fullName = fullName;

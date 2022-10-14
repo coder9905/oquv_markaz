@@ -56,7 +56,7 @@ public class WorkerServiceImpl implements WorkerService {
             worker.setCenterBranches(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));
             worker=workerRepository.save(worker);
             if (worker != null) {
-                return ResponseEntity.ok(Result.ok(worker));
+                return ResponseEntity.ok("save succesfull");
             }
             return new ResponseEntity(new Result(false,"error save worker",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
@@ -79,7 +79,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public ResponseEntity<?> getWorkerCenterBranchesId(int size, int page,Long id){
         try {
-            Page<WorkerPayload> workers=workerRepository.getWorkerCenterBranchesId(PageRequest.of(page, size),id);
+            Page<Worker> workers=workerRepository.getWorkerCenterBranchesId(PageRequest.of(page, size),id);
             if (workers != null){
                 return ResponseEntity.ok(new Result(true,"get Worker centerBranchesId",workers));
             }

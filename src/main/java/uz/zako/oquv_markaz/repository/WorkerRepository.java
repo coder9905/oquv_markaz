@@ -14,8 +14,9 @@ import java.util.List;
 @Repository
 public interface WorkerRepository extends JpaRepository<Worker, Long> {
 
-    @Query("select new uz.zako.oquv_markaz.payload.WorkerPayload(e.id,e.fullName,e.adress,e.monthly) from Worker e where e.centerBranches.id=?1")
-    List<WorkerPayload> getCenterBranchesId(Long id);
+//    @Query("select new uz.zako.oquv_markaz.payload.WorkerPayload(e.id,e.fullName,e.adress,e.monthly) from Worker e where e.centerBranches.id=?1")
+    @Query(nativeQuery = true,value = "select * from worker e where e.center_branches_id=?1")
+    List<Worker> getCenterBranchesId(Long id);
 
     @Query("select new uz.zako.oquv_markaz.payload.WorkerPayload(e.id,e.fullName,e.adress,e.monthly) from Worker e where e.centerBranches.id=?1")
     Page<WorkerPayload> getWorkerCenterBranchesId(Pageable pageable,Long id);

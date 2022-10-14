@@ -50,11 +50,12 @@ public class WorkerServiceImpl implements WorkerService {
                 phones.add(phone);
             }
             worker.setPhones(phones);
+            worker.setPosition(payload.getPosition());
             worker.setMonthly(payload.getMonthly());
             worker.setCenterBranches(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));
             worker=workerRepository.save(worker);
             if (worker != null) {
-                return ResponseEntity.ok("save succesfull");
+                return ResponseEntity.ok(Result.ok(worker));
             }
             return new ResponseEntity(new Result(false,"error save worker",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
@@ -91,7 +92,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public ResponseEntity<?> getWorkerListCenterBranchesId(Long id){
         try {
-            List<WorkerPayload> workers=workerRepository.getCenterBranchesId(id);
+            List<Worker> workers=workerRepository.getCenterBranchesId(id);
             if (workers != null){
                 return ResponseEntity.ok(new Result(true,"get Worker centerBranchesId",workers));
             }
@@ -129,6 +130,7 @@ public class WorkerServiceImpl implements WorkerService {
                 phones.add(phone);
             }
             worker.setAdress(payload.getAdress());
+            worker.setPosition(payload.getPosition());
             worker.setCenterBranches(centerBranchesRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));
             worker=workerRepository.save(worker);
             if (worker != null){

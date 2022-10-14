@@ -24,6 +24,8 @@ public class Worker extends AbstractEntity {
 
     private String adress;
 
+    private String position;
+
     private Long monthly;
 
     @ManyToOne()

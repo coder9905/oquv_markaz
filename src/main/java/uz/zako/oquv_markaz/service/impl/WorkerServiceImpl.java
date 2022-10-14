@@ -49,6 +49,7 @@ public class WorkerServiceImpl implements WorkerService {
                 phone = phoneRepository.save(phone);
                 phones.add(phone);
             }
+            worker.setAdress(payload.getAdress());
             worker.setPhones(phones);
             worker.setPosition(payload.getPosition());
             worker.setMonthly(payload.getMonthly());

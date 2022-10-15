@@ -31,7 +31,7 @@ public class GroupServiceImpl implements GroupService {
     private final AttachmentRepository attachmentRepository;
 
     @Override
-    public ResponseEntity<?>  save(String hashId, GroupPayload payload){
+    public ResponseEntity<?>  save(GroupPayload payload){
         try {
             Groups groups=new Groups();
             groups.setName(payload.getName());
@@ -40,7 +40,9 @@ public class GroupServiceImpl implements GroupService {
             groups.setDiscription(payload.getDiscription());
             groups.setDuration(payload.getDuration());
             groups.setCapacity(payload.getCapacity());
-            groups.setImg(Arrays.asList(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("Attachment not found"))));
+            if (payload.getHashId() != null) {
+                groups.setImg(Arrays.asList(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("Attachment not found"))));
+            }
             groups.setEmployees(Arrays.asList(employesRepository.findById(payload.getEmployeesId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found"))));
             groups.setSubject(Arrays.asList(subjectRepository.findById(payload.getSubjectId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found"))));
 
@@ -114,7 +116,7 @@ public class GroupServiceImpl implements GroupService {
 
 
     @Override
-    public ResponseEntity<?> editGroups(GroupPayload payload, String hashId){
+    public ResponseEntity<?> editGroups(GroupPayload payload){
         try {
             Groups groups=groupRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("group not found"));
             groups.setName(payload.getName());
@@ -123,7 +125,9 @@ public class GroupServiceImpl implements GroupService {
             groups.setDiscription(payload.getDiscription());
             groups.setDuration(payload.getDuration());
             groups.setCapacity(payload.getCapacity());
-            groups.setImg(Arrays.asList(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("Attachment not found"))));
+            if (payload.getHashId() != null) {
+                groups.setImg(Arrays.asList(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("Attachment not found"))));
+            }
             groups.setEmployees(Arrays.asList(employesRepository.findById(payload.getEmployeesId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found"))));
             groups.setSubject(Arrays.asList(subjectRepository.findById(payload.getSubjectId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found"))));
             groups=groupRepository.save(groups);

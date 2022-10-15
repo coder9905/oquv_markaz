@@ -45,7 +45,7 @@ public class OutputServiceImpl implements OutputService {
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
             outputs.setUser(userRepository.findByUsername(username));
 
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
             Date date1=simpleDateFormat.parse(payload.getTime());
             System.out.println(date1);
 
@@ -74,7 +74,7 @@ public class OutputServiceImpl implements OutputService {
                 outputs.setDiscription(payload.getDiscription());
                 outputs.setPrice(payload.getPrice());
                 outputs.setUser(userRepository.findByUsername(username));
-                Date date1=new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(payload.getTime());
+                Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(payload.getTime());
                 outputs.setTime(date1);
                 outputs=outputRepository.save(outputs);
                 if (outputs != null){

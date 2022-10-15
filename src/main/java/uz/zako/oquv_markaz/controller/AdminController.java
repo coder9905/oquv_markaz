@@ -28,13 +28,13 @@ public class AdminController {
     private final SalaryService salaryService;
 
 
-    @PostMapping("/save/subject/{hashId}")
-    public ResponseEntity<?> saveSubject(@RequestBody SubjectPayload payload, @PathVariable("hashId") String hashId) {
+    @PostMapping("/save/subject/")
+    public ResponseEntity<?> saveSubject(@RequestBody SubjectPayload payload) {
         return subjcetService.saveSubjcet(payload);
     }
 
-    @PutMapping("/edit/subject/{hashId}")
-    public ResponseEntity<?> editSubject(@PathVariable("hashId") String id, @RequestBody SubjectPayload payload) {
+    @PutMapping("/edit/subject/")
+    public ResponseEntity<?> editSubject(@RequestBody SubjectPayload payload) {
         return subjcetService.editSubject(payload);
     }
 
@@ -58,14 +58,14 @@ public class AdminController {
         return subjcetService.getAllSubject(page, size);
     }
 
-    @PostMapping("/save/group/{hashId}")
-    public ResponseEntity<?> saveGroup(@PathVariable("hashId") String id, @RequestBody GroupPayload payload) {
-        return groupService.save(id, payload);
+    @PostMapping("/save/group/")
+    public ResponseEntity<?> saveGroup(@RequestBody GroupPayload payload) {
+        return groupService.save(payload);
     }
 
-    @PutMapping("/edit/group/{hashId}")
-    public ResponseEntity<?> editGroup(@PathVariable("hashId") String id, @RequestBody GroupPayload payload) {
-        return groupService.editGroups(payload, id);
+    @PutMapping("/edit/group/")
+    public ResponseEntity<?> editGroup(@RequestBody GroupPayload payload) {
+        return groupService.editGroups(payload);
     }
 
     @GetMapping("/getOne/group/{groupId}")

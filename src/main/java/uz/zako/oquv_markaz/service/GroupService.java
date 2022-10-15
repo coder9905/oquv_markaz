@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import uz.zako.oquv_markaz.payload.GroupPayload;
 
 public interface GroupService {
-    ResponseEntity<?>  save(String hashId, GroupPayload payload);
+    ResponseEntity<?>  save(GroupPayload payload);
 
     ResponseEntity<?> getOne(Long id);
 
@@ -14,7 +14,7 @@ public interface GroupService {
 
     ResponseEntity<?> getGroupsEmployesId(int page,int size,Long employesId);
 
-    ResponseEntity<?> editGroups(GroupPayload payload, String hashId);
+    ResponseEntity<?> editGroups(GroupPayload payload);
 
     ResponseEntity<?> deleteGroup(Long groupId);
 

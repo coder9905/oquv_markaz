@@ -34,6 +34,7 @@ public class OutputServiceImpl implements OutputService {
     @Override
     public ResponseEntity<?> saveOutput(OutputPayload payload){
         try {
+
             Outputs outputs=new Outputs();
             outputs.setTitle(payload.getTitle());
             outputs.setDiscription(payload.getDiscription());
@@ -42,15 +43,18 @@ public class OutputServiceImpl implements OutputService {
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
             outputs.setUser(userRepository.findByUsername(username));
 
+            outputs.setTime(payload.getTime());
+
             outputs=outputRepository.save(outputs);
 
             if (outputs != null){
                 return ResponseEntity.ok(Result.ok(outputs));
             }
+
             return new ResponseEntity(new Result(false,"error save outputs",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error outputs(chiqim)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error save outputs",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error save outputs",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -64,6 +68,7 @@ public class OutputServiceImpl implements OutputService {
                 outputs.setDiscription(payload.getDiscription());
                 outputs.setPrice(payload.getPrice());
                 outputs.setUser(userRepository.findByUsername(username));
+                outputs.setTime(payload.getTime());
                 outputs=outputRepository.save(outputs);
                 if (outputs != null){
                     return ResponseEntity.ok(Result.ok(outputs));
@@ -72,7 +77,7 @@ public class OutputServiceImpl implements OutputService {
             return new ResponseEntity(new Result(false,"error edit outputs",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error outputs(chiqim)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error edit outputs",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error edit outputs",null),HttpStatus.CONFLICT);
         }
     }
     @Override
@@ -82,7 +87,7 @@ public class OutputServiceImpl implements OutputService {
             return ResponseEntity.ok(Result.ok(outputss));
         }catch (Exception e){
             log.error("error outputs",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getAll outputs",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getAll outputs",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -93,7 +98,7 @@ public class OutputServiceImpl implements OutputService {
             return ResponseEntity.ok(Result.ok(outputss));
         }catch (Exception e){
             log.error("error outputs(chqim)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getAll outputs",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getAll outputs",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -104,7 +109,7 @@ public class OutputServiceImpl implements OutputService {
             return ResponseEntity.ok(Result.ok("delete succesfull"));
         }catch (Exception e){
             log.error("error outputs(chiqim)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getAll outputs",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getAll outputs",null),HttpStatus.CONFLICT);
         }
     }
 }

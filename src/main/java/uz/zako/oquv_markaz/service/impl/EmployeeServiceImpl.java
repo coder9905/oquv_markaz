@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public ResponseEntity<?>  save(EmployePayload payload, String hashId){
+    public ResponseEntity<?>  save(EmployePayload payload){
         try {
             Employee employee=new Employee();
             employee.setFullName(payload.getFullName());
@@ -58,8 +58,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setPhones(phones);
             employee.setMonthly(payload.getMonthly());
             employee.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
-            if (hashId!=null) {
-                employee.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("Attachment not found")));
+            if (payload.getHashId() != null) {
+                employee.setImg(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("Attachment not found")));
             }
             employee.setCenterBranches(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));
             employee=employesRepository.save(employee);
@@ -129,6 +129,22 @@ public class EmployeeServiceImpl implements EmployeeService {
             return new ResponseEntity(new Result(false,"getEmployeCenterBranchesId employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public ResponseEntity<?> getEmployeCenterBranchesAllId(Long id){
+        try {
+            List<Employee> employePayloads=employesRepository.getEmployeCenterBranchesAllId(id);
+            if (employePayloads != null){
+                return ResponseEntity.ok(new Result(true,"get Employe centerBranchesId",employePayloads));
+            }
+            return new ResponseEntity(new Result(false,"getEmployeCenterBranchesId employe error",null), HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            log.error("error employes",e.getMessage());
+            return new ResponseEntity(new Result(false,"getEmployeCenterBranchesId employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
     @Override
     public ResponseEntity<?> getAllEmployee(){

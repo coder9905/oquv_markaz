@@ -11,6 +11,9 @@ public interface WorkerService {
 
     ResponseEntity<?> getWorkerCenterBranchesId(int size, int page, Long id);
 
+    ResponseEntity<?> getWorkerCenterBranchesAllId(Long id);
+
+
     ResponseEntity<?> getWorkerListCenterBranchesId(Long id);
 
     ResponseEntity<?> getAllWorker();

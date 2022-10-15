@@ -21,7 +21,10 @@ public interface EmployesRepository extends JpaRepository<Employee, Long> {
     @Query(nativeQuery = true,value = "select * from employee e where e.center_branches_id=?1")
     Page<Employee> getAllEmployeCenterBranchesId(Pageable pageable, Long id);
 
-    @Query(nativeQuery = true,value = "delete from Employe e where e.center_branches_id=?1")
+    @Query(nativeQuery = true,value = "select * from employee e where e.center_branches_id=?1")
+    List<Employee> getEmployeCenterBranchesAllId(Long id);
+
+    @Query(nativeQuery = true,value = "delete from employe e where e.center_branches_id=?1")
     Boolean deleteEmployeeByCenterBranchesId(Long id);
 
 

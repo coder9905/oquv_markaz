@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import uz.zako.oquv_markaz.payload.SubjectPayload;
 
 public interface SubjcetService {
-    ResponseEntity<?> saveSubjcet(String hashId, SubjectPayload payload);
+    ResponseEntity<?> saveSubjcet(SubjectPayload payload);
 
     ResponseEntity<?> getOne(Long subjectId);
 
@@ -12,7 +12,7 @@ public interface SubjcetService {
 
     ResponseEntity<?> getAllSubject(int page, int size);
 
-    ResponseEntity<?> editSubject(String hashId, SubjectPayload payload);
+    ResponseEntity<?> editSubject(SubjectPayload payload);
 
     ResponseEntity<?> deleteSubjectId(Long id);
 

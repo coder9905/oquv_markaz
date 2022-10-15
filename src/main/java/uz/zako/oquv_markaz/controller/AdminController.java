@@ -30,12 +30,12 @@ public class AdminController {
 
     @PostMapping("/save/subject/{hashId}")
     public ResponseEntity<?> saveSubject(@RequestBody SubjectPayload payload, @PathVariable("hashId") String hashId) {
-        return subjcetService.saveSubjcet(hashId, payload);
+        return subjcetService.saveSubjcet(payload);
     }
 
     @PutMapping("/edit/subject/{hashId}")
     public ResponseEntity<?> editSubject(@PathVariable("hashId") String id, @RequestBody SubjectPayload payload) {
-        return subjcetService.editSubject(id, payload);
+        return subjcetService.editSubject(payload);
     }
 
     @DeleteMapping("/delete/subject/{subjectId}")

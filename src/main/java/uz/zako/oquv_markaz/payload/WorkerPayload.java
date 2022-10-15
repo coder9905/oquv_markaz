@@ -19,6 +19,8 @@ public class WorkerPayload {
 
     private List<String> phones;
 
+    private Long phoneId;
+
     private String position;
 
     private Long monthly;
@@ -33,11 +35,11 @@ public class WorkerPayload {
         this.centerBranchesId = centerBranchesId;
     }
 
-    public WorkerPayload(Long id,String fullName, String adress, List<String> phones, Long monthly, Long centerBranchesId) {
+    public WorkerPayload(Long id,String fullName, String adress, Long phoneId, Long monthly, Long centerBranchesId) {
         this.id=id;
         this.fullName = fullName;
         this.adress = adress;
-        this.phones = phones;
+        this.phoneId = phoneId;
         this.monthly = monthly;
         this.centerBranchesId = centerBranchesId;
     }

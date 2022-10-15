@@ -28,9 +28,9 @@ public class MenegerController {
     private final RoleRepository roleRepository;
     private final WorkerService workerService;
 
-    @PostMapping("/save/employee/{hashId}")
-    public ResponseEntity<?> saveEmployee(@RequestBody EmployePayload payload, @PathVariable("hashId") String id) {
-        return employeeService.save(payload, id);
+    @PostMapping("/save/employee")
+    public ResponseEntity<?> saveEmployee(@RequestBody EmployePayload payload) {
+        return employeeService.save(payload);
     }
 
     @PutMapping("/edit/employee")
@@ -53,6 +53,13 @@ public class MenegerController {
     public ResponseEntity<?> getemployeCenterBranchesId(@RequestParam(defaultValue = "0") int page, int size,@PathVariable("centerBranchesId") Long id) {
         return employeeService.getEmployeCenterBranchesId(size,page,id);
     }
+
+    @GetMapping("/getCenterBranchesId/employee/{centerBranchesAllId}")
+    public ResponseEntity<?> getemployeCenterBranchesAllId(@PathVariable("centerBranchesAllId") Long id) {
+        return employeeService.getEmployeCenterBranchesAllId(id);
+    }
+
+
 
     @GetMapping("/getCenterBranches/token")
     public ResponseEntity<?> getCenterBranchesToken(){
@@ -104,6 +111,13 @@ public class MenegerController {
     public ResponseEntity<?> getWorkerCenterBranchesId(@RequestParam(defaultValue = "0") int page, int size,@PathVariable("centerBranchesId") Long id) {
         return workerService.getWorkerCenterBranchesId(size,page,id);
     }
+
+    @GetMapping("/getCenterBranchesId/worker/{centerBranchesAllId}")
+    public ResponseEntity<?> getWorkerCenterBranchesId(@PathVariable("centerBranchesAllId") Long id) {
+        return workerService.getWorkerCenterBranchesAllId(id);
+    }
+
+
 
 }
 

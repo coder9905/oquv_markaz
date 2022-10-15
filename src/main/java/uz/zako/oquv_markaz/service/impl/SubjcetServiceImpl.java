@@ -28,13 +28,15 @@ public class SubjcetServiceImpl implements SubjcetService {
     private final AttachmentRepository attachmentRepository;
 
     @Override
-    public ResponseEntity<?> saveSubjcet(String hashId, SubjectPayload payload){
+    public ResponseEntity<?> saveSubjcet(SubjectPayload payload){
         try {
             Subject subject=new Subject();
             subject.setName(payload.getName());
             subject.setTitle(payload.getTitle());
             subject.setDiscription(payload.getDiscription());
-            subject.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("attachment not found")));
+            if (payload.getHashId() != null) {
+                subject.setImg(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+            }
             subject.setCenterBranches(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(()->new ResourceNotFoundException("centerBranches not found")));
             subject=subjectRepository.save(subject);
             if (subject != null){
@@ -87,13 +89,15 @@ public class SubjcetServiceImpl implements SubjcetService {
     }
 
     @Override
-    public ResponseEntity<?> editSubject(String hashId,SubjectPayload payload){
+    public ResponseEntity<?> editSubject(SubjectPayload payload){
         try {
             Subject subject=subjectRepository.findById(payload.getId()).orElseThrow(()->new ResourceNotFoundException("subject not found"));
             subject.setName(payload.getName());
             subject.setTitle(payload.getTitle());
             subject.setDiscription(payload.getDiscription());
-            subject.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("attachment not found")));
+            if (payload.getHashId() != null) {
+                subject.setImg(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+            }
             subject.setCenterBranches(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(()->new ResourceNotFoundException("centerBranches not found")));
             subject=subjectRepository.save(subject);
             if (subject != null){

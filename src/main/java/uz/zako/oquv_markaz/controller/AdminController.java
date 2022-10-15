@@ -223,6 +223,10 @@ public class AdminController {
         return outputService.getAllOutput();
     }
 
+    @GetMapping("/getAll/v1/worker/")
+    public ResponseEntity<?> getAllWorkerPage(@RequestParam(defaultValue = "0") int page, int size) {
+        return outputService.getAllPageOutput(page, size);
+    }
 
     @PostMapping("/save/payment")
     public ResponseEntity<?> savePAyment(@RequestBody PaymentPayload payload){

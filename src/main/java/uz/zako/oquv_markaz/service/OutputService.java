@@ -10,6 +10,8 @@ public interface OutputService {
 
     ResponseEntity<?> getAllOutput();
 
+    ResponseEntity<?> getAllPageOutput(int page, int size);
+
     ResponseEntity<?> getOutputGroupId(Long userId);
 
     ResponseEntity<?> deleteOutputoutputId(Long outputId);

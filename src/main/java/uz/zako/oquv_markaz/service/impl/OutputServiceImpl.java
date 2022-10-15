@@ -2,6 +2,9 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -98,6 +101,18 @@ public class OutputServiceImpl implements OutputService {
             return new ResponseEntity(new Result(false,"error getAll outputs",null),HttpStatus.CONFLICT);
         }
     }
+
+    @Override
+    public ResponseEntity<?> getAllPageOutput(int page, int size){
+        try {
+            Page<Outputs> outputss=outputRepository.findAll(PageRequest.of(page,size,Sort.by(Sort.Direction.DESC, "createdAt")));
+            return ResponseEntity.ok(Result.ok(outputss));
+        }catch (Exception e){
+            log.error("error outputs",e.getMessage());
+            return new ResponseEntity(new Result(false,"error getAll outputs",null),HttpStatus.CONFLICT);
+        }
+    }
+
 
     @Override
     public ResponseEntity<?> getOutputGroupId(Long userId){

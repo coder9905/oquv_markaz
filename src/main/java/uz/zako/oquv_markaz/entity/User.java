@@ -17,10 +17,6 @@ import java.util.List;
 @Data
 public class User extends AbstractEntity {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
     @Column(unique = true, columnDefinition = "TEXT")//hohlagancha yoza olasz cheksiz
     private String username;
 

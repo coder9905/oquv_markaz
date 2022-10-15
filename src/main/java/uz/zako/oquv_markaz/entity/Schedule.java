@@ -25,7 +25,7 @@ public class Schedule extends AbstractEntity {
     @ManyToMany
     private List<Week> weeks;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Employee employee;
 

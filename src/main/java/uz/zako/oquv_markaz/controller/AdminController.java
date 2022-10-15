@@ -108,8 +108,6 @@ public class AdminController {
         return userService.getUsercenterBranchesAllId(id);
     }
 
-
-
     @PostMapping("/save/nb")
     public ResponseEntity<?> saveNb(@RequestBody NbPayload payload) {
         return nbService.save(payload);
@@ -210,8 +208,8 @@ public class AdminController {
         return outputService.editDiscount(id,payload);
     }
 
-    @DeleteMapping("/delete/output/{userId}")
-    public ResponseEntity<?> deleteOutput(@PathVariable("userId") Long id){
+    @DeleteMapping("/delete/output/{outputId}")
+    public ResponseEntity<?> deleteOutput(@PathVariable("outputId") Long id){
         return outputService.deleteOutputuserId(id);
     }
 

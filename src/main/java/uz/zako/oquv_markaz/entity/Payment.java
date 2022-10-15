@@ -20,7 +20,7 @@ public class Payment extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Moon moon;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Discount discount;
 

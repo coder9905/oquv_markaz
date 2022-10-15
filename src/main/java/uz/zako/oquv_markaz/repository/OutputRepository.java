@@ -14,7 +14,7 @@ public interface OutputRepository extends JpaRepository<Outputs, Long> {
     @Query(nativeQuery = true, value = "select * from Outputs o where o.user_id=?1")
     List<Outputs> getOutputUserId(Long id);
 
-    @Query(nativeQuery = true, value = "delete from Outputs o where o.user_id=?1")
+    @Query(nativeQuery = true, value = "delete from Outputs o where o.id=?1")
     void deleteOutputUserId(Long id);
 
 }

@@ -1,5 +1,6 @@
 package uz.zako.oquv_markaz.payload;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import uz.zako.oquv_markaz.entity.User;
 
@@ -7,11 +8,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Data
 public class OutputPayload {
 
@@ -21,7 +22,7 @@ public class OutputPayload {
 
     private String discription;
 
-    private Date time;
+    private String time;
 
     private Long price;
 

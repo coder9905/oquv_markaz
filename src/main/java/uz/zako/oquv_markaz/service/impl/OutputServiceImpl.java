@@ -19,7 +19,9 @@ import uz.zako.oquv_markaz.security.SecurityUtils;
 import uz.zako.oquv_markaz.service.DiscountService;
 import uz.zako.oquv_markaz.service.OutputService;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,7 +45,11 @@ public class OutputServiceImpl implements OutputService {
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
             outputs.setUser(userRepository.findByUsername(username));
 
-            outputs.setTime(payload.getTime());
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date date1=simpleDateFormat.parse(payload.getTime());
+            System.out.println(date1);
+
+            outputs.setTime(date1);
 
             outputs=outputRepository.save(outputs);
 
@@ -68,7 +74,8 @@ public class OutputServiceImpl implements OutputService {
                 outputs.setDiscription(payload.getDiscription());
                 outputs.setPrice(payload.getPrice());
                 outputs.setUser(userRepository.findByUsername(username));
-                outputs.setTime(payload.getTime());
+                Date date1=new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(payload.getTime());
+                outputs.setTime(date1);
                 outputs=outputRepository.save(outputs);
                 if (outputs != null){
                     return ResponseEntity.ok(Result.ok(outputs));
@@ -103,9 +110,9 @@ public class OutputServiceImpl implements OutputService {
     }
 
     @Override
-    public ResponseEntity<?> deleteOutputuserId(Long userId){
+    public ResponseEntity<?> deleteOutputuserId(Long outputId){
         try {
-            outputRepository.deleteOutputUserId(userId);
+            outputRepository.deleteOutputUserId(outputId);
             return ResponseEntity.ok(Result.ok("delete succesfull"));
         }catch (Exception e){
             log.error("error outputs(chiqim)",e.getMessage());

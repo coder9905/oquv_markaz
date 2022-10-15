@@ -31,10 +31,7 @@ public class UserserviceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
-    private final AdminRepository adminRepository;
-    private final GroupRepository groupRepository;
     private final CenterBranchesRepository centerBranchesRepository;
-    private final TrainingCenterRepository trainingCenterRepository;
     private final AttachmentRepository attachmentRepository;
     private final PhoneRepository phoneRepository;
     private final SecurityUtils securityUtils;
@@ -119,6 +116,23 @@ public class UserserviceImpl implements UserService {
             return new ResponseEntity(new Result(false, "error user", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public ResponseEntity<?> getUsercenterBranchesAllId(Long id) {
+        try {
+            String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
+            User userToken = userRepository.findByUsername(username);
+            if (userToken.getCenterBranches().get(0).getId() == id) {
+                List<User> users = userRepository.getBycenterBranchesAllIdUsers(id);
+                return ResponseEntity.ok(new Result(true, "getUsercenterBranchesId", users));
+            }
+            return new ResponseEntity(new Result(false, "error user", null), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.error("error user", e.getMessage());
+            return new ResponseEntity(new Result(false, "error user", null), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @Override
     public ResponseEntity<?> getAllUsers() {

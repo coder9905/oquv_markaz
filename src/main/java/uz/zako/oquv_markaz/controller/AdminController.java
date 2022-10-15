@@ -103,6 +103,13 @@ public class AdminController {
         return userService.getUsercenterBranchesId(page,size,id);
     }
 
+    @GetMapping("/getAllUsercenterBranchesId/user{centerBranchesId}")
+    public ResponseEntity<?> getAllUsercenterBranchesId(@PathVariable("centerBranchesId") Long id) {
+        return userService.getUsercenterBranchesAllId(id);
+    }
+
+
+
     @PostMapping("/save/nb")
     public ResponseEntity<?> saveNb(@RequestBody NbPayload payload) {
         return nbService.save(payload);

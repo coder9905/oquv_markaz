@@ -31,6 +31,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
     Page<User> getBycenterBranchesIdUsers(Pageable pageable,Long id);
 
+    @Query(nativeQuery = true, value = "select * from users u where u.center_branches_id=?1")
+    List<User> getBycenterBranchesAllIdUsers(Long id);
+
+
+
     @Query(nativeQuery = true, value = "delete from users u where u.group_id=?1")
     void deleteGroupIdUser(Long id);
 

@@ -14,6 +14,8 @@ public interface UserService {
 
     ResponseEntity<?> getUsercenterBranchesId(int page, int size,Long id);
 
+    ResponseEntity<?> getUsercenterBranchesAllId(Long id);
+
     ResponseEntity<?> getAllUsers();
 
     ResponseEntity<?> getAllPageUsers(int page, int size);

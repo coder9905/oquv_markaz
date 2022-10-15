@@ -12,6 +12,8 @@ public interface SubjcetService {
 
     ResponseEntity<?> getAllSubject(int page, int size);
 
+    ResponseEntity<?> getAllSubject();
+
     ResponseEntity<?> editSubject(SubjectPayload payload);
 
     ResponseEntity<?> deleteSubjectId(Long id);

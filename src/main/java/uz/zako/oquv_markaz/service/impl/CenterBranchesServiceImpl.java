@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.security.SecurityUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -121,7 +122,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
     @Override
     public ResponseEntity<?> getAll(){
      try {
-         List<CenterBranches> centerBranches=centerBranchesRepository.findAll();
+         List<CenterBranches> centerBranches=centerBranchesRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
          if (centerBranches != null) {
              return ResponseEntity.ok(centerBranches);
          }
@@ -167,7 +168,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
     @Override
     public ResponseEntity<?> getAllPageCenterBranches(int page, int size){
         try {
-            Page<CenterBranches> centerBranches=centerBranchesRepository.findAll(PageRequest.of(page,size));
+            Page<CenterBranches> centerBranches=centerBranchesRepository.findAllByDesc(PageRequest.of(page,size));
             if (centerBranches != null) {
                 return ResponseEntity.ok(centerBranches);
             }

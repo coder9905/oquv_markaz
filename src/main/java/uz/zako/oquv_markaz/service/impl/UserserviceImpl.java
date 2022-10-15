@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -137,7 +138,7 @@ public class UserserviceImpl implements UserService {
     @Override
     public ResponseEntity<?> getAllUsers() {
         try {
-            List<User> users = userRepository.findAll();
+            List<User> users = userRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
             if (users != null) {
                 return ResponseEntity.ok(new Result(true, "getUsercenterBranchesId", users));
             }
@@ -151,7 +152,7 @@ public class UserserviceImpl implements UserService {
     @Override
     public ResponseEntity<?> getAllPageUsers(int page, int size) {
         try {
-            Page<User> users = userRepository.findAll(PageRequest.of(page,size));
+            Page<User> users = userRepository.findAll(PageRequest.of(page,size,Sort.by(Sort.Direction.DESC, "createdAt")));
             if (users != null) {
                 return ResponseEntity.ok(new Result(true, "getUsercenterBranchesId", users));
             }

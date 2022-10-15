@@ -48,10 +48,10 @@ public class User extends AbstractEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<CenterBranches> centerBranches;
 
-//    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "user")
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    @JsonIgnore
-//    private List<Outputs> outputs;
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "user")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
+    private List<Outputs> outputs;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "user")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

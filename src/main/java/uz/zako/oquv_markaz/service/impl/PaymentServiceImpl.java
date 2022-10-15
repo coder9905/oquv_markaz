@@ -2,6 +2,7 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -76,7 +77,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public ResponseEntity<?> getAllPayment(){
         try {
-            List<Payment> payments=paymentRepository.findAll();
+            List<Payment> payments=paymentRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
             return ResponseEntity.ok(Result.ok(payments));
         }catch (Exception e){
             log.error("error payment",e.getMessage());

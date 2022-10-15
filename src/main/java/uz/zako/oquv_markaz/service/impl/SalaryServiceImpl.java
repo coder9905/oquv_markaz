@@ -2,6 +2,7 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -76,7 +77,7 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public ResponseEntity<?> getAllSalary(){
         try {
-            List<Salary> salarys=salaryRepository.findAll();
+            List<Salary> salarys=salaryRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
             return ResponseEntity.ok(Result.ok(salarys));
         }catch (Exception e){
             log.error("error salary",e.getMessage());

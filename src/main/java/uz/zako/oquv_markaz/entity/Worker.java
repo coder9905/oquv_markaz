@@ -40,4 +40,5 @@ public class Worker extends AbstractEntity {
     @ManyToMany
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Phone> phones;
+
 }

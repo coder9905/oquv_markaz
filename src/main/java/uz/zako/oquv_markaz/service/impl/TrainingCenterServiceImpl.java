@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -134,7 +135,7 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
     @Override
     public ResponseEntity<?> getAll(){
         try {
-            List<TrainingCenter> trainingCenters=trainingCenterRepository.findAll();
+            List<TrainingCenter> trainingCenters=trainingCenterRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
             if (trainingCenters != null) {
                 return ResponseEntity.ok(trainingCenters);
             }
@@ -148,7 +149,7 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
     @Override
     public ResponseEntity<?> getAllPage(int page, int size){
         try {
-            Page<TrainingCenter> trainingCenters=trainingCenterRepository.findAll(PageRequest.of(page,size));
+            Page<TrainingCenter> trainingCenters=trainingCenterRepository.findAll(PageRequest.of(page,size,Sort.by(Sort.Direction.DESC, "createdAt")));
             if (trainingCenters != null) {
                 return ResponseEntity.ok(trainingCenters);
             }

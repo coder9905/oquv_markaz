@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -77,7 +78,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ResponseEntity<?> getAllSchedule(){
         try {
-            List<Schedule> schedules=scheduleRepository.findAll();
+            List<Schedule> schedules=scheduleRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
             if (schedules != null){
                 return ResponseEntity.ok(new Result(true,"getAll schedules",schedules));
             }

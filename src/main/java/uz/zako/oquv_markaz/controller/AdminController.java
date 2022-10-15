@@ -54,8 +54,13 @@ public class AdminController {
     }
 
     @GetMapping("/all/subject")
-    public ResponseEntity<?> getAllSubject(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
+    public ResponseEntity<?> getAllPageSubject(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size) {
         return subjcetService.getAllSubject(page, size);
+    }
+
+    @GetMapping("/all/v1/subject")
+    public ResponseEntity<?> getAllSubject() {
+        return subjcetService.getAllSubject();
     }
 
     @PostMapping("/save/group/")

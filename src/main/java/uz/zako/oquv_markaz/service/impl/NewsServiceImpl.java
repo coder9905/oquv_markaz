@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -103,7 +104,7 @@ public class NewsServiceImpl implements NewsService {
     public ResponseEntity<?> getAllNews() {
 
         try {
-            return ResponseEntity.ok(newsRepository.findAll());
+            return ResponseEntity.ok(newsRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt")));
         } catch (Exception e) {
             log.error("getNewsBody");
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -2,6 +2,7 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResponseEntity<?> getAllCategorys() {
         try {
-            return ResponseEntity.ok(categoryRepository.findAll());
+            return ResponseEntity.ok(categoryRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt")));
         } catch (Exception e) {
             log.error("getIdCategory error -> {}", e.getMessage());
             return new ResponseEntity(new Result(false, "error getIdCategory", null), HttpStatus.INTERNAL_SERVER_ERROR);

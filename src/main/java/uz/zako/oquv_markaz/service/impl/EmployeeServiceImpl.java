@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -150,7 +151,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseEntity<?> getAllEmployee(){
         try {
-            List<Employee> employees=employesRepository.findAll();
+            List<Employee> employees=employesRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
             if (employees != null){
                 return ResponseEntity.ok(new Result(true,"getAll Employe",employees));
             }

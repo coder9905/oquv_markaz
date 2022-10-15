@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import uz.zako.oquv_markaz.entity.Attachment;
 
+import javax.persistence.OrderBy;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,12 +16,11 @@ public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
 
     Attachment findByHashId(String hashId);
 
-
-    @Query(value = "select * from attachment a where a.hash_id=:hashId", nativeQuery = true)
+    @Query(value = "select * from attachment a where a.hash_id=:hashId ORDER BY a.created_at DESC;", nativeQuery = true)
     Optional<Attachment> findByHashId1(@Param("hashId") String hashId);
 
-//    @Query(nativeQuery = true, value = "delete from attachment a where a.hash_id=:hashId")
-//    boolean deleteByhashId(@Param("hashId") String hashId);
+    @OrderBy("id ASC ")
+    List<Attachment> findAll();
 
     @Modifying
     boolean deleteByHashId(String hashId);

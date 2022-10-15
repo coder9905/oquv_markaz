@@ -3,6 +3,7 @@ package uz.zako.oquv_markaz.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileUrlResource;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,11 @@ import uz.zako.oquv_markaz.model.Result;
 import uz.zako.oquv_markaz.repository.AttachmentRepository;
 import uz.zako.oquv_markaz.service.AttachmentService;
 
+import javax.persistence.OrderBy;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -131,11 +134,11 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     public ResponseEntity<?> getAllAttachment() {
         try {
-            return ResponseEntity.ok(attachmentRepository.findAll());
+            List<Attachment> attachments=attachmentRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+            return ResponseEntity.ok(attachments);
         } catch (Exception e) {
             log.error("error getAllAttachment");
             return new ResponseEntity(new Result(false, "error", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }

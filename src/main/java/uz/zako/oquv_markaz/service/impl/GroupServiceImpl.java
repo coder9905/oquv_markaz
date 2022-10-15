@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -73,7 +74,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public ResponseEntity<?> getAllGroups(int page, int size){
         try {
-            Page<Groups> groupss=groupRepository.findAll(PageRequest.of(page, size));
+            Page<Groups> groupss=groupRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt")));
             System.out.println(groupss.toString());
             if (groupss != null){
                 return ResponseEntity.ok(new Result(true,"getAll Groups",groupss));

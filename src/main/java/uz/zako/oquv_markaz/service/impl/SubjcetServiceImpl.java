@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -77,7 +78,7 @@ public class SubjcetServiceImpl implements SubjcetService {
     @Override
     public ResponseEntity<?> getAllSubject(int page, int size){
         try {
-            Page<Subject> subjects=subjectRepository.findAll(PageRequest.of(page, size));
+            Page<Subject> subjects=subjectRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt")));
             if (subjects != null){
                 return ResponseEntity.ok(new Result(true,"getAll Subject",subjects));
             }
@@ -87,6 +88,22 @@ public class SubjcetServiceImpl implements SubjcetService {
             return new ResponseEntity(new Result(false,"getAll error succesfull", null),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public ResponseEntity<?> getAllSubject(){
+        try {
+            List<Subject> subjects=subjectRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+            if (subjects != null){
+                return ResponseEntity.ok(new Result(true,"getAll Subject",subjects));
+            }
+            return new ResponseEntity(new Result(false,"getAll error succesfull", null),HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            log.error("getAll Subjcet error",e.getMessage());
+            return new ResponseEntity(new Result(false,"getAll error succesfull", null),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
     @Override
     public ResponseEntity<?> editSubject(SubjectPayload payload){

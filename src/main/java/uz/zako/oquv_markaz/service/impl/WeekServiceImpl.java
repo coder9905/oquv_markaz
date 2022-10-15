@@ -2,6 +2,7 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,7 @@ public class WeekServiceImpl implements WeekService {
     @Override
     public ResponseEntity<?> getAllWeek(){
         try {
-            List<Week> weeks=weekRepository.findAll();
+            List<Week> weeks=weekRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
             return ResponseEntity.ok(weeks);
         }catch (Exception e){
             log.error("error week",e.getMessage());

@@ -2,6 +2,7 @@ package uz.zako.oquv_markaz.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,7 @@ public class MoonServiceImpl implements MoonService {
     @Override
     public ResponseEntity<?> getAllMoon(){
         try {
-            List<Moon> moons=moonRepository.findAll();
+            List<Moon> moons=moonRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
             return ResponseEntity.ok(moons);
         }catch (Exception e){
             log.error("error moon",e.getMessage());

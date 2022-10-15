@@ -110,13 +110,13 @@ public class OutputServiceImpl implements OutputService {
     }
 
     @Override
-    public ResponseEntity<?> deleteOutputuserId(Long outputId){
+    public ResponseEntity<?> deleteOutputoutputId(Long outputId){
         try {
-            outputRepository.deleteOutputUserId(outputId);
+            outputRepository.deleteById(outputId);
             return ResponseEntity.ok(Result.ok("delete succesfull"));
         }catch (Exception e){
             log.error("error outputs(chiqim)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getAll outputs",null),HttpStatus.CONFLICT);
+            return new ResponseEntity(new Result(false,"error delete outputs",null),HttpStatus.CONFLICT);
         }
     }
 }

@@ -78,9 +78,9 @@ public class SuperAdminController {
         return trainingCenterService.deletetrainingCenterBlock(id);
     }
 
-    @PostMapping("/saveTrainingCenterId/creator/{hashId}")
-    public ResponseEntity<?> saveUserCenterBranchesId(@PathVariable("hashId") String id,@RequestBody UserPayload payload){
-        return userService.saveCreator(id, payload);
+    @PostMapping("/saveTrainingCenterId/creator/")
+    public ResponseEntity<?> saveUserCenterBranchesId(@RequestBody UserPayload payload){
+        return userService.saveCreator(payload);
     }
 
     @GetMapping("/getAllTrainingCenter")

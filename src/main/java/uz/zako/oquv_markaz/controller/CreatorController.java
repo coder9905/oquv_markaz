@@ -54,14 +54,14 @@ public class CreatorController {
         return trainingCenterService.getTrainingCenterToken();
     }
 
-    @PostMapping("/save/userMenegerAdmin{hashId}")
-    public ResponseEntity<?> saveMenegerAdmin(@PathVariable("hashId") String hashId, @RequestBody UserPayload payload){
-        return userService.saveMenegerAdmin(hashId, payload);
+    @PostMapping("/save/userMenegerAdmin/")
+    public ResponseEntity<?> saveMenegerAdmin(@RequestBody UserPayload payload){
+        return userService.saveMenegerAdmin(payload);
     }
 
-    @PutMapping("/edit/userMenegerAdmin{hashId}")
-    public ResponseEntity<?> editMenegerAdmin(@PathVariable("hashId") String hashId, @RequestBody UserPayload payload){
-        return userService.editMenegerAdmin(hashId, payload);
+    @PutMapping("/edit/userMenegerAdmin/")
+    public ResponseEntity<?> editMenegerAdmin(@RequestBody UserPayload payload){
+        return userService.editMenegerAdmin(payload);
     }
 
     @GetMapping("/all/role")
@@ -69,9 +69,9 @@ public class CreatorController {
         return userService.getAllRole();
     }
 
-    @PostMapping("/save/meneger/{hashId}")
-    public ResponseEntity<?> saveMeneger(@PathVariable("hashId") String hashId,@RequestBody EmployePayload payload){
-        return employeeService.saveMenegerAdmin(hashId,payload);
+    @PostMapping("/save/meneger/}")
+    public ResponseEntity<?> saveMeneger(@RequestBody EmployePayload payload){
+        return employeeService.saveMenegerAdmin(payload);
     }
 }
 

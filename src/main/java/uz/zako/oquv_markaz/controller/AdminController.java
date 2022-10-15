@@ -195,7 +195,7 @@ public class AdminController {
 
     @DeleteMapping("/deleteDiscountId/discount/{discountId}")
     public ResponseEntity<?> deleteDiscountId(@PathVariable("discountId") Long id){
-        return discountService.getDiscountGroupId(id);
+        return discountService.deleteDiscountId(id);
     }
 
     @PostMapping("/save/output")
@@ -210,7 +210,7 @@ public class AdminController {
 
     @DeleteMapping("/delete/output/{outputId}")
     public ResponseEntity<?> deleteOutput(@PathVariable("outputId") Long id){
-        return outputService.deleteOutputuserId(id);
+        return outputService.deleteOutputoutputId(id);
     }
 
     @GetMapping("/all/output")

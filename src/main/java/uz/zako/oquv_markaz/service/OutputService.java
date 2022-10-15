@@ -12,5 +12,5 @@ public interface OutputService {
 
     ResponseEntity<?> getOutputGroupId(Long userId);
 
-    ResponseEntity<?> deleteOutputuserId(Long outputId);
+    ResponseEntity<?> deleteOutputoutputId(Long outputId);
 }

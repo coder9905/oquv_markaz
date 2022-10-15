@@ -74,7 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<?> saveMenegerAdmin(String hashId, EmployePayload payload){
+    public ResponseEntity<?> saveMenegerAdmin(EmployePayload payload){
         try {
             Employee employee=new Employee();
             employee.setFullName(payload.getFullName());
@@ -83,9 +83,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setTeacher(payload.isTeacher());
             employee.setSeniority(payload.getSeniority());
             employee.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
-            employee.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(()->new ResourceNotFoundException("Attachment not found")));
+            if (payload.getHashId() != null) {
+                employee.setImg(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("Attachment not found")));
+            }
             employee.setCenterBranches(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found")));
-
             List<Phone> phones=new ArrayList<>();
             for (int i = 0; i < payload.getPhones().size(); i++) {
                 Phone phone = new Phone();

@@ -6,7 +6,7 @@ import uz.zako.oquv_markaz.payload.EmployePayload;
 public interface EmployeeService {
     ResponseEntity<?> save(EmployePayload payload);
 
-    ResponseEntity<?> saveMenegerAdmin(String hashId, EmployePayload payload);
+    ResponseEntity<?> saveMenegerAdmin(EmployePayload payload);
 
     ResponseEntity<?> getOne(Long id);
 

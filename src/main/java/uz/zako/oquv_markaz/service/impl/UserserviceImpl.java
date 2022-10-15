@@ -232,7 +232,7 @@ public class UserserviceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> saveCreator(String hashId, UserPayload payload) {
+    public ResponseEntity<?> saveCreator(UserPayload payload) {
         try {
             User user = new User();
             user.setUsername(payload.getUsername());
@@ -247,7 +247,9 @@ public class UserserviceImpl implements UserService {
             }
             user.setAdress(payload.getAdress());
             user.setAdmin(false);
-            user.setImg(attachmentRepository.findByHashId1(hashId).get());
+            if (payload.getHashId() != null) {
+                user.setImg(attachmentRepository.findByHashId1(payload.getHashId()).get());
+            }
             user.setPhones(phones);
             user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
@@ -263,7 +265,7 @@ public class UserserviceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> saveMenegerAdmin(String hashId, UserPayload payload){
+    public ResponseEntity<?> saveMenegerAdmin(UserPayload payload){
         try {
             User user=new User();
             user.setUsername(payload.getUsername());
@@ -280,8 +282,9 @@ public class UserserviceImpl implements UserService {
             user.setAdress(payload.getAdress());
             user.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
-            user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
-
+            if (payload.getHashId() != null) {
+                user.setImg(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+            }
             user=userRepository.save(user);
             if (user != null){
                 return ResponseEntity.ok(Result.ok(user));
@@ -294,7 +297,7 @@ public class UserserviceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> editMenegerAdmin(String hashId, UserPayload payload){
+    public ResponseEntity<?> editMenegerAdmin(UserPayload payload){
         try {
             User user=userRepository.findById(payload.getId()).get();
             user.setUsername(payload.getUsername());
@@ -311,8 +314,9 @@ public class UserserviceImpl implements UserService {
             user.setAdress(payload.getAdress());
             user.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
-            user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
-
+            if (payload.getHashId() != null) {
+                user.setImg(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+            }
             user=userRepository.save(user);
             if (user != null){
                 return ResponseEntity.ok(Result.ok(user));

@@ -26,7 +26,6 @@ public class Outputs extends AbstractEntity {
     private Long price;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone="Europe/Berlin")
     private Date time;
 
     @ManyToOne(fetch = FetchType.LAZY)

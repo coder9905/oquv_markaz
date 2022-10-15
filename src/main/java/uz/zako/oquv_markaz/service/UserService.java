@@ -28,11 +28,11 @@ public interface UserService {
 
     ResponseEntity<?> deleteUserCenterBranchesId(Long id);
 
-    ResponseEntity<?> saveCreator(String hashId, UserPayload payload);
+    ResponseEntity<?> saveCreator(UserPayload payload);
 
-    ResponseEntity<?> saveMenegerAdmin(String hashId, UserPayload payload);
+    ResponseEntity<?> saveMenegerAdmin(UserPayload payload);
 
-    ResponseEntity<?> editMenegerAdmin(String hashId, UserPayload payload);
+    ResponseEntity<?> editMenegerAdmin(UserPayload payload);
 
     ResponseEntity<?> getAllRole();
 }

@@ -36,7 +36,7 @@ public class MoonServiceImpl implements MoonService {
             return new ResponseEntity(new Result(false,"save error moon",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error moon",e.getMessage());
-            return new ResponseEntity(new Result(false,"save error moon",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"save error moon",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -52,7 +52,7 @@ public class MoonServiceImpl implements MoonService {
             return new ResponseEntity(new Result(false,"edit error moon",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error moon",e.getMessage());
-            return new ResponseEntity(new Result(false,"edit error moon",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"edit error moon",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -63,7 +63,7 @@ public class MoonServiceImpl implements MoonService {
             return ResponseEntity.ok(moons);
         }catch (Exception e){
             log.error("error moon",e.getMessage());
-            return new ResponseEntity(new Result(false,"edit error moon",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"edit error moon",null),HttpStatus.CONFLICT);
         }
     }
 

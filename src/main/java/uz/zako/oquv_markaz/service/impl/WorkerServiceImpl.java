@@ -80,7 +80,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public ResponseEntity<?> getWorkerCenterBranchesId(int size, int page, Long id) {
         try {
-            Page<WorkerPayload> workers = workerRepository.getWorkerCenterBranchesID(PageRequest.of(page, size), id);
+            Page<Worker> workers = workerRepository.getWorkerCenterBranchesID(PageRequest.of(page, size), id);
             if (workers != null) {
                 return ResponseEntity.ok(new Result(true, "get Worker centerBranchesId", workers));
             }

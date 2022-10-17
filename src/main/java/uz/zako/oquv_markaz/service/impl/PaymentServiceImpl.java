@@ -48,7 +48,7 @@ public class PaymentServiceImpl implements PaymentService {
             return new ResponseEntity(new Result(false,"error save payment",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error payment(tolovlar)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error save payment",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error save payment",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -70,7 +70,7 @@ public class PaymentServiceImpl implements PaymentService {
             return new ResponseEntity(new Result(false,"error edit payment",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error payment(tolovlar)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error edit payment",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error edit payment",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -81,7 +81,7 @@ public class PaymentServiceImpl implements PaymentService {
             return ResponseEntity.ok(Result.ok(payments));
         }catch (Exception e){
             log.error("error payment",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getAll payment",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getAll payment",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -92,7 +92,7 @@ public class PaymentServiceImpl implements PaymentService {
             return ResponseEntity.ok(Result.ok(payments));
         }catch (Exception e){
             log.error("error payment(tolovlar)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getPaymentUserId payment",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getPaymentUserId payment",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -103,7 +103,7 @@ public class PaymentServiceImpl implements PaymentService {
             return ResponseEntity.ok(Result.ok(payments));
         }catch (Exception e){
             log.error("error payment(tolovlar)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getPaymentMoonId payment",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getPaymentMoonId payment",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -114,7 +114,7 @@ public class PaymentServiceImpl implements PaymentService {
             return ResponseEntity.ok(Result.ok(payments));
         }catch (Exception e){
             log.error("error payment(tolovlar)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getPaymentGroupId payment",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getPaymentGroupId payment",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -130,7 +130,7 @@ public class PaymentServiceImpl implements PaymentService {
             return new ResponseEntity(new Result(false,"error delete payment",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error payment(tolovlar)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error delete payment",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error delete payment",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -141,7 +141,7 @@ public class PaymentServiceImpl implements PaymentService {
             return ResponseEntity.ok(("delete succesfull"));
         }catch (Exception e){
             log.error("error payment(tolovlar)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error delete payment",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error delete payment",null),HttpStatus.CONFLICT);
         }
     }
 }

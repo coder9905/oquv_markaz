@@ -42,7 +42,7 @@ public class DiscountServiceImpl implements DiscountService {
             return new ResponseEntity(new Result(false,"error save discount",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error discount(chegirma)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error save discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error save discount",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -60,7 +60,7 @@ public class DiscountServiceImpl implements DiscountService {
             return new ResponseEntity(new Result(false,"error edit discount",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error discount(chegirma)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error edit discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error edit discount",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -71,7 +71,7 @@ public class DiscountServiceImpl implements DiscountService {
             return ResponseEntity.ok(Result.ok(discount));
         }catch (Exception e){
             log.error("error discount(chegirma)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getDiscountId discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getDiscountId discount",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -82,7 +82,7 @@ public class DiscountServiceImpl implements DiscountService {
             return ResponseEntity.ok(Result.ok(discounts));
         }catch (Exception e){
             log.error("error discount(chegirma)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -93,7 +93,7 @@ public class DiscountServiceImpl implements DiscountService {
             return ResponseEntity.ok(Result.ok(discounts));
         }catch (Exception e){
             log.error("error discount(chegirma)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -104,7 +104,7 @@ public class DiscountServiceImpl implements DiscountService {
             return ResponseEntity.ok(Result.ok("delete succesfull"));
         }catch (Exception e){
             log.error("error discount(chegirma)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -115,7 +115,7 @@ public class DiscountServiceImpl implements DiscountService {
             return ResponseEntity.ok(Result.ok("delete succesfull"));
         }catch (Exception e){
             log.error("error discount(chegirma)",e.getMessage());
-            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error getAll discount",null),HttpStatus.CONFLICT);
         }
     }
 

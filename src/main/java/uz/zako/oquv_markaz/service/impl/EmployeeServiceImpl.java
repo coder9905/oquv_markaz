@@ -70,7 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return new ResponseEntity(new Result(false,"error save employes",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error employes",e.getMessage());
-            return new ResponseEntity(new Result(false,"employe saqlashda hatolik",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"employe saqlashda hatolik",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -100,10 +100,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             if (employee != null){
                 return ResponseEntity.ok(Result.ok(employee));
             }
-            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.CONFLICT);
         }catch (Exception e) {
             log.error("saveMenegerAdmin error", e.getMessage());
-            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(Result.error("error saveMenegerAdmin not succesfull"), HttpStatus.CONFLICT);
         }
     }
 
@@ -114,7 +114,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return ResponseEntity.ok(new Result(true,"getOneEmploye",employee));
         }catch (Exception e){
             log.error("error employes",e.getMessage());
-            return new ResponseEntity(new Result(false,"get One employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"get One employe error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -128,7 +128,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return new ResponseEntity(new Result(false,"getEmployeCenterBranchesId employe error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error employes",e.getMessage());
-            return new ResponseEntity(new Result(false,"getEmployeCenterBranchesId employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"getEmployeCenterBranchesId employe error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -142,7 +142,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return new ResponseEntity(new Result(false,"getEmployeCenterBranchesId employe error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error employes",e.getMessage());
-            return new ResponseEntity(new Result(false,"getEmployeCenterBranchesId employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"getEmployeCenterBranchesId employe error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -158,7 +158,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return new ResponseEntity(new Result(false,"getAll employe error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error employes",e.getMessage());
-            return new ResponseEntity(new Result(false,"getAll employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"getAll employe error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -190,7 +190,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return new ResponseEntity(new Result(false,"edit employe error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error employes",e.getMessage());
-            return new ResponseEntity(new Result(false,"edit employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"edit employe error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -215,7 +215,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return new ResponseEntity(new Result(false,"delete employe error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error employes",e.getMessage());
-            return new ResponseEntity(new Result(false,"delete employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"delete employe error",null), HttpStatus.CONFLICT);
         }
     }
 

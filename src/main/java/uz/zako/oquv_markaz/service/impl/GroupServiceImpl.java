@@ -56,7 +56,7 @@ public class GroupServiceImpl implements GroupService {
             return new ResponseEntity(new Result(false,"error save employes",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error groups",e.getMessage());
-            return new ResponseEntity(new Result(false,"groups saqlashda hatolik",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"groups saqlashda hatolik",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -67,7 +67,7 @@ public class GroupServiceImpl implements GroupService {
             return ResponseEntity.ok(new Result(true,"getOneGroup",groups));
         }catch (Exception e){
             log.error("error group",e.getMessage());
-            return new ResponseEntity(new Result(false,"get One group error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"get One group error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -82,7 +82,7 @@ public class GroupServiceImpl implements GroupService {
             return new ResponseEntity(new Result(false,"getAll groups error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error groups",e.getMessage());
-            return new ResponseEntity(new Result(false,"getAll groups error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"getAll groups error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -96,7 +96,7 @@ public class GroupServiceImpl implements GroupService {
             return new ResponseEntity(new Result(false,"getGroupsSubjectId employe error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error groups",e.getMessage());
-            return new ResponseEntity(new Result(false,"getGroupsSubjectId employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"getGroupsSubjectId employe error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -110,7 +110,7 @@ public class GroupServiceImpl implements GroupService {
             return new ResponseEntity(new Result(false,"getGroupsemployesId employe error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error groups",e.getMessage());
-            return new ResponseEntity(new Result(false,"getGroupsemployesId employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"getGroupsemployesId employe error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -138,7 +138,7 @@ public class GroupServiceImpl implements GroupService {
             return new ResponseEntity(new Result(false,"edit group error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error group",e.getMessage());
-            return new ResponseEntity(new Result(false,"edit group error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"edit group error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -149,7 +149,7 @@ public class GroupServiceImpl implements GroupService {
             return ResponseEntity.ok("delete succesfull");
         }catch (Exception e){
             log.error("error group",e.getMessage());
-            return new ResponseEntity(new Result(false,"delete group error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"delete group error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -162,7 +162,7 @@ public class GroupServiceImpl implements GroupService {
             return new ResponseEntity(new Result(false,"delete group error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error group",e.getMessage());
-            return new ResponseEntity(new Result(false,"delete group error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"delete group error",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -175,7 +175,7 @@ public class GroupServiceImpl implements GroupService {
             return new ResponseEntity(new Result(false, "delete group error", null), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             log.error("error group", e.getMessage());
-            return new ResponseEntity(new Result(false, "delete group error", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false, "delete group error", null), HttpStatus.CONFLICT);
         }
     }
 

@@ -39,7 +39,7 @@ public class NbServiceImpl implements NbService {
             return new ResponseEntity(new Result(false,"error save nb",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error nb",e.getMessage());
-            return new ResponseEntity(new Result(false,"nb saqlashda hatolik",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"nb saqlashda hatolik",null), HttpStatus.CONFLICT);
         }
     }
 
@@ -53,7 +53,7 @@ public class NbServiceImpl implements NbService {
             return new ResponseEntity(new Result(false,"get One employe error",null), HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error employes",e.getMessage());
-            return new ResponseEntity(new Result(false,"get One employe error",null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"get One employe error",null), HttpStatus.CONFLICT);
         }
     }
 

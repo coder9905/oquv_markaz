@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
             return ResponseEntity.ok(categoryRepository.findById(id));
         } catch (Exception e) {
             log.error("getIdCategory error -> {}", e.getMessage());
-            return new ResponseEntity(new Result(false, "error getIdCategory", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false, "error getIdCategory", null), HttpStatus.CONFLICT);
         }
     }
 
@@ -62,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
             return ResponseEntity.ok(categoryRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt")));
         } catch (Exception e) {
             log.error("getIdCategory error -> {}", e.getMessage());
-            return new ResponseEntity(new Result(false, "error getIdCategory", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false, "error getIdCategory", null), HttpStatus.CONFLICT);
         }
     }
 
@@ -74,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
             return true;
         } catch (Exception e) {
             log.error("getIdCategory error -> {}", e.getMessage());
-//            return new ResponseEntity(new Result(false,"error getIdCategory",null),HttpStatus.INTERNAL_SERVER_ERROR);
+//            return new ResponseEntity(new Result(false,"error getIdCategory",null),HttpStatus.CONFLICT);
             return false;
         }
     }

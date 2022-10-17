@@ -66,7 +66,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
         } catch (Exception e) {
             log.error("error save attachment - {}", e.getMessage());
-            return new ResponseEntity(Result.error(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(Result.error(e.getMessage()), HttpStatus.CONFLICT);
         }
 
     }
@@ -92,7 +92,7 @@ public class AttachmentServiceImpl implements AttachmentService {
                             attachment.get().getUploadPath())));
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            return new ResponseEntity(Result.error(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(Result.error(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
 
@@ -108,7 +108,7 @@ public class AttachmentServiceImpl implements AttachmentService {
                             attachment.get().getUploadPath())));
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            return new ResponseEntity(Result.error(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(Result.error(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
 
@@ -127,7 +127,7 @@ public class AttachmentServiceImpl implements AttachmentService {
             return new ResponseEntity(Result.error("no delete"), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.getMessage();
-            return new ResponseEntity(Result.error(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(Result.error(e.getMessage()), HttpStatus.CONFLICT);
         }
     }
 
@@ -138,7 +138,7 @@ public class AttachmentServiceImpl implements AttachmentService {
             return ResponseEntity.ok(attachments);
         } catch (Exception e) {
             log.error("error getAllAttachment");
-            return new ResponseEntity(new Result(false, "error", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false, "error", null), HttpStatus.CONFLICT);
         }
     }
 }

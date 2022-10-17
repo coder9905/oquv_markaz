@@ -65,7 +65,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
             return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error BranchesCenter",e.getMessage());
-            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -76,7 +76,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
             return ResponseEntity.ok("delete succesfull");
         }catch (Exception e){
             log.error("error Center Branches",e.getMessage());
-            return new ResponseEntity(new Result(false,"error Center Branches",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error Center Branches",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -104,7 +104,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
 
         }catch (Exception e){
             log.error("error BranchesCenter",e.getMessage());
-            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -115,7 +115,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
          return ResponseEntity.ok(centerBranches);
      }catch (Exception e){
          log.error("error BranchesCenter",e.getMessage());
-         return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+         return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.CONFLICT);
      }
     }
 
@@ -129,7 +129,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
          return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.BAD_REQUEST);
      }catch (Exception e){
          log.error("error BranchesCenter",e.getMessage());
-         return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+         return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.CONFLICT);
      }
     }
 
@@ -143,7 +143,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
             return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error BranchesCenter",e.getMessage());
-            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -161,7 +161,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
             return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error BranchesCenter",e.getMessage());
-            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error BranchesCenter",null),HttpStatus.CONFLICT);
         }
     }
 
@@ -175,7 +175,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
             return new ResponseEntity(new Result(false,"error CenterBranches",null),HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             log.error("error CenterBranches",e.getMessage());
-            return new ResponseEntity(new Result(false,"error CenterBranches",null),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false,"error CenterBranches",null),HttpStatus.CONFLICT);
         }
     }
 

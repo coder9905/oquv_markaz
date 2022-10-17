@@ -113,12 +113,12 @@ public class MenegerController {
     }
 
     @GetMapping("/getCenterBranchesId/worker/{centerBranchesId}")
-    public ResponseEntity<?> getWorkerCenterBranchesId(@RequestParam(defaultValue = "0") int page, int size,@PathVariable("centerBranchesId") Long id) {
+    public ResponseEntity<?> getWorkerCenterBranchesId(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "0") int size,@PathVariable("centerBranchesId") Long id) {
         return workerService.getWorkerCenterBranchesId(size,page,id);
     }
 
-    @GetMapping("/getCenterBranchesId/worker/{centerBranchesAllId}")
-    public ResponseEntity<?> getWorkerCenterBranchesId(@PathVariable("centerBranchesAllId") Long id) {
+    @GetMapping("/getCenterBranchesAllId/worker/{centerBranchesId}")
+    public ResponseEntity<?> getWorkerCenterBranchesId(@PathVariable("centerBranchesId") Long id) {
         return workerService.getWorkerCenterBranchesAllId(id);
     }
 

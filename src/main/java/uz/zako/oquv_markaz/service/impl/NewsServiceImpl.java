@@ -96,7 +96,7 @@ public class NewsServiceImpl implements NewsService {
             return ResponseEntity.ok(newsRepository.findById(id));
         } catch (Exception e) {
             log.error("getNewsBody");
-            return new ResponseEntity(new Result(false, "error", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false, "error", null), HttpStatus.CONFLICT);
         }
     }
 
@@ -107,7 +107,7 @@ public class NewsServiceImpl implements NewsService {
             return ResponseEntity.ok(newsRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt")));
         } catch (Exception e) {
             log.error("getNewsBody");
-            return new ResponseEntity(new Result(false, "error", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Result(false, "error", null), HttpStatus.CONFLICT);
         }
     }
 
@@ -135,7 +135,7 @@ public class NewsServiceImpl implements NewsService {
             return true;
         } catch (Exception e) {
             log.error("getNewsBody");
-//            return new ResponseEntity(new Result(false,"error",null),HttpStatus.INTERNAL_SERVER_ERROR);
+//            return new ResponseEntity(new Result(false,"error",null),HttpStatus.CONFLICT);
             return false;
         }
     }

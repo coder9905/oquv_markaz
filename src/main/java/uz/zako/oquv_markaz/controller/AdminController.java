@@ -33,7 +33,7 @@ public class AdminController {
         return subjcetService.saveSubjcet(payload);
     }
 
-    @PutMapping("/edit/subject/")
+    @PutMapping("/edit/subject")
     public ResponseEntity<?> editSubject(@RequestBody SubjectPayload payload) {
         return subjcetService.editSubject(payload);
     }
@@ -63,12 +63,12 @@ public class AdminController {
         return subjcetService.getAllSubject();
     }
 
-    @PostMapping("/save/group/")
+    @PostMapping("/save/group")
     public ResponseEntity<?> saveGroup(@RequestBody GroupPayload payload) {
         return groupService.save(payload);
     }
 
-    @PutMapping("/edit/group/")
+    @PutMapping("/edit/group")
     public ResponseEntity<?> editGroup(@RequestBody GroupPayload payload) {
         return groupService.editGroups(payload);
     }

@@ -29,14 +29,14 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findByUsername(username));
     }
 
-    @PostMapping("/save/user/{hashId}")
-    public ResponseEntity<?> saveUser(@PathVariable("hashId") String hashId, @RequestBody UserPayload payload) {
-        return userService.saveUser(hashId, payload);
+    @PostMapping("/save/user")
+    public ResponseEntity<?> saveUser(@RequestBody UserPayload payload) {
+        return userService.saveUser(payload);
     }
 
-    @PutMapping("/edit/user/{hashId}")
-    public ResponseEntity<?> editUser(@PathVariable("hashId") String hashId, @RequestBody UserPayload payload) {
-        return userService.editUser(hashId, payload);
+    @PutMapping("/edit/user")
+    public ResponseEntity<?> editUser(@RequestBody UserPayload payload) {
+        return userService.editUser(payload);
     }
 
     @GetMapping("/all/user")

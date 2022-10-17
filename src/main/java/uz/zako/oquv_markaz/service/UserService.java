@@ -6,7 +6,7 @@ import uz.zako.oquv_markaz.payload.UserPayload;
 
 public interface UserService {
 
-    ResponseEntity<?> saveUser(String hashId, UserPayload payload);
+    ResponseEntity<?> saveUser(UserPayload payload);
 
     ResponseEntity<?> getOne(Long userId);
 
@@ -20,7 +20,7 @@ public interface UserService {
 
     ResponseEntity<?> getAllPageUsers(int page, int size);
 
-    ResponseEntity<?> editUser(String hashId, UserPayload payload);
+    ResponseEntity<?> editUser(UserPayload payload);
 
     ResponseEntity<?> deleteUserId(Long id);
 

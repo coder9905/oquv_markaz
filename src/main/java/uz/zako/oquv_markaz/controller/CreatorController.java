@@ -54,12 +54,12 @@ public class CreatorController {
         return trainingCenterService.getTrainingCenterToken();
     }
 
-    @PostMapping("/save/userMenegerAdmin/")
+    @PostMapping("/save/userMenegerAdmin")
     public ResponseEntity<?> saveMenegerAdmin(@RequestBody UserPayload payload){
         return userService.saveMenegerAdmin(payload);
     }
 
-    @PutMapping("/edit/userMenegerAdmin/")
+    @PutMapping("/edit/userMenegerAdmin")
     public ResponseEntity<?> editMenegerAdmin(@RequestBody UserPayload payload){
         return userService.editMenegerAdmin(payload);
     }
@@ -69,7 +69,7 @@ public class CreatorController {
         return userService.getAllRole();
     }
 
-    @PostMapping("/save/meneger/}")
+    @PostMapping("/save/meneger")
     public ResponseEntity<?> saveMeneger(@RequestBody EmployePayload payload){
         return employeeService.saveMenegerAdmin(payload);
     }

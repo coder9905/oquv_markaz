@@ -38,7 +38,7 @@ public class UserserviceImpl implements UserService {
     private final SecurityUtils securityUtils;
 
     @Override
-    public ResponseEntity<?> saveUser(String hashId, UserPayload payload) {
+    public ResponseEntity<?> saveUser(UserPayload payload) {
         try {
             User user = new User();
             User user1 = new User();
@@ -56,7 +56,9 @@ public class UserserviceImpl implements UserService {
             user.setAdress(payload.getAdress());
             user.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
-            user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+            if (payload.getHashId() != null) {
+                user.setImg(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+            }
             user1 = userRepository.save(user);
             if (user1 != null) {
                 return ResponseEntity.ok(new Result(true, "save succesfull", user));
@@ -164,7 +166,7 @@ public class UserserviceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> editUser(String hashId, UserPayload payload) {
+    public ResponseEntity<?> editUser(UserPayload payload) {
         try {
             User user = userRepository.findById(payload.getId()).orElseThrow(() -> new ResourceNotFoundException("user not found"));
             user.setUsername(payload.getUsername());
@@ -186,7 +188,9 @@ public class UserserviceImpl implements UserService {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
             }
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
-            user.setImg(attachmentRepository.findByHashId1(hashId).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+            if (payload.getHashId() != null) {
+                user.setImg(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
+            }
             user.setCenterBranches(Arrays.asList(centerBranchesRepository.findById(payload.getCenterBranchesId()).orElseThrow(() -> new ResourceNotFoundException("centerBranches not found"))));
             user = userRepository.save(user);
             if (user != null) {

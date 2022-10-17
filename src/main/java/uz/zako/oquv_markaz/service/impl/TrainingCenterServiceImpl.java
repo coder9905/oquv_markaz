@@ -166,7 +166,7 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
             String username = securityUtils.getCurrentUser().orElseThrow(() -> new RuntimeException("error"));
             User user=userRepository.findByUsername(username);
             if (user.getUsername().equals("coder") || user.getUsername().equals("joha")){
-                List<TrainingCenter> centerPayload=trainingCenterRepository.findAll();
+                List<TrainingCenter> centerPayload=trainingCenterRepository.findAll(Sort.by(Sort.Direction.DESC,"createdAt"));
                 return ResponseEntity.ok(Result.ok(centerPayload));
             }else {
                 List<TrainingCenter> centerPayload = trainingCenterRepository.getTrainingCenterUserToken(user.getUsername());

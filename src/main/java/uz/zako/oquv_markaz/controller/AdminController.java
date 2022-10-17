@@ -28,7 +28,7 @@ public class AdminController {
     private final SalaryService salaryService;
 
 
-    @PostMapping("/save/subject/")
+    @PostMapping("/save/subject")
     public ResponseEntity<?> saveSubject(@RequestBody SubjectPayload payload) {
         return subjcetService.saveSubjcet(payload);
     }
@@ -223,7 +223,7 @@ public class AdminController {
         return outputService.getAllOutput();
     }
 
-    @GetMapping("/getAll/v1/worker/")
+    @GetMapping("/getAll/v1/worker")
     public ResponseEntity<?> getAllWorkerPage(@RequestParam(defaultValue = "0") int page, int size) {
         return outputService.getAllPageOutput(page, size);
     }

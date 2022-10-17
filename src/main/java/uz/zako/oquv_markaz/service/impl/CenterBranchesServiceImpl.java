@@ -122,7 +122,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
     @Override
     public ResponseEntity<?> getAll(){
      try {
-         List<CenterBranches> centerBranches=centerBranchesRepository.findAll(Sort.by(Sort.Direction.DESC, "created_at"));
+         List<CenterBranches> centerBranches=centerBranchesRepository.findAll();
          if (centerBranches != null) {
              return ResponseEntity.ok(centerBranches);
          }

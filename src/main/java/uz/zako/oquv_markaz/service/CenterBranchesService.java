@@ -13,7 +13,7 @@ public interface CenterBranchesService {
 
     ResponseEntity<?> getOne(Long id);
 
-    ResponseEntity<?> getAll();
+    ResponseEntity<?> getAllCenterBranches();
 
     ResponseEntity<?> getCenterBranchesTrainingId(int page, int size,Long id);
 

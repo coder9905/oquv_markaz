@@ -65,7 +65,7 @@ public class SuperAdminController {
 
     @GetMapping("/allCenterBranches")
     public ResponseEntity<?> getAllCenterBranches(){
-        return centerBranchesService.getAll();
+        return centerBranchesService.getAllCenterBranches();
     }
 
     @PostMapping("/save/block/{trainingCenterId}")

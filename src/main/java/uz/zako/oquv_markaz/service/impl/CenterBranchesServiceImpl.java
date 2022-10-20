@@ -122,7 +122,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
     @Override
     public ResponseEntity<?> getAll(){
      try {
-         List<CenterBranches> centerBranches=centerBranchesRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+         List<CenterBranches> centerBranches=centerBranchesRepository.findAll();
          if (centerBranches != null) {
              return ResponseEntity.ok(centerBranches);
          }
@@ -168,7 +168,7 @@ public class CenterBranchesServiceImpl implements CenterBranchesService {
     @Override
     public ResponseEntity<?> getAllPageCenterBranches(int page, int size){
         try {
-            Page<CenterBranches> centerBranches=centerBranchesRepository.findAll(PageRequest.of(page,size,Sort.by(Sort.Direction.DESC, "id")));
+            Page<CenterBranches> centerBranches=centerBranchesRepository.findAll(PageRequest.of(page,size));
             if (centerBranches != null) {
                 return ResponseEntity.ok(centerBranches);
             }

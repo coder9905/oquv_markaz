@@ -145,6 +145,7 @@ public class WorkerServiceImpl implements WorkerService {
                 phone = phoneRepository.save(phone);
                 phones.add(phone);
             }
+            worker.setPhones(phones);
             worker.setAdress(payload.getAdress());
             worker.setPosition(payload.getPosition());
             worker.setCenterBranches(centerBranchesRepository.findById(payload.getId()).orElseThrow(() -> new ResourceNotFoundException("CenterBranches not found")));

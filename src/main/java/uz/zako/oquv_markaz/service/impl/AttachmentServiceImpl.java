@@ -53,14 +53,18 @@ public class AttachmentServiceImpl implements AttachmentService {
                     attachment.getHashId(),
                     attachment.getExtension()
             );
+
             attachment.setUploadPath(uploadFolder);
             File catalog = new File(uploadFolder);
 
             if (!catalog.exists()) {
                 catalog.mkdirs();
             }
-            Attachment attachment1 = attachmentRepository.save(attachment);
-            multipartFile.transferTo(catalog.getAbsoluteFile());
+            Attachment attachment1 = new Attachment();
+            if (multipartFile.getSize() < 1048576) {
+                attachment1 = attachmentRepository.save(attachment);
+                multipartFile.transferTo(catalog.getAbsoluteFile());
+            }
 
             return ResponseEntity.ok(new Result(true, attachment1.getHashId(), null));
 
@@ -134,7 +138,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     public ResponseEntity<?> getAllAttachment() {
         try {
-            List<Attachment> attachments=attachmentRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+            List<Attachment> attachments = attachmentRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
             return ResponseEntity.ok(attachments);
         } catch (Exception e) {
             log.error("error getAllAttachment");

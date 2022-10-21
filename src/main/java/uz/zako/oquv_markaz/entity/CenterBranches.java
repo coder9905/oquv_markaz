@@ -14,6 +14,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @Entity
 public class CenterBranches extends AbstractEntity {
@@ -40,6 +41,7 @@ public class CenterBranches extends AbstractEntity {
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "centerBranches")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private List<Subject> subjects;
 
 }

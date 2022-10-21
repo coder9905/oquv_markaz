@@ -30,6 +30,7 @@ public class Groups extends AbstractEntity {
     @ToString.Exclude
     @ManyToMany
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private List<Attachment> img;
 
     private String duration;
@@ -45,6 +46,7 @@ public class Groups extends AbstractEntity {
     @ToString.Exclude
     @ManyToMany
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private List<Employee> employees;
 
 

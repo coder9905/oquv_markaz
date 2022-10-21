@@ -21,4 +21,8 @@ public interface EmployeeService {
     ResponseEntity<?> deleteEmploye(Long employeId);
 
     ResponseEntity<?> deleteEmployeCenterBranchesId(Long centerBranchesId);
+
+    ResponseEntity<?> getAllTeacher(Long centerBranchesId);
+
+    ResponseEntity<?> getAllPageTeacher(int page, int size, Long id);
 }

@@ -39,8 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().and()
                 .authorizeRequests()
                 .antMatchers("/api/user/**").hasAnyRole("USER", "ADMIN","SUPERADMIN")
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/admin/**", "/api/file/**","/api/employe/**").hasAnyRole("ADMIN","SUPERADMIN","CREATOR")
+                .antMatchers("/api/auth/**","/api/file/**").permitAll()
+                .antMatchers("/api/admin/**", "/api/employe/**").hasAnyRole("ADMIN","SUPERADMIN","CREATOR")
                 .antMatchers("/api/token/**").hasAnyRole("CREATOR","SUPERADMIN","ADMIN")
                 .antMatchers("/api/**").hasRole("SUPERADMIN")
                 // Rest api documentition ni chiqazib beradi

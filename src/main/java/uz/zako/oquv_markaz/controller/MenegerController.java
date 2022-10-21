@@ -122,6 +122,18 @@ public class MenegerController {
         return workerService.getWorkerCenterBranchesAllId(id);
     }
 
+    @GetMapping("/all/employee/teacher/{centerBranchesId}")
+    public ResponseEntity<?> getAllEmployeTeacher(@PathVariable("centerBranchesId") Long id){
+        return employeeService.getAllTeacher(id);
+    }
+
+    @GetMapping("/allPage/employee/teacher/{centerBranchesId}")
+    public ResponseEntity<?> getAllPageEmployeTeacher(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "0") int size,@PathVariable("centerBranchesId") Long id){
+        return employeeService.getAllPageTeacher(page,size,id);
+    }
+
+
+
 
 
 }

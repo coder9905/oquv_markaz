@@ -42,7 +42,8 @@ public class Employee extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private List<Role> roles;
 
-    @ManyToOne()
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CenterBranches centerBranches;
 
@@ -51,7 +52,7 @@ public class Employee extends AbstractEntity {
     @JsonIgnore
     private List<Salary> salaries;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Phone> phones;
 }

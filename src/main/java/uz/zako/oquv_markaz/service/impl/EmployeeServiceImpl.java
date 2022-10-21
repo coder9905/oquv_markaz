@@ -219,4 +219,32 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> getAllTeacher(Long centerBranchesId){
+        try {
+            List<Employee> teacherList=employesRepository.getAllTeacher(centerBranchesId);
+            if (teacherList != null){
+                return ResponseEntity.ok(Result.ok(teacherList));
+            }
+            return new ResponseEntity(new Result(false,"getAllTeacher employe error",null), HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            log.error("getAllTeacher employes",e.getMessage());
+            return new ResponseEntity(new Result(false,"getAllTeacher employe error",null), HttpStatus.CONFLICT);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getAllPageTeacher(int page, int size, Long id){
+        try {
+            Page<Employee> teacherList=employesRepository.getAllPageTeacher(PageRequest.of(page,size),id);
+            if (teacherList != null){
+                return ResponseEntity.ok(Result.ok(teacherList));
+            }
+            return new ResponseEntity(new Result(false,"getAllTeacher employe error",null), HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            log.error("getAllTeacher employes",e.getMessage());
+            return new ResponseEntity(new Result(false,"getAllTeacher employe error",null), HttpStatus.CONFLICT);
+        }
+    }
+
 }

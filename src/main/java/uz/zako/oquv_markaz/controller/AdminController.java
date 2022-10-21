@@ -78,6 +78,11 @@ public class AdminController {
         return groupService.getOne(id);
     }
 
+    @GetMapping("/all/groups/{centerBranchesId}")
+    public ResponseEntity<?> getAllGroupCenterBranchesId(@PathVariable("centerBranchesId") Long id){
+        return groupService.getGroupCenterBranchesId(id);
+    }
+
     @GetMapping("/getSubjectId/group/{subjectId}")
     public ResponseEntity<?> getAllGroupSubjectId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size,@PathVariable("subjectId") Long id) {
         return groupService.getGroupsSubjectId(page,size,id);

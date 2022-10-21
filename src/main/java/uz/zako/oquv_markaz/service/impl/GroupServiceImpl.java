@@ -44,7 +44,9 @@ public class GroupServiceImpl implements GroupService {
             if (payload.getHashId() != null) {
                 groups.setImg(Arrays.asList(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("Attachment not found"))));
             }
-            groups.setEmployees(Arrays.asList(employesRepository.findById(payload.getEmployeesId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found"))));
+            if (groups.getEmployees()!=null) {
+                groups.setEmployees(Arrays.asList(employesRepository.findById(payload.getEmployeesId()).orElseThrow(() -> new ResourceNotFoundException("CenterBranches not found"))));
+            }
             groups.setSubject(Arrays.asList(subjectRepository.findById(payload.getSubjectId()).orElseThrow(()->new ResourceNotFoundException("CenterBranches not found"))));
 
             groups=groupRepository.save(groups);
@@ -178,6 +180,22 @@ public class GroupServiceImpl implements GroupService {
             return new ResponseEntity(new Result(false, "delete group error", null), HttpStatus.CONFLICT);
         }
     }
+
+
+    @Override
+    public ResponseEntity<?> getGroupCenterBranchesId(Long centerBranchesId) {
+        try {
+            List<Groups> groups=groupRepository.getAllGroupCenterBranchesId(centerBranchesId);
+            if (groups != null) {
+                return ResponseEntity.ok(Result.ok(groups));
+            }
+            return new ResponseEntity(new Result(false, "getGroupCenterBranchesId group error", null), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.error("error group", e.getMessage());
+            return new ResponseEntity(new Result(false, "getGroupCenterBranchesId group error", null), HttpStatus.CONFLICT);
+        }
+    }
+
 
 
 

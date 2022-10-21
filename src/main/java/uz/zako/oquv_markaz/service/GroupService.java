@@ -21,4 +21,6 @@ public interface GroupService {
     ResponseEntity<?> deleteGroupSubjectId(Long subjectId);
 
     ResponseEntity<?> deleteGroupEmployeId(Long employeId);
+
+    ResponseEntity<?> getGroupCenterBranchesId(Long centerBranchesId);
 }

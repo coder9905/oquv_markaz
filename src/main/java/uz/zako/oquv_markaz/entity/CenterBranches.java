@@ -37,4 +37,9 @@ public class CenterBranches extends AbstractEntity {
     @JsonIgnore
     private List<Employee> employees;
 
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "centerBranches")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private List<Subject> subjects;
+
 }

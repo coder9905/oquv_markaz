@@ -61,7 +61,7 @@ public class AttachmentServiceImpl implements AttachmentService {
                 catalog.mkdirs();
             }
             Attachment attachment1 = new Attachment();
-            if (multipartFile.getSize() < 1048576) {
+            if (multipartFile.getSize() < 5242880) {
                 attachment1 = attachmentRepository.save(attachment);
                 multipartFile.transferTo(catalog.getAbsoluteFile());
             }

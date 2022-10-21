@@ -26,5 +26,9 @@ public interface GroupRepository extends JpaRepository<Groups, Long> {
     @Query(nativeQuery = true, value = "delete from Groups g where g.subject_id=?1")
     Boolean deleteGroupsEmployeeId(Long id);
 
+    @Query(nativeQuery = true, value = "select g.* from groups g inner join groups_subject gs on g.id = gs.groups_id inner join subject s on gs.subject_id = s.id inner join center_branches cb on s.center_branches_id = cb.id where cb.id=?1")
+    List<Groups> getAllGroupCenterBranchesId(Long id);
+
+
 
 }

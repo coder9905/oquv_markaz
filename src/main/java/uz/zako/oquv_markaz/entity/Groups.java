@@ -40,13 +40,11 @@ public class Groups extends AbstractEntity {
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIgnore
     private List<Subject> subject;
 
     @ToString.Exclude
     @ManyToMany
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIgnore
     private List<Employee> employees;
 
 

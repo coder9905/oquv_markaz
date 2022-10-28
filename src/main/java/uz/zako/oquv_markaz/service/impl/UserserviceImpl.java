@@ -36,14 +36,17 @@ public class UserserviceImpl implements UserService {
     private final AttachmentRepository attachmentRepository;
     private final PhoneRepository phoneRepository;
     private final SecurityUtils securityUtils;
+    private final GroupRepository groupRepository;
 
     @Override
     public ResponseEntity<?> saveUser(UserPayload payload) {
         try {
+
             User user = new User();
             User user1 = new User();
             user.setUsername(payload.getUsername());
             user.setFullName(payload.getFullName());
+            user.setAdress(payload.getAdress());
             List<Phone> phones = new ArrayList<>();
 
             for (int i = 0; i < payload.getPhone().size(); i++) {
@@ -53,16 +56,22 @@ public class UserserviceImpl implements UserService {
                 phones.add(phone);
             }
             user.setPhones(phones);
-            user.setAdress(payload.getAdress());
-            user.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
+
+            if (payload.getGroupId() != null){
+                user.setGroup(Arrays.asList(groupRepository.findById(payload.getGroupId()).orElseThrow(()->new ResourceNotFoundException("Group not found"))));
+            }
+
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
+
             if (payload.getHashId() != null) {
                 user.setImg(attachmentRepository.findByHashId1(payload.getHashId()).orElseThrow(() -> new ResourceNotFoundException("attachment not found")));
             }
+
             user1 = userRepository.save(user);
             if (user1 != null) {
                 return ResponseEntity.ok(new Result(true, "save succesfull", user));
             }
+
         return new ResponseEntity(new Result(false, "save not succesfull", null), HttpStatus.BAD_REQUEST);
     } catch(Exception e)
     {
@@ -182,6 +191,9 @@ public class UserserviceImpl implements UserService {
             user.setPhones(phones);
             user.setAdress(payload.getAdress());
             user.setAdmin(payload.isAdmin());
+            if (payload.getGroupId() != null){
+                user.setGroup(Arrays.asList(groupRepository.findById(payload.getGroupId()).orElseThrow(()->new ResourceNotFoundException("Group not found"))));
+            }
             if (payload.getRole() != null) {
                 user.setRoles(Arrays.asList(roleRepository.findByName(payload.getRole())));
             } else {
